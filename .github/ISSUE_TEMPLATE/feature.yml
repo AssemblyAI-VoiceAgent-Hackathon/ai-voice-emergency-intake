@@ -1,0 +1,49 @@
+name: Feature task
+description: Plan a focused feature or team deliverable
+title: "[Feature]: "
+labels: ["feature"]
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: What outcome is needed?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List the conditions that must be true for this task to be complete.
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: dropdown
+    id: role
+    attributes:
+      label: Primary role
+      options:
+        - Role 1 - Voice / conversation
+        - Role 2 - AI extraction
+        - Role 3 - Backend / integration
+        - Role 4 - Data / persistence
+        - Role 5 - Staff dashboard / review
+        - Domain / clinical review
+        - Cross-team
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies or blockers
+      description: Link related Issues, contracts, decisions, or Pull Requests.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: This task will use synthetic data and will not add secrets or identifiable patient information.
+          required: true
+

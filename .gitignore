@@ -1,0 +1,43 @@
+# Local and generated working files
+tmp/
+
+# Personal profile content (not part of this project)
+github-profile-README.md
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+
+# Dependencies and build output
+node_modules/
+dist/
+build/
+coverage/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs and local databases
+*.log
+*.sqlite
+*.sqlite3
+
+# Never commit real intake data, recordings, or transcripts
+data/private/
+recordings/
+transcripts/
+*.wav
+*.mp3
+*.m4a
+
