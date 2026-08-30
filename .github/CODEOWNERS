@@ -1,3 +1,16 @@
-# Repository owner reviews changes until role-specific GitHub usernames are added.
+# Default repository owner.
 * @fazwanproperty
 
+# Role-owned implementation areas.
+/src/voice/ @Shahzaib-Fraz
+/src/extraction/ @fazwanproperty
+/src/backend/ @MozzamShahid
+/src/data/ @IshaanSama038X
+/src/dashboard/ @halojonathan
+
+# Shared contracts require the relevant producer/consumer owners.
+/contracts/structured-case.schema.json @fazwanproperty @MozzamShahid
+/contracts/examples/structured-case.example.json @fazwanproperty @MozzamShahid
+/contracts/staff-review.schema.json @MozzamShahid @halojonathan
+/contracts/examples/staff-review.example.json @MozzamShahid @halojonathan
+/contracts/ROLE2_ROLE3_ROLE5_HANDOFF.md @fazwanproperty @MozzamShahid @halojonathan

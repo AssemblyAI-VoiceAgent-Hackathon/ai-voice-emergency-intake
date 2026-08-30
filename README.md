@@ -4,6 +4,17 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 
 > This prototype does not diagnose patients or make the final triage decision. A qualified human reviewer remains responsible for verification, triage and approval.
 
+## Confirmed team roles
+
+| Role | Team member | GitHub |
+|---|---|---|
+| Role 1 — Voice / conversation | Shahzaib Fraz | [@Shahzaib-Fraz](https://github.com/Shahzaib-Fraz) |
+| Role 2 — AI extraction | Fazwan Zainuddin | [@fazwanproperty](https://github.com/fazwanproperty) |
+| Role 3 — Backend / integration | Mozzam Shahid | [@MozzamShahid](https://github.com/MozzamShahid) |
+| Role 4 — Data / persistence | Ishaan | [@IshaanSama038X](https://github.com/IshaanSama038X) |
+| Role 5 — Staff dashboard / review | Jonathan | [@halojonathan](https://github.com/halojonathan) |
+| Demo and presentation | Mariam | GitHub username pending |
+
 ## Current repository contents
 
 - `contracts/structured-case.schema.json` — Role 2 structured extraction contract.
@@ -64,4 +75,3 @@ python scripts/validate_contracts.py
 - **Main branch**: always kept in a reviewable, demo-ready state.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full collaboration rules.
-
