@@ -7,6 +7,8 @@
 /src/backend/ @MozzamShahid
 /src/data/ @IshaanSama038X
 /src/dashboard/ @halojonathan
+/demo/ @MaryamHabib2
+/presentation/ @MaryamHabib2
 
 # Shared contracts require the relevant producer/consumer owners.
 /contracts/structured-case.schema.json @fazwanproperty @MozzamShahid

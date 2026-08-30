@@ -13,7 +13,7 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 | Role 3 — Backend / integration | Mozzam Shahid | [@MozzamShahid](https://github.com/MozzamShahid) |
 | Role 4 — Data / persistence | Ishaan | [@IshaanSama038X](https://github.com/IshaanSama038X) |
 | Role 5 — Staff dashboard / review | Jonathan | [@halojonathan](https://github.com/halojonathan) |
-| Demo and presentation | Mariam | GitHub username pending |
+| Demo and presentation | Maryam Habib | [@MaryamHabib2](https://github.com/MaryamHabib2) |
 
 ## Current repository contents
 
