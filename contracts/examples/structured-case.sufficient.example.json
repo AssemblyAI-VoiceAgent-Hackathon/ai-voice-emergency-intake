@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "case_demo_sufficient",
+  "sessionId": "session_demo_sufficient",
+  "caseVersion": 1,
+  "status": "ready_for_review",
+  "capturedAt": "2026-08-30T10:00:00Z",
+  "language": "en-MY",
+  "subject": {
+    "patientReference": null,
+    "ageYears": 34,
+    "sexAtBirth": "female"
+  },
+  "informants": ["patient"],
+  "chiefComplaint": {
+    "text": "Pain and swelling of the left ankle after a fall",
+    "onsetText": "About one hour ago",
+    "sourceRefs": ["turn_02"]
+  },
+  "symptoms": [
+    {
+      "name": "left ankle pain",
+      "present": true,
+      "onsetText": "about one hour ago",
+      "severity0To10": 6,
+      "location": "left ankle",
+      "notes": "Reported after a fall",
+      "sourceRefs": ["turn_02"]
+    }
+  ],
+  "observations": [],
+  "history": {
+    "conditions": [],
+    "medications": [],
+    "allergies": [
+      {
+        "name": "known allergies",
+        "status": "denied",
+        "details": null,
+        "sourceRefs": ["turn_06"]
+      }
+    ]
+  },
+  "summary": {
+    "oneLine": "Adult patient reports left ankle pain and swelling after a fall.",
+    "narrative": "The patient reports a fall about one hour ago followed by left ankle pain rated six out of ten and swelling."
+  },
+  "safetySignals": [],
+  "informationGaps": [],
+  "conflicts": [],
+  "provenance": [
+    {
+      "fieldPath": "/chiefComplaint/text",
+      "sourceRefs": ["turn_02"],
+      "confidence": "high",
+      "verificationStatus": "reported"
+    },
+    {
+      "fieldPath": "/history/allergies/0/status",
+      "sourceRefs": ["turn_06"],
+      "confidence": "high",
+      "verificationStatus": "reported"
+    }
+  ],
+  "extractionMetadata": {
+    "promptVersion": "role2-extraction-v1",
+    "model": "synthetic-example",
+    "completedAt": "2026-08-30T10:00:01Z",
+    "outcome": "success"
+  }
+}

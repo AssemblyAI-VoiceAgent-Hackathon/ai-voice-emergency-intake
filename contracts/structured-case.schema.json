@@ -12,6 +12,8 @@
     "caseVersion",
     "status",
     "capturedAt",
+    "language",
+    "subject",
     "informants",
     "chiefComplaint",
     "symptoms",
@@ -21,7 +23,8 @@
     "safetySignals",
     "informationGaps",
     "conflicts",
-    "provenance"
+    "provenance",
+    "extractionMetadata"
   ],
   "properties": {
     "schemaVersion": {
@@ -54,6 +57,7 @@
     "subject": {
       "type": "object",
       "additionalProperties": false,
+      "required": ["patientReference", "ageYears", "sexAtBirth"],
       "properties": {
         "patientReference": {
           "type": ["string", "null"],
@@ -72,6 +76,7 @@
     },
     "informants": {
       "type": "array",
+      "minItems": 1,
       "uniqueItems": true,
       "items": {
         "type": "string",
@@ -81,7 +86,7 @@
     "chiefComplaint": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["text", "sourceRefs"],
+      "required": ["text", "onsetText", "sourceRefs"],
       "properties": {
         "text": {
           "type": ["string", "null"]
@@ -92,7 +97,18 @@
         "sourceRefs": {
           "$ref": "#/$defs/sourceRefs"
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"text": {"type": "string"}},
+            "required": ["text"]
+          },
+          "then": {
+            "properties": {"sourceRefs": {"minItems": 1}}
+          }
+        }
+      ]
     },
     "symptoms": {
       "type": "array",
@@ -169,11 +185,34 @@
       "items": {
         "$ref": "#/$defs/provenance"
       }
+    },
+    "extractionMetadata": {
+      "type": "object",
+      "description": "Engine-owned metadata. The model output must not choose these values.",
+      "additionalProperties": false,
+      "required": ["promptVersion", "model", "completedAt", "outcome"],
+      "properties": {
+        "promptVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": ["string", "null"]
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "outcome": {
+          "const": "success"
+        }
+      }
     }
   },
   "$defs": {
     "sourceRefs": {
       "type": "array",
+      "uniqueItems": true,
       "items": {
         "type": "string",
         "minLength": 1
@@ -182,7 +221,7 @@
     "symptom": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "present", "sourceRefs"],
+      "required": ["name", "present", "onsetText", "severity0To10", "location", "notes", "sourceRefs"],
       "properties": {
         "name": {
           "type": "string",
@@ -206,14 +245,17 @@
           "type": ["string", "null"]
         },
         "sourceRefs": {
-          "$ref": "#/$defs/sourceRefs"
+          "allOf": [
+            {"$ref": "#/$defs/sourceRefs"},
+            {"minItems": 1}
+          ]
         }
       }
     },
     "observation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "value", "origin", "sourceRefs"],
+      "required": ["name", "value", "unit", "origin", "observedAt", "sourceRefs"],
       "properties": {
         "name": {
           "type": "string",
@@ -232,14 +274,17 @@
           "format": "date-time"
         },
         "sourceRefs": {
-          "$ref": "#/$defs/sourceRefs"
+          "allOf": [
+            {"$ref": "#/$defs/sourceRefs"},
+            {"minItems": 1}
+          ]
         }
       }
     },
     "historyItem": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "status", "sourceRefs"],
+      "required": ["name", "status", "details", "sourceRefs"],
       "properties": {
         "name": {
           "type": "string",
@@ -255,7 +300,18 @@
         "sourceRefs": {
           "$ref": "#/$defs/sourceRefs"
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"status": {"not": {"const": "unknown"}}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {"sourceRefs": {"minItems": 1}}
+          }
+        }
+      ]
     },
     "safetySignal": {
       "type": "object",
@@ -275,7 +331,10 @@
           "enum": ["present", "absent", "uncertain"]
         },
         "evidenceSourceRefs": {
-          "$ref": "#/$defs/sourceRefs"
+          "allOf": [
+            {"$ref": "#/$defs/sourceRefs"},
+            {"minItems": 1}
+          ]
         }
       }
     },
@@ -338,7 +397,10 @@
           "pattern": "^/"
         },
         "sourceRefs": {
-          "$ref": "#/$defs/sourceRefs"
+          "allOf": [
+            {"$ref": "#/$defs/sourceRefs"},
+            {"minItems": 1}
+          ]
         },
         "confidence": {
           "type": "string",
