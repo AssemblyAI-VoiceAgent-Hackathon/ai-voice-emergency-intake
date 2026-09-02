@@ -5,7 +5,13 @@ Owners: Role 2 owns extraction semantics; Role 3 owns API, authentication, valid
 
 ## 1. What Role 2 delivers
 
-Role 2 sends a `StructuredCase` that follows `structured-case.schema.json`.
+Role 2 accepts an `intake-transcript.schema.json` source envelope and sends a
+`StructuredCase` that follows `structured-case.schema.json`.
+
+Transcript references are stable `turnId` values. Observation and verified
+record references are stable `sourceRef` values. The extraction engine accepts
+only final, non-agent transcript turns as evidence, rejects duplicate or unknown
+references, and never returns a partially valid case.
 
 The object contains:
 
@@ -17,6 +23,12 @@ The object contains:
 - Safety signals for staff attention.
 
 It deliberately does **not** contain a diagnosis or final triage decision. Final triage remains a human decision.
+
+Provider failures, malformed JSON, schema failures, identity changes and unsafe
+clinical-decision fields return a content-safe `ExtractionResult` with no
+payload. The result includes stable error codes and JSON Pointer paths but does
+not echo transcript or model content. Prompt version and configured model name
+are recorded in `extractionMetadata` on successful output.
 
 ## 2. Proposed Role 2 to Role 3 ingestion
 
@@ -123,8 +135,12 @@ Important rules:
 
 Role 2:
 
-- Confirm the required intake fields, safety-signal vocabulary and extraction prompt output.
-- Confirm how source references map to transcript turns, staff observations and verified records.
+- Implemented for MVP: required/nullable fields, prompt versioning, safe failure,
+  and source-reference mapping for transcript turns, staff observations and
+  verified records.
+- Domain review still required: approve or revise the initial safety-signal
+  vocabulary before clinical use. Signals remain staff-attention indicators,
+  never a diagnosis or final triage decision.
 
 Role 3:
 
