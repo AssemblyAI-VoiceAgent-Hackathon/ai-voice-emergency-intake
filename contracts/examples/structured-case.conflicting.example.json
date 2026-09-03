@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "case_demo_conflicting",
+  "sessionId": "session_demo_conflicting",
+  "caseVersion": 2,
+  "status": "needs_information",
+  "capturedAt": "2026-08-30T11:00:00Z",
+  "language": "en-MY",
+  "subject": {
+    "patientReference": null,
+    "ageYears": null,
+    "sexAtBirth": "unknown"
+  },
+  "informants": ["patient", "caregiver"],
+  "chiefComplaint": {
+    "text": "Dizziness after standing",
+    "onsetText": null,
+    "sourceRefs": ["turn_02"]
+  },
+  "symptoms": [
+    {
+      "name": "dizziness",
+      "present": true,
+      "onsetText": null,
+      "severity0To10": null,
+      "location": null,
+      "notes": "Reported after standing",
+      "sourceRefs": ["turn_02"]
+    }
+  ],
+  "observations": [],
+  "history": {
+    "conditions": [],
+    "medications": [],
+    "allergies": [
+      {
+        "name": "allergy status",
+        "status": "unknown",
+        "details": "Patient and caregiver gave conflicting statements.",
+        "sourceRefs": ["turn_04", "turn_05"]
+      }
+    ]
+  },
+  "summary": {
+    "oneLine": "Patient reports dizziness; allergy information is conflicting.",
+    "narrative": "Dizziness was reported after standing. The allergy statement requires clarification before staff review."
+  },
+  "safetySignals": [
+    {
+      "code": "POSSIBLE_LOSS_OF_CONSCIOUSNESS",
+      "label": "Loss of consciousness information conflicts",
+      "status": "uncertain",
+      "evidenceSourceRefs": ["turn_07", "turn_08"]
+    }
+  ],
+  "informationGaps": [
+    {
+      "fieldPath": "/history/allergies",
+      "question": "Please clarify whether the patient has a known allergy and, if so, which substance.",
+      "priority": "required"
+    }
+  ],
+  "conflicts": [
+    {
+      "fieldPath": "/history/allergies",
+      "values": [
+        {
+          "value": "penicillin allergy reported",
+          "sourceRefs": ["turn_04"]
+        },
+        {
+          "value": "no known allergies reported",
+          "sourceRefs": ["turn_05"]
+        }
+      ],
+      "status": "unresolved"
+    },
+    {
+      "fieldPath": "/safetySignals/POSSIBLE_LOSS_OF_CONSCIOUSNESS",
+      "values": [
+        {
+          "value": "brief loss of consciousness reported",
+          "sourceRefs": ["turn_07"]
+        },
+        {
+          "value": "loss of consciousness denied",
+          "sourceRefs": ["turn_08"]
+        }
+      ],
+      "status": "unresolved"
+    }
+  ],
+  "provenance": [
+    {
+      "fieldPath": "/chiefComplaint/text",
+      "sourceRefs": ["turn_02"],
+      "confidence": "high",
+      "verificationStatus": "reported"
+    },
+    {
+      "fieldPath": "/history/allergies/0/status",
+      "sourceRefs": ["turn_04", "turn_05"],
+      "confidence": "low",
+      "verificationStatus": "unverified"
+    }
+  ],
+  "extractionMetadata": {
+    "promptVersion": "role2-extraction-v1",
+    "model": "synthetic-example",
+    "completedAt": "2026-08-30T11:00:01Z",
+    "outcome": "success"
+  }
+}

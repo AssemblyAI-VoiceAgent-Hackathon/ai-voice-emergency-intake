@@ -18,9 +18,11 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 ## Current repository contents
 
 - `contracts/structured-case.schema.json` — Role 2 structured extraction contract.
+- `contracts/intake-transcript.schema.json` — Role 1/3 source envelope accepted by Role 2.
 - `contracts/staff-review.schema.json` — Role 5 staff-review contract.
-- `contracts/examples/` — synthetic example payloads for development and testing.
+- `contracts/examples/` — synthetic sufficient, missing and conflicting payloads.
 - `contracts/ROLE2_ROLE3_ROLE5_HANDOFF.md` — proposed API, event and review workflow.
+- `src/extraction/` — provider-neutral, schema-first extraction and safe-failure engine.
 - `TEAM_PRIORITY_WORKLIST.md` — owner priorities, dependencies, integration order and first shared checkpoint.
 - `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v3.pdf` — current team workflow, confirmed role reference and Ishaan Sama contribution map.
 
@@ -68,7 +70,13 @@ Validate the JSON examples locally (requires Python and `jsonschema`):
 
 ```bash
 python scripts/validate_contracts.py
+python -m unittest discover -s tests -v
 ```
+
+Role 2 implementation details and the provider-adapter boundary are documented
+in [`src/extraction/README.md`](src/extraction/README.md). The repository makes
+no external AI call and contains no provider credential; Role 3 injects the
+team's chosen model adapter at deployment time.
 
 ## Project management
 

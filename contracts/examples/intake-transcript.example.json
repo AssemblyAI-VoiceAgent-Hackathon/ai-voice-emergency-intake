@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "case_demo_001",
+  "sessionId": "session_demo_001",
+  "caseVersion": 3,
+  "capturedAt": "2026-08-30T09:15:00Z",
+  "language": "ms-MY",
+  "turns": [
+    {
+      "turnId": "turn_12",
+      "speaker": "patient",
+      "text": "I have had central chest discomfort for about 30 minutes, around seven out of ten.",
+      "spokenAt": "2026-08-30T09:12:00Z",
+      "final": true
+    },
+    {
+      "turnId": "turn_14",
+      "speaker": "patient",
+      "text": "I also feel short of breath.",
+      "spokenAt": "2026-08-30T09:12:20Z",
+      "final": true
+    },
+    {
+      "turnId": "turn_18",
+      "speaker": "patient",
+      "text": "I have high blood pressure, but I cannot remember my medicines or allergy status.",
+      "spokenAt": "2026-08-30T09:13:00Z",
+      "final": true
+    }
+  ],
+  "observations": [
+    {
+      "sourceRef": "staff_observation_02",
+      "name": "oxygen_saturation",
+      "value": 93,
+      "unit": "%",
+      "recordedAt": "2026-08-30T09:14:30Z"
+    }
+  ],
+  "verifiedRecords": []
+}

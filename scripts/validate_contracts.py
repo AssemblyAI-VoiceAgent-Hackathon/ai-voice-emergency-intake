@@ -9,7 +9,16 @@ from jsonschema import Draft202012Validator, FormatChecker
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACTS = ROOT / "contracts"
 PAIRS = (
+    (CONTRACTS / "intake-transcript.schema.json", CONTRACTS / "examples" / "intake-transcript.example.json"),
     (CONTRACTS / "structured-case.schema.json", CONTRACTS / "examples" / "structured-case.example.json"),
+    (
+        CONTRACTS / "structured-case.schema.json",
+        CONTRACTS / "examples" / "structured-case.sufficient.example.json",
+    ),
+    (
+        CONTRACTS / "structured-case.schema.json",
+        CONTRACTS / "examples" / "structured-case.conflicting.example.json",
+    ),
     (CONTRACTS / "staff-review.schema.json", CONTRACTS / "examples" / "staff-review.example.json"),
 )
 
@@ -22,7 +31,9 @@ def read_json(path: Path) -> object:
 def main() -> None:
     failed = False
     for schema_path, example_path in PAIRS:
-        validator = Draft202012Validator(read_json(schema_path), format_checker=FormatChecker())
+        schema = read_json(schema_path)
+        Draft202012Validator.check_schema(schema)
+        validator = Draft202012Validator(schema, format_checker=FormatChecker())
         errors = sorted(validator.iter_errors(read_json(example_path)), key=lambda error: list(error.path))
         if errors:
             failed = True

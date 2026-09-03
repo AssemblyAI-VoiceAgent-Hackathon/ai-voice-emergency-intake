@@ -13,6 +13,10 @@
 # Shared contracts require the relevant producer/consumer owners.
 /contracts/structured-case.schema.json @fazwanproperty @MozzamShahid
 /contracts/examples/structured-case.example.json @fazwanproperty @MozzamShahid
+/contracts/intake-transcript.schema.json @Shahzaib-Fraz @fazwanproperty @MozzamShahid
+/contracts/examples/intake-transcript.example.json @Shahzaib-Fraz @fazwanproperty @MozzamShahid
+/contracts/examples/structured-case.*.example.json @fazwanproperty @MozzamShahid
+/src/extraction/ @fazwanproperty @MozzamShahid
 /contracts/staff-review.schema.json @MozzamShahid @halojonathan
 /contracts/examples/staff-review.example.json @MozzamShahid @halojonathan
 /contracts/ROLE2_ROLE3_ROLE5_HANDOFF.md @fazwanproperty @MozzamShahid @halojonathan
