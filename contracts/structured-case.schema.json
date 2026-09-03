@@ -66,7 +66,7 @@
         "ageYears": {
           "type": ["integer", "null"],
           "minimum": 0,
-          "maximum": 130
+          "maximum": 100
         },
         "sexAtBirth": {
           "type": ["string", "null"],
@@ -80,7 +80,7 @@
       "uniqueItems": true,
       "items": {
         "type": "string",
-        "enum": ["patient", "caregiver", "staff", "verified_record", "unknown"]
+        "enum": ["patient", "caregiver", "staff", "verified_record", "other"]
       }
     },
     "chiefComplaint": {
@@ -101,11 +101,11 @@
       "allOf": [
         {
           "if": {
-            "properties": {"text": {"type": "string"}},
+            "properties": { "text": { "type": "string" } },
             "required": ["text"]
           },
           "then": {
-            "properties": {"sourceRefs": {"minItems": 1}}
+            "properties": { "sourceRefs": { "minItems": 1 } }
           }
         }
       ]
@@ -221,7 +221,15 @@
     "symptom": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "present", "onsetText", "severity0To10", "location", "notes", "sourceRefs"],
+      "required": [
+        "name",
+        "present",
+        "onsetText",
+        "severity0To10",
+        "location",
+        "notes",
+        "sourceRefs"
+      ],
       "properties": {
         "name": {
           "type": "string",
@@ -245,17 +253,21 @@
           "type": ["string", "null"]
         },
         "sourceRefs": {
-          "allOf": [
-            {"$ref": "#/$defs/sourceRefs"},
-            {"minItems": 1}
-          ]
+          "allOf": [{ "$ref": "#/$defs/sourceRefs" }, { "minItems": 1 }]
         }
       }
     },
     "observation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "value", "unit", "origin", "observedAt", "sourceRefs"],
+      "required": [
+        "name",
+        "value",
+        "unit",
+        "origin",
+        "observedAt",
+        "sourceRefs"
+      ],
       "properties": {
         "name": {
           "type": "string",
@@ -274,10 +286,7 @@
           "format": "date-time"
         },
         "sourceRefs": {
-          "allOf": [
-            {"$ref": "#/$defs/sourceRefs"},
-            {"minItems": 1}
-          ]
+          "allOf": [{ "$ref": "#/$defs/sourceRefs" }, { "minItems": 1 }]
         }
       }
     },
@@ -304,11 +313,11 @@
       "allOf": [
         {
           "if": {
-            "properties": {"status": {"not": {"const": "unknown"}}},
+            "properties": { "status": { "not": { "const": "unknown" } } },
             "required": ["status"]
           },
           "then": {
-            "properties": {"sourceRefs": {"minItems": 1}}
+            "properties": { "sourceRefs": { "minItems": 1 } }
           }
         }
       ]
@@ -331,10 +340,7 @@
           "enum": ["present", "absent", "uncertain"]
         },
         "evidenceSourceRefs": {
-          "allOf": [
-            {"$ref": "#/$defs/sourceRefs"},
-            {"minItems": 1}
-          ]
+          "allOf": [{ "$ref": "#/$defs/sourceRefs" }, { "minItems": 1 }]
         }
       }
     },
@@ -390,17 +396,19 @@
     "provenance": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["fieldPath", "sourceRefs", "confidence", "verificationStatus"],
+      "required": [
+        "fieldPath",
+        "sourceRefs",
+        "confidence",
+        "verificationStatus"
+      ],
       "properties": {
         "fieldPath": {
           "type": "string",
           "pattern": "^/"
         },
         "sourceRefs": {
-          "allOf": [
-            {"$ref": "#/$defs/sourceRefs"},
-            {"minItems": 1}
-          ]
+          "allOf": [{ "$ref": "#/$defs/sourceRefs" }, { "minItems": 1 }]
         },
         "confidence": {
           "type": "string",
@@ -408,7 +416,12 @@
         },
         "verificationStatus": {
           "type": "string",
-          "enum": ["unverified", "reported", "verified_record", "staff_confirmed"]
+          "enum": [
+            "unverified",
+            "reported",
+            "verified_record",
+            "staff_confirmed"
+          ]
         }
       }
     }
