@@ -8,7 +8,7 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 
 | Role | Team member | GitHub |
 |---|---|---|
-| Role 1 — Voice / conversation | Shahzaib Fraz | [@Shahzaib-Fraz](https://github.com/Shahzaib-Fraz) |
+| Role 1 — Voice / conversation | Soha Raees | [@soharaees](https://github.com/soharaees) |
 | Role 2 — AI extraction | Fazwan Zainuddin | [@fazwanproperty](https://github.com/fazwanproperty) |
 | Role 3 — Backend / integration | Mozzam Shahid | [@MozzamShahid](https://github.com/MozzamShahid) |
 | Role 4 — Data / persistence | Ishaan Sama | [@IshaanSama038X](https://github.com/IshaanSama038X) |
@@ -24,9 +24,9 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 - `contracts/ROLE2_ROLE3_ROLE5_HANDOFF.md` — proposed API, event and review workflow.
 - `src/extraction/` — provider-neutral, schema-first extraction and safe-failure engine.
 - `TEAM_PRIORITY_WORKLIST.md` — owner priorities, dependencies, integration order and first shared checkpoint.
-- `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v3.pdf` — current team workflow, confirmed role reference and Ishaan Sama contribution map.
+- `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf` — current team workflow, confirmed role reference and Ishaan Sama contribution map.
 
-The workflow PDF is the confirmed role reference: Shahzaib Fraz (Role 1), Fazwan Zainuddin (Role 2), Mozzam Shahid (Role 3), Ishaan Sama (Role 4), Jonathan (Role 5), and Mariam Habib (demo and presentation). It also maps Ishaan Sama's EmergencyVoice tech-stack contribution into the shared FastAPI + SSE plan.
+The workflow PDF is the confirmed role reference: Soha Raees (Role 1), Fazwan Zainuddin (Role 2), Mozzam Shahid (Role 3), Ishaan Sama (Role 4), Jonathan (Role 5), and Mariam Habib (demo and presentation). It also maps Ishaan Sama's EmergencyVoice tech-stack contribution into the shared FastAPI + SSE plan.
 
 ## Proposed architecture
 

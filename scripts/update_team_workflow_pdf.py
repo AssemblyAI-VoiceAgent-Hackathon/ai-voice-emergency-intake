@@ -15,8 +15,8 @@ from pypdf.generic import ContentStream, TextStringObject, NameObject
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / 'output/pdf/archive/AI_Emergency_Intake_Team_Workflow_Roles_2026-08-30_v1.pdf'
-OUT = ROOT / 'output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v3.pdf'
-PREVIEW = ROOT / 'tmp/pdfs/workflow-v3-candidate.pdf'
+OUT = ROOT / 'output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf'
+PREVIEW = ROOT / 'tmp/pdfs/workflow-v4-candidate.pdf'
 W,H = 1190.551,841.8898
 NAVY=colors.Color(.09,.196,.302)
 MUTED=colors.Color(.36,.412,.459)
@@ -31,7 +31,7 @@ PALE=colors.HexColor('#FFF2DC')
 AMBER=colors.HexColor('#945511')
 ROWCOLS=[colors.Color(.918,.945,1),colors.Color(.894,.961,.957),colors.Color(1,.941,.882),colors.Color(.941,.925,.98),colors.Color(.91,.961,.929)]
 ROLE_NAMES={
-    1:'SHAHZAIB FRAZ',
+    1:'SOHA RAEES',
     2:'FAZWAN ZAINUDDIN',
     3:'MOZZAM SHAHID',
     4:'ISHAAN SAMA',
@@ -61,7 +61,7 @@ def pill(c,label,x,top,w=94):
 def footer(c,page):
     c.setFillColor(MUTED if page!=1 else colors.HexColor('#C8D7E5'))
     c.setFont('Helvetica',8.5)
-    c.drawRightString(W-42,24,f'Architecture Draft v3  |  1 Sep 2026  |  Page {page}')
+    c.drawRightString(W-42,24,f'Architecture Draft v4  |  3 Sep 2026  |  Page {page}')
 
 def edit_text(page,mapping):
     stream=ContentStream(page.get_contents(),reader)
@@ -83,7 +83,7 @@ for i,page in enumerate(reader.pages,1):
     edits={}
     if i>1:edits[f'Architecture Draft v1  |  30 Aug 2026  |  Page {i}']=''
     if i==1:
-        edits['A shared architecture proposal before implementation begins']='Confirmed owners and team contribution update | v3 | 1 Sep 2026'
+        edits['A shared architecture proposal before implementation begins']='Role 1 reassignment and confirmed team update | v4 | 3 Sep 2026'
         edits['Decision gate: the team reviews and agrees on this structure before role-level implementation starts.']='Team review: confirmed owners are named throughout. See page 6 for Ishaan Sama\'s technical contribution and open decisions.'
     if i==3:
         edits.update({
@@ -116,8 +116,8 @@ for i,page in enumerate(reader.pages,1):
     stream=BytesIO();c=canvas.Canvas(stream,pagesize=(W,H))
     if i==1:
         rect(c,55,631,1080,106,colors.Color(.122,.255,.365),10,colors.Color(.32,.46,.56))
-        p(c,'1 SEP UPDATE - CONFIRMED OWNERS AND TEAM CONTRIBUTION',68,644,1047,12,color=WHITE,bold=True)
-        p(c,'<b>Confirmed:</b> Shahzaib Fraz (Role 1), Fazwan Zainuddin (Role 2), Mozzam Shahid (Role 3), Ishaan Sama (Role 4) and Jonathan (Role 5).',68,665,1047,11,color=WHITE)
+        p(c,'3 SEP UPDATE - ROLE 1 REASSIGNED AND TEAM ROSTER CONFIRMED',68,644,1047,12,color=WHITE,bold=True)
+        p(c,'<b>Confirmed:</b> Soha Raees (Role 1), Fazwan Zainuddin (Role 2), Mozzam Shahid (Role 3), Ishaan Sama (Role 4) and Jonathan (Role 5).',68,665,1047,11,color=WHITE)
         p(c,'<b>Added:</b> Ishaan Sama\'s EmergencyVoice tech-stack contribution is mapped to the team workflow on page 6. <b>Retained:</b> FastAPI + SSE and human-owned clinical decisions.',68,699,1047,10.5,color=WHITE)
         # Small notes in the existing cards; no changes to card order or role colours.
         pill(c,'v2: SSE publisher',506,493,145)
@@ -143,7 +143,7 @@ for i,page in enumerate(reader.pages,1):
             p(c,name,36,top,92,6.9,8,color=WHITE,bold=True,align=1)
     elif i==4:
         pill(c,'UPDATED CELLS',42,166,113)
-        p(c,'Highlighted notes below clarify the SSE handoff. Role ownership and table structure are unchanged.',166,169,970,9,color=MUTED)
+        p(c,'Highlighted notes clarify the SSE handoff. Role 1 is reassigned to Soha Raees in v4; the table structure is unchanged.',166,169,970,9,color=MUTED)
         # The original table grid is retained. Only four cells gain revised text.
         p(c,'<font color="#945511"><b>UPDATED v2</b></font><br/>Response text to Role 1; tool requests and structured extraction to Role 3. The backend owns the SSE event wrapper.',445,350,218,9,12)
         p(c,'<font color="#945511"><b>UPDATED v2</b></font><br/>FastAPI; authentication; validation; tool execution; workflow orchestration; SSE publishing and reconnection; staff-review APIs.',175,450,250,9,12)
@@ -160,7 +160,7 @@ for i,page in enumerate(reader.pages,1):
 stream=BytesIO();c=canvas.Canvas(stream,pagesize=(W,H))
 c.setFillColor(NAVY);c.setFont('Helvetica-Bold',23)
 c.drawString(42,H-48,'4. Team Status and Next Actions')
-p(c,'1 September update - confirmed owners, explicit next actions and one shared synthetic-case target.',42,58,1040,10.5,color=MUTED)
+p(c,'3 September update - Role 1 reassigned to Soha Raees; next actions and the shared synthetic-case target remain unchanged.',42,58,1040,10.5,color=MUTED)
 c.setStrokeColor(colors.HexColor('#D9E1E8'));c.line(42,H-78,W-42,H-78)
 pill(c,'NEW IN v2',1056,33,92)
 rect(c,42,94,1106,49,colors.HexColor('#EAF0FF'),8,colors.HexColor('#ADC4FF'))
@@ -193,7 +193,7 @@ end=table(['Reference in v1','Earlier wording / position','v2 update'],[
 
 p(c,'Next deliverable from each owner',42,end+15,1100,12.5,bold=True,color=NAVY)
 end=table(['Same role / owner','Next action','Evidence to share with the team'],[
- ('<b>Role 1 - Shahzaib Fraz</b>','Provide transcript turns and session references; connect the follow-up response from Role 2.','One synthetic spoken exchange becomes text, followed by one question and answer.'),
+ ('<b>Role 1 - Soha Raees</b>','Provide transcript turns and session references; connect the follow-up response from Role 2.','One synthetic spoken exchange becomes text, followed by one question and answer.'),
  ('<b>Role 2 - Fazwan Zainuddin</b>','Align extraction fields with the sample; retain source labels; prepare the prompt and expected outputs.','Examples for sufficient, missing and conflicting information; output ready for Role 3 validation.'),
  ('<b>Role 3 - Mozzam Shahid</b>','Confirm intake/review interfaces and authentication; publish the agreed sample through SSE.','One sample update reaches Role 5; reconnect works; review and save confirmation are returned.'),
  ('<b>Role 4 - Ishaan Sama</b>','Confirm database, identifiers, authorised retrieval and approved-record/audit storage.','One synthetic lookup, one not-found result and one saved approved record without duplicate writes.'),
@@ -216,13 +216,13 @@ writer.add_page(PdfReader(stream).pages[0])
 stream=BytesIO();c=canvas.Canvas(stream,pagesize=(W,H))
 c.setFillColor(NAVY);c.setFont('Helvetica-Bold',23)
 c.drawString(42,H-48,'5. Confirmed Team Roles and Ishaan Sama Contribution')
-p(c,'Registered team names are fixed below. Readiness and delivery status remain for each owner to report.',42,58,1040,10.5,color=MUTED)
+p(c,'Current team names are listed below. Role 1 was reassigned to Soha Raees on 3 September 2026.',42,58,1040,10.5,color=MUTED)
 c.setStrokeColor(colors.HexColor('#D9E1E8'));c.line(42,H-78,W-42,H-78)
-pill(c,'NEW IN v3',1056,59,92)
+pill(c,'UPDATED IN v4',1048,59,100)
 
 p(c,'Confirmed role ownership',42,96,1100,12.5,bold=True,color=NAVY)
 end=table(['Role','Registered team member','Primary ownership'],[
- ('<b>Role 1</b>','<b>Shahzaib Fraz</b>','Real-time voice, transcript turns, turn-taking, interruption handling and spoken response.'),
+ ('<b>Role 1</b>','<b>Soha Raees</b>','Real-time voice, transcript turns, turn-taking, interruption handling and spoken response.'),
  ('<b>Role 2</b>','<b>Fazwan Zainuddin</b>','Agent prompt, structured extraction, source/confidence, gaps, conflicts and safety guardrails.'),
  ('<b>Role 3</b>','<b>Mozzam Shahid</b>','FastAPI backend, authentication, validation, orchestration, SSE and review APIs.'),
  ('<b>Role 4</b>','<b>Ishaan Sama</b>','Synthetic patient data, authorised retrieval, persistence, audit, privacy and retention.'),
@@ -252,8 +252,8 @@ writer.add_page(PdfReader(stream).pages[0])
 writer.add_metadata({
  '/Title':'AI Emergency Patient Intake - Team Workflow and Role Ownership',
  '/Author':'International Competition Team Fazwan',
- '/Subject':'Architecture Draft v3 - 1 Sep 2026 - confirmed owners and Ishaan Sama tech-stack contribution',
- '/Keywords':'team workflow, confirmed role ownership, Ishaan Sama, FastAPI, SSE, v3, team review',
+ '/Subject':'Architecture Draft v4 - 3 Sep 2026 - Role 1 reassigned to Soha Raees',
+ '/Keywords':'team workflow, confirmed role ownership, Soha Raees, Ishaan Sama, FastAPI, SSE, v4, team review',
 })
 PREVIEW.parent.mkdir(parents=True,exist_ok=True)
 with PREVIEW.open('wb') as f:writer.write(f)

@@ -1,10 +1,10 @@
 # AI Emergency Intake - Priority Worklist
 
-Status basis: architecture draft v3 dated 1 September 2026. This is a proposed execution plan; each owner must confirm current implementation readiness. Existing schemas and example payloads are draft integration assets, not proof that the implementation is complete.
+Status basis: architecture draft v4 dated 3 September 2026. This is a proposed execution plan; each owner must confirm current implementation readiness. Existing schemas and example payloads are draft integration assets, not proof that the implementation is complete.
 
 ## Confirmed team ownership
 
-- Role 1 - Voice AI: Shahzaib Fraz
+- Role 1 - Voice AI: Soha Raees (`soharaees`)
 - Role 2 - AI / Agent: Fazwan Zainuddin
 - Role 3 - Backend: Mozzam Shahid
 - Role 4 - Database & Integration: Ishaan Sama
@@ -40,7 +40,7 @@ Output: one agreed contract version, one example `StructuredCase`, one example s
 
 | Owner | Start now | Handoff | Depends on | Blocks | Evidence of completion |
 |---|---|---|---|---|---|
-| Role 1 - Voice / Shahzaib Fraz | Produce transcript turns, session ID/status, turn detection and interruption handling using synthetic audio. Connect spoken follow-up questions and answers. | Final transcript and session references to Role 2; spoken-response completion to the agreed consumer. | Role 2 supplies approved follow-up response text/prompt configuration for the final connection. | Role 2 cannot test the real conversation loop without transcript turns. | One synthetic spoken exchange becomes text, then one follow-up question and answer completes. |
+| Role 1 - Voice / Soha Raees | Produce transcript turns, session ID/status, turn detection and interruption handling using synthetic audio. Connect spoken follow-up questions and answers. | Final transcript and session references to Role 2; spoken-response completion to the agreed consumer. | Role 2 supplies approved follow-up response text/prompt configuration for the final connection. | Role 2 cannot test the real conversation loop without transcript turns. | One synthetic spoken exchange becomes text, then one follow-up question and answer completes. |
 | Role 2 - AI / Fazwan Zainuddin | Finalise extraction fields, safety-signal vocabulary, source mapping and prompt outputs. Prepare sufficient, missing-information and conflicting-information examples. | Response text to Role 1; tool request and `StructuredCase` payload to Role 3. | Can begin with synthetic examples; final output depends on Priority 0 and Role 1 transcript format. | Role 3 ingestion and Role 5 field display cannot be finalised without the agreed structured payload. | All three examples validate against the frozen schema and are ready for Role 3. |
 | Role 3 - Backend / Mozzam Shahid | Build FastAPI intake/review interfaces, schema validation, authentication, standard errors, idempotency and case-version checks. Publish snapshot/update/tool-status/review-status events through SSE with reconnection support. | Queries and approved saves to Role 4; SSE events to Role 5; actual tool results to Role 2; confirmed response to Role 1. | Contract decisions from Roles 2/5; persistence mapping from Role 4; review fields from Role 5. | Central integration bottleneck: live dashboard, retrieval, review and save all pass through Role 3. | One accepted structured case reaches Role 5; reconnect works; stale update returns 409; review/save confirmation returns. |
 | Role 4 - Data / Ishaan Sama | Confirm database, case/patient identifiers, synthetic records, authorised retrieval, approved-record schema, audit log, retention and privacy rules. | Verified record/not-found/conflict/save result to Role 3. | Priority 0 identifier and save contract; domain retention/privacy decisions. | Context retrieval and final approved save cannot complete without this layer. | One synthetic lookup, one not-found result, and one approved record saved once with an audit trail. |
