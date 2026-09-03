@@ -1,7 +1,7 @@
 # Role 2 - Role 3 - Role 5 Integration Contract (Draft v1)
 
 Status: proposed contract for team confirmation.  
-Owners: Role 2 owns extraction semantics; Role 3 owns API, authentication, validation and event delivery; Role 5 owns UI state, staff review and submission.
+Confirmed owners: Role 2 - Fazwan Zainuddin owns extraction semantics; Role 3 - Mozzam Shahid owns API, authentication, validation and event delivery; Role 5 - Jonathan owns UI state, staff review and submission. Role 4 - Ishaan Sama owns persistence, authorised retrieval, audit and retention.
 
 ## 1. What Role 2 delivers
 
