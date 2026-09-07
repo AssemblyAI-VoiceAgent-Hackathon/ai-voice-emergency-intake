@@ -5,7 +5,11 @@ import { Activity } from "lucide-react";
 
 export default function EmptyState() {
   return (
-    <div className="flex-1 w-full bg-[#0a0a0f] text-white flex flex-col items-center justify-center p-6 text-center">
+    <div
+      role="status"
+      aria-label="No active cases"
+      className="flex-1 w-full bg-[#0a0a0f] text-white flex flex-col items-center justify-center p-6 text-center"
+    >
       <div className="w-16 h-16 rounded-2xl bg-blue-600/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-6">
         <Activity className="w-8 h-8" />
       </div>

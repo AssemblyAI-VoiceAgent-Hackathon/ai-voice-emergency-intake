@@ -68,7 +68,16 @@ export default function CaseCard({
 
   return (
     <div
+      role="button"
+      tabIndex={0}
       onClick={onSelect}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onSelect();
+        }
+      }}
+      aria-pressed={isSelected}
       className={`
         p-4 rounded-xl border cursor-pointer transition-all duration-200 text-left select-none relative
         ${

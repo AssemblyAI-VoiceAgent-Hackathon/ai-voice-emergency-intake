@@ -267,7 +267,7 @@ export default function ReviewActionForm({
                     </span>
                   </div>
                   <div className="text-[13px] text-white font-medium truncate">
-                    → {String(edit.value)}
+                    → {typeof edit.value === "object" ? JSON.stringify(edit.value) : String(edit.value)}
                   </div>
                   <div className="text-[12px] text-[#a1a1aa] italic">
                     Reason: {edit.reason}

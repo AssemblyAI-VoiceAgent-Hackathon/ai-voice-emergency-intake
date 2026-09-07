@@ -10,7 +10,10 @@ interface ErrorStateProps {
 
 export default function ErrorState({ onRetry, message }: ErrorStateProps) {
   return (
-    <div className="flex-1 w-full bg-[#0a0a0f] text-white flex flex-col items-center justify-center p-6 text-center">
+    <div
+      role="alert"
+      className="flex-1 w-full bg-[#0a0a0f] text-white flex flex-col items-center justify-center p-6 text-center"
+    >
       <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mb-6">
         <AlertTriangle className="w-8 h-8" />
       </div>

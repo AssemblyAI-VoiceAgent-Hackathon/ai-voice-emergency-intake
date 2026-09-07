@@ -5,6 +5,7 @@ import { StructuredCase } from "@/types/structuredCase";
 import { PendingEdit, StaffReviewPayload } from "@/types/staffReview";
 import { startMockEventStream } from "@/lib/mockEventSimulator";
 import { applyEdits } from "@/lib/applyEdits";
+import { conflictToEdit, shouldApplyEvent } from "@/lib/reviewWorkflow";
 import {
   CaseEvent,
   Role3Error,
@@ -216,12 +217,16 @@ export default function CaseDetail({
     seenEventIds.current.clear();
 
     const handleEvent = (event: CaseEvent) => {
-      if (seenEventIds.current.has(event.eventId)) return;
-      seenEventIds.current.add(event.eventId);
-
       setDisplayedCase((prev) => {
         if (!prev) return null;
-        if (event.caseVersion < prev.caseVersion) return prev;
+        const decision = shouldApplyEvent(
+          event.eventId,
+          event.caseVersion,
+          seenEventIds.current,
+          prev.caseVersion
+        );
+        if (decision === "duplicate" || decision === "stale") return prev;
+        seenEventIds.current.add(event.eventId);
         if (event.data?.structuredCase) {
           const merged = applyEdits(event.data.structuredCase, pendingEditsRef.current);
           setLiveUpdateNotice(`${event.eventType} (v${event.caseVersion})`);
@@ -358,12 +363,21 @@ export default function CaseDetail({
       ...prev,
       [fieldPath]: valueIndex,
     }));
+    if (!displayedCase) return;
+    const conflict = displayedCase.conflicts.find((item) => item.fieldPath === fieldPath);
+    if (!conflict) return;
+    const edit = conflictToEdit(displayedCase, conflict, valueIndex);
+    if (!edit) return;
+    setPendingEdits((prev) => {
+      const without = prev.filter((item) => item.path !== edit.path);
+      return [...without, edit];
+    });
   };
 
   // Helper: push a new edit, replacing any existing edit for the same path
   const pushEdit = (
     path: string,
-    value: string | number,
+    value: unknown,
     reason: string,
     forcedOp?: "add" | "replace"
   ) => {
