@@ -3,10 +3,15 @@
 import React from "react";
 import { Lock, LogIn } from "lucide-react";
 
-export default function UnauthorizedState() {
-  const handleSignIn = () => {
-    console.log("[Aira Dashboard] Staff sign in clicked.");
-  };
+interface UnauthorizedStateProps {
+  onRetry?: () => void;
+  message?: string;
+}
+
+export default function UnauthorizedState({
+  onRetry,
+  message,
+}: UnauthorizedStateProps) {
 
   return (
     <div className="flex-1 w-full bg-[#0a0a0f] text-white flex flex-col items-center justify-center p-6 text-center">
@@ -19,15 +24,16 @@ export default function UnauthorizedState() {
       </h2>
 
       <p className="text-zinc-400 max-w-sm text-sm leading-relaxed mb-6">
-        This dashboard is restricted to authorized ER staff.
+        {message ||
+          "Role 3 rejected the staff token. Use the demo ARIA_STAFF_TOKEN / NEXT_PUBLIC_ARIA_STAFF_TOKEN, or stay on synthetic examples."}
       </p>
 
       <button
-        onClick={handleSignIn}
+        onClick={onRetry}
         className="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center space-x-2 transition-all active:scale-95 shadow-lg shadow-blue-600/20"
       >
         <LogIn className="w-4 h-4" />
-        <span>Sign in as Staff</span>
+        <span>Back to synthetic cases</span>
       </button>
     </div>
   );

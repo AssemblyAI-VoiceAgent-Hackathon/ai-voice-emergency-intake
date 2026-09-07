@@ -5,9 +5,10 @@ import { AlertTriangle, RefreshCw } from "lucide-react";
 
 interface ErrorStateProps {
   onRetry: () => void;
+  message?: string;
 }
 
-export default function ErrorState({ onRetry }: ErrorStateProps) {
+export default function ErrorState({ onRetry, message }: ErrorStateProps) {
   return (
     <div className="flex-1 w-full bg-[#0a0a0f] text-white flex flex-col items-center justify-center p-6 text-center">
       <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mb-6">
@@ -19,7 +20,8 @@ export default function ErrorState({ onRetry }: ErrorStateProps) {
       </h2>
 
       <p className="text-zinc-400 max-w-sm text-sm leading-relaxed mb-6">
-        Unable to connect to the Aira triage stream service. Please check network connectivity and try again.
+        {message ||
+          "Unable to reach Role 3. Start python -m src.backend or continue with synthetic contract examples."}
       </p>
 
       <button

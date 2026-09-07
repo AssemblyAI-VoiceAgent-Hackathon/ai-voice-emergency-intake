@@ -36,7 +36,7 @@ export default function CaseList({
       <div className="p-4 border-b border-zinc-800/80 space-y-3 bg-[#0a0a0f]">
         <div className="flex items-center justify-between">
           <h2 className="text-xs uppercase tracking-widest font-bold text-zinc-400">
-            Active Contract Cases ({cases.length})
+            Cases ({cases.length})
           </h2>
           <span className="text-[10px] px-2 py-0.5 rounded bg-[#3954C0]/20 text-blue-300 font-semibold border border-[#3954C0]/30">
             v1.0.0 Contract

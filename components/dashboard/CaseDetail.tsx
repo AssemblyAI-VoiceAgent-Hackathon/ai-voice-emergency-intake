@@ -2,8 +2,18 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { StructuredCase } from "@/types/structuredCase";
-import { PendingEdit } from "@/types/staffReview";
-import { startMockEventStream, CaseEvent } from "@/lib/mockEventSimulator";
+import { PendingEdit, StaffReviewPayload } from "@/types/staffReview";
+import { startMockEventStream } from "@/lib/mockEventSimulator";
+import { applyEdits } from "@/lib/applyEdits";
+import {
+  CaseEvent,
+  Role3Error,
+  getCaseSnapshot,
+  lookupPatientAuthorised,
+  submitStaffReview,
+  subscribeCaseEvents,
+} from "@/lib/role3Client";
+import { ReviewSubmitResult } from "./ReviewActionForm";
 import ProvenanceBadge from "./ProvenanceBadge";
 import ConflictCard from "./ConflictCard";
 import InformationGapItem from "./InformationGapItem";
@@ -28,6 +38,10 @@ import {
 
 interface CaseDetailProps {
   caseItem: StructuredCase | null;
+  live?: boolean;
+  reviewStatus?: string;
+  onCaseUpdate?: (caseItem: StructuredCase, reviewStatus: string) => void;
+  onUnauthorized?: (message: string) => void;
 }
 
 // ── Inline Edit Widget ────────────────────────────────────────────────────────
@@ -152,99 +166,174 @@ function InlineEdit({
 }
 
 // ── Main Component ────────────────────────────────────────────────────────────
-export default function CaseDetail({ caseItem: initialCase }: CaseDetailProps) {
-  // Local displayed case state (allows live stream updates & conflict refresh)
+export default function CaseDetail({
+  caseItem: initialCase,
+  live = false,
+  reviewStatus: initialReviewStatus = "none",
+  onCaseUpdate,
+  onUnauthorized,
+}: CaseDetailProps) {
   const [displayedCase, setDisplayedCase] = useState<StructuredCase | null>(initialCase);
   const [selectedConflicts, setSelectedConflicts] = useState<Record<string, number>>({});
   const [pendingEdits, setPendingEdits] = useState<PendingEdit[]>([]);
-
-  // Live update visual indicator state
   const [liveUpdateNotice, setLiveUpdateNotice] = useState<string | null>(null);
-
-  // Set of seen event IDs per case session to prevent duplicate processing
+  const [reviewStatus, setReviewStatus] = useState(initialReviewStatus);
+  const [verifiedRecord, setVerifiedRecord] = useState<Record<string, unknown> | null>(null);
+  const [toolStatus, setToolStatus] = useState<string | null>(null);
   const seenEventIds = useRef<Set<string>>(new Set());
+  const pendingEditsRef = useRef<PendingEdit[]>([]);
+  pendingEditsRef.current = pendingEdits;
 
-  // Reset when switching cases
+  const applyIncomingCase = (
+    next: StructuredCase,
+    status: string | undefined,
+    notice: string
+  ) => {
+    setDisplayedCase((prev) => {
+      if (prev && next.caseVersion < prev.caseVersion) return prev;
+      const merged = applyEdits(next, pendingEditsRef.current);
+      setLiveUpdateNotice(notice);
+      window.setTimeout(() => setLiveUpdateNotice(null), 2500);
+      if (status) setReviewStatus(status);
+      onCaseUpdate?.(merged, status ?? reviewStatus);
+      return merged;
+    });
+  };
+
   useEffect(() => {
     setDisplayedCase(initialCase);
     setSelectedConflicts({});
     setPendingEdits([]);
     setLiveUpdateNotice(null);
+    setReviewStatus(initialReviewStatus);
+    setVerifiedRecord(null);
+    setToolStatus(null);
     seenEventIds.current.clear();
-  }, [initialCase?.caseId]);
+  }, [initialCase?.caseId, live]);
 
-  // Wire mock event simulator
   useEffect(() => {
     if (!initialCase?.caseId) return;
-
     seenEventIds.current.clear();
 
-    const cleanup = startMockEventStream(
-      initialCase.caseId,
-      (event: CaseEvent) => {
-        // 1. Duplicate check
-        if (seenEventIds.current.has(event.eventId)) {
-          console.log(`[Aira Event Stream] Ignored duplicate event: ${event.eventId}`);
-          return;
+    const handleEvent = (event: CaseEvent) => {
+      if (seenEventIds.current.has(event.eventId)) return;
+      seenEventIds.current.add(event.eventId);
+
+      setDisplayedCase((prev) => {
+        if (!prev) return null;
+        if (event.caseVersion < prev.caseVersion) return prev;
+        if (event.data?.structuredCase) {
+          const merged = applyEdits(event.data.structuredCase, pendingEditsRef.current);
+          setLiveUpdateNotice(`${event.eventType} (v${event.caseVersion})`);
+          window.setTimeout(() => setLiveUpdateNotice(null), 2500);
+          if (event.data.reviewStatus) setReviewStatus(event.data.reviewStatus);
+          onCaseUpdate?.(merged, event.data.reviewStatus ?? reviewStatus);
+          return { ...merged, caseVersion: event.caseVersion };
         }
-        seenEventIds.current.add(event.eventId);
-
-        // 2. Stale event check & apply update
-        setDisplayedCase((prev) => {
-          if (!prev) return null;
-
-          if (event.caseVersion <= prev.caseVersion) {
-            console.log(
-              `[Aira Event Stream] Ignored stale event v${event.caseVersion} (current v${prev.caseVersion})`
-            );
-            return prev;
-          }
-
-          console.log(
-            `[Aira Event Stream] Applied live update v${event.caseVersion} to ${event.caseId}`
-          );
-
-          // Apply trivial change (bump severity of first symptom if present)
-          let updatedSymptoms = prev.symptoms;
-          if (updatedSymptoms && updatedSymptoms.length > 0) {
-            const firstSym = updatedSymptoms[0];
-            const curSev = firstSym.severity0To10 ?? 5;
-            const newSev = Math.min(10, curSev + 1);
-            updatedSymptoms = [
-              { ...firstSym, severity0To10: newSev },
-              ...updatedSymptoms.slice(1),
-            ];
-          }
-
-          // Trigger unobtrusive visual indicator
-          setLiveUpdateNotice(`Live update received (v${event.caseVersion})`);
-          setTimeout(() => {
-            setLiveUpdateNotice(null);
-          }, 2000);
-
-          return {
-            ...prev,
-            caseVersion: event.caseVersion,
-            symptoms: updatedSymptoms,
-          };
-        });
-      },
-      initialCase.caseVersion
-    );
-
-    return () => {
-      cleanup();
+        if (event.eventType === "case.review_status") {
+          if (event.data.reviewStatus) setReviewStatus(event.data.reviewStatus);
+          setLiveUpdateNotice(`Review: ${event.data.reviewStatus ?? event.data.action}`);
+          window.setTimeout(() => setLiveUpdateNotice(null), 2500);
+          return { ...prev, caseVersion: Math.max(prev.caseVersion, event.caseVersion) };
+        }
+        if (event.eventType === "case.tool_status") {
+          setToolStatus(`${event.data.tool ?? "tool"}: ${event.data.status ?? "update"}`);
+          return prev;
+        }
+        if (event.caseVersion > prev.caseVersion) {
+          return { ...prev, caseVersion: event.caseVersion };
+        }
+        return prev;
+      });
     };
-  }, [initialCase?.caseId]);
 
-  const handleRefreshCase = (newVersion: number) => {
-    setDisplayedCase((prev) => {
-      if (!prev) return null;
+    if (live) {
+      return subscribeCaseEvents(initialCase.caseId, handleEvent, (error) => {
+        if (error.status === 401 || error.status === 403) {
+          onUnauthorized?.(error.message);
+        }
+      });
+    }
+
+    return startMockEventStream(initialCase.caseId, handleEvent, initialCase.caseVersion);
+  }, [initialCase?.caseId, live]);
+
+  useEffect(() => {
+    if (!live || !initialCase?.subject?.patientReference) {
+      setVerifiedRecord(null);
+      return;
+    }
+    let cancelled = false;
+    lookupPatientAuthorised({ patientPublicId: initialCase.subject.patientReference })
+      .then((record) => {
+        if (!cancelled) setVerifiedRecord(record);
+      })
+      .catch(() => {
+        if (!cancelled) setVerifiedRecord(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [live, initialCase?.caseId, initialCase?.subject?.patientReference]);
+
+  const handleRefreshCase = async () => {
+    if (!initialCase?.caseId) return;
+    if (!live) {
+      setDisplayedCase((prev) => (prev ? { ...prev } : prev));
+      return;
+    }
+    try {
+      const snapshot = await getCaseSnapshot(initialCase.caseId);
+      if (snapshot.structuredCase) {
+        applyIncomingCase(
+          snapshot.structuredCase,
+          snapshot.reviewStatus,
+          `Refreshed from Role 3 (v${snapshot.caseVersion})`
+        );
+      }
+    } catch (error) {
+      if (error instanceof Role3Error && (error.status === 401 || error.status === 403)) {
+        onUnauthorized?.(error.message);
+      }
+    }
+  };
+
+  const handleReviewSubmit = async (
+    payload: StaffReviewPayload
+  ): Promise<ReviewSubmitResult> => {
+    if (!live) {
+      return { ok: true, message: "Synthetic review accepted. Connect Role 3 to save via Role 4." };
+    }
+    try {
+      const result = await submitStaffReview(payload);
+      if (result.caseVersion !== undefined) {
+        setDisplayedCase((prev) =>
+          prev ? { ...prev, caseVersion: result.caseVersion as number } : prev
+        );
+      }
+      if (result.status) setReviewStatus(result.status === "approve" ? "approved" : result.status);
+      const extra =
+        result.approvedRecord?.approvedRecordPublicId
+          ? ` Saved ${result.approvedRecord.approvedRecordPublicId}.`
+          : "";
+      return { ok: true, message: `Role 3 accepted ${result.status}.${extra}` };
+    } catch (error) {
+      if (error instanceof Role3Error && error.status === 409) {
+        return {
+          ok: false,
+          conflictVersion: error.latestCaseVersion,
+          message: error.message,
+        };
+      }
+      if (error instanceof Role3Error && (error.status === 401 || error.status === 403)) {
+        onUnauthorized?.(error.message);
+        return { ok: false, unauthorized: true, message: error.message };
+      }
       return {
-        ...prev,
-        caseVersion: newVersion,
+        ok: false,
+        message: error instanceof Error ? error.message : "Review submission failed.",
       };
-    });
+    }
   };
 
   if (!displayedCase) {
@@ -341,6 +430,11 @@ export default function CaseDetail({ caseItem: initialCase }: CaseDetailProps) {
           </div>
 
           <div className="flex items-center space-x-2">
+            {toolStatus && (
+              <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700 text-[11px] font-semibold">
+                {toolStatus}
+              </span>
+            )}
             {liveUpdateNotice && (
               <span className="flex items-center space-x-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40 text-[11px] font-semibold animate-pulse shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping" />
@@ -380,6 +474,17 @@ export default function CaseDetail({ caseItem: initialCase }: CaseDetailProps) {
 
       {/* ── Main Content ─────────────────────────────────────────────────────── */}
       <div className="p-6 space-y-6 flex-1">
+
+        {live && verifiedRecord && (
+          <div className="bg-[#14161d] border-l-[3px] border-l-emerald-500 border border-white/10 rounded-2xl p-5 space-y-2">
+            <h3 className="text-[11px] uppercase tracking-wider font-bold text-emerald-400">
+              Verified record (Role 4 via Role 3)
+            </h3>
+            <pre className="text-[11px] font-mono text-zinc-300 whitespace-pre-wrap break-all">
+              {JSON.stringify(verifiedRecord, null, 2)}
+            </pre>
+          </div>
+        )}
 
         {/* Conflicts */}
         {displayedCase.conflicts && displayedCase.conflicts.length > 0 && (
@@ -732,10 +837,10 @@ export default function CaseDetail({ caseItem: initialCase }: CaseDetailProps) {
           caseItem={displayedCase}
           pendingEdits={pendingEdits}
           setPendingEdits={setPendingEdits}
+          live={live}
+          reviewStatus={reviewStatus}
           onRefreshCase={handleRefreshCase}
-          onSubmit={(payload) => {
-            console.log("[Aira] Staff review submitted (mock):", payload);
-          }}
+          onSubmit={handleReviewSubmit}
         />
 
       </div>

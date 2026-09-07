@@ -23,12 +23,18 @@ import {
   X,
 } from "lucide-react";
 
+export type ReviewSubmitResult =
+  | { ok: true; message: string }
+  | { ok: false; conflictVersion?: number; unauthorized?: boolean; message: string };
+
 interface ReviewActionFormProps {
   caseItem: StructuredCase;
   pendingEdits: PendingEdit[];
   setPendingEdits: React.Dispatch<React.SetStateAction<PendingEdit[]>>;
-  onRefreshCase?: (newVersion: number) => void;
-  onSubmit?: (payload: StaffReviewPayload) => void;
+  live?: boolean;
+  reviewStatus?: string;
+  onRefreshCase?: (newVersion?: number) => void | Promise<void>;
+  onSubmit?: (payload: StaffReviewPayload) => Promise<ReviewSubmitResult> | ReviewSubmitResult;
 }
 
 function generateIdempotencyKey(caseId: string, version: number): string {
@@ -41,6 +47,8 @@ export default function ReviewActionForm({
   setPendingEdits,
   onRefreshCase,
   onSubmit,
+  live = false,
+  reviewStatus = "none",
 }: ReviewActionFormProps) {
   const [selectedAction, setSelectedAction] = useState<ReviewAction>(null);
   const [informationRequestQuestions, setInformationRequestQuestions] =
@@ -67,6 +75,7 @@ export default function ReviewActionForm({
 
   // ── Validation ──────────────────────────────────────────────────────────────
   const canSubmit = useCallback((): boolean => {
+    if (reviewStatus === "approved") return false;
     if (!selectedAction) return false;
     if (selectedAction === "approve") {
       // Must have triage code + label
@@ -80,7 +89,7 @@ export default function ReviewActionForm({
     )
       return false;
     return true;
-  }, [selectedAction, finalTriage, informationRequestQuestions, unresolvedRequiredGaps]);
+  }, [selectedAction, finalTriage, informationRequestQuestions, unresolvedRequiredGaps, reviewStatus]);
 
   // ── Payload builder ──────────────────────────────────────────────────────────
   const buildPayload = useCallback((): StaffReviewPayload | null => {
@@ -103,7 +112,7 @@ export default function ReviewActionForm({
           ? {
               code: finalTriage.code.trim(),
               label: finalTriage.label.trim(),
-              rationale: finalTriage.rationale.trim() || null!,
+              rationale: (finalTriage.rationale ?? "").trim() || null,
             }
           : null,
       comment: comment.trim() || null,
@@ -117,49 +126,42 @@ export default function ReviewActionForm({
     comment,
   ]);
 
-  // ── Submit ───────────────────────────────────────────────────────────────────
-  const handleSubmit = () => {
+  const [submitMessage, setSubmitMessage] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
     const payload = buildPayload();
     if (!payload) return;
+    setSubmitting(true);
+    setSubmitMessage(null);
+    try {
+      const result = onSubmit
+        ? await onSubmit(payload)
+        : { ok: true as const, message: "Review accepted locally (synthetic)." };
 
-    // STEP 3: 30% chance of simulated 409 conflict
-    const isConflict = Math.random() < 0.3;
+      if (!result.ok && result.conflictVersion !== undefined) {
+        setConflictError({ currentServerVersion: result.conflictVersion });
+        setSubmitted(false);
+        return;
+      }
+      if (!result.ok) {
+        setSubmitMessage(result.message);
+        setSubmitted(false);
+        return;
+      }
 
-    if (isConflict) {
-      const currentServerVersion = caseItem.caseVersion + 1;
-      const mock409Error = {
-        error: {
-          code: "CASE_VERSION_CONFLICT",
-          message: "The submitted case version is stale.",
-          fieldErrors: [
-            {
-              path: "/caseVersion",
-              message: `Expected version ${currentServerVersion}`,
-            },
-          ],
-        },
-      };
-      console.warn("[Aira] Simulated 409 Conflict Response:", mock409Error);
-
-      // Preserve form state and pendingEdits, show conflict banner
-      setConflictError({ currentServerVersion });
-      setSubmitted(false);
-      return;
+      setConflictError(null);
+      setPendingEdits([]);
+      setSubmitted(true);
+      setSubmitMessage(result.message);
+      setTimeout(() => setSubmitted(false), 4000);
+    } finally {
+      setSubmitting(false);
     }
-
-    // 70% success path
-    console.log("[Aira] Staff review payload (mock):", JSON.stringify(payload, null, 2));
-    onSubmit?.(payload);
-    setConflictError(null);
-    setPendingEdits([]); // Clear queued edits on success
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3500);
   };
 
   const handleRefresh = () => {
-    if (conflictError && onRefreshCase) {
-      onRefreshCase(conflictError.currentServerVersion);
-    }
+    void onRefreshCase?.(conflictError?.currentServerVersion);
     setConflictError(null);
   };
 
@@ -391,7 +393,7 @@ export default function ReviewActionForm({
               Rationale (optional)
             </label>
             <textarea
-              value={finalTriage.rationale}
+              value={finalTriage.rationale ?? ""}
               onChange={(e) =>
                 setFinalTriage((prev) => ({
                   ...prev,
@@ -486,17 +488,22 @@ export default function ReviewActionForm({
           {submitted ? (
             <div className="flex items-center space-x-2 text-emerald-400 text-[13px] font-semibold">
               <CheckCircle2 className="w-5 h-5" />
-              <span>Review submitted (mock) — payload logged to console.</span>
+              <span>{submitMessage || "Review submitted."}</span>
             </div>
           ) : (
             <p className="text-[12px] text-[#5a5d6e] italic">
-              No real network call is made in this prototype.
+              {submitMessage
+                ? submitMessage
+                : live
+                ? "Submits to Role 3. Approve is saved by Role 4; this UI never writes to the database."
+                : "Synthetic mode: payload is validated locally. Connect Role 3 to persist through Role 4."}
+              {reviewStatus && reviewStatus !== "none" ? ` Status: ${reviewStatus}.` : ""}
             </p>
           )}
 
           <button
-            onClick={handleSubmit}
-            disabled={!canSubmit()}
+            onClick={() => void handleSubmit()}
+            disabled={!canSubmit() || submitting || reviewStatus === "approved"}
             className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl text-[13px] font-bold transition-all duration-150 ${
               canSubmit()
                 ? "bg-[#3954C0] text-white hover:bg-[#4a65d0] shadow-lg shadow-[#3954C0]/25 hover:shadow-[#3954C0]/40"

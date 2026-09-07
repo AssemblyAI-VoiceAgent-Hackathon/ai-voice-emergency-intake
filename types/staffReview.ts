@@ -14,7 +14,7 @@ export type ReviewAction =
 export interface FinalTriage {
   code: string;
   label: string;
-  rationale: string;
+  rationale: string | null;
 }
 
 export interface StaffReviewPayload {

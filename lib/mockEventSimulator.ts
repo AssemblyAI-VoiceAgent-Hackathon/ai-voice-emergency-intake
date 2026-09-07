@@ -1,18 +1,6 @@
-export type CaseEventType =
-  | "case.snapshot"
-  | "case.updated"
-  | "case.tool_status"
-  | "case.review_status"
-  | "case.error";
+import { CaseEvent } from "@/lib/role3Client";
 
-export interface CaseEvent {
-  eventId: string;
-  eventType: CaseEventType;
-  caseId: string;
-  caseVersion: number;
-  occurredAt: string;
-  data: any;
-}
+export type { CaseEvent };
 
 export function startMockEventStream(
   caseId: string,
