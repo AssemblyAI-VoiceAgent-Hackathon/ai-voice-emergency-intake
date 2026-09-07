@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Role 3 and Role 4 — a simple picture</title>
+  <style>
+    :root {
+      --navy: #17324d;
+      --ink: #17232f;
+      --muted: #5c6975;
+      --paper: #f7f4ee;
+      --orange: #e67e22;
+      --orange-pale: #fff2dc;
+      --purple: #6750a4;
+      --purple-pale: #f0ecf8;
+      --teal: #0f8b8d;
+      --teal-pale: #e4f4f4;
+      --green: #2e8b57;
+      --green-pale: #e8f6ee;
+      --blue: #1f6feb;
+      --blue-pale: #eaf2ff;
+      --red: #c0392b;
+      --red-pale: #fdecea;
+      --line: #d5dde5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    header {
+      background: var(--navy);
+      color: #fff;
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    header strong { font-family: Arial, sans-serif; letter-spacing: .02em; }
+    header span { opacity: .85; font-size: .95rem; }
+    main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+    h1 { font-size: 1.85rem; margin: 0 0 .5rem; }
+    .lead { font-size: 1.15rem; color: var(--muted); margin: 0 0 1.5rem; }
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 2px solid var(--line);
+    }
+    .card h2 {
+      margin: 0;
+      padding: .85rem 1.1rem;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 1.15rem;
+    }
+    .card.r3 { border-color: var(--orange); }
+    .card.r3 h2 { background: var(--orange); }
+    .card.r4 { border-color: var(--purple); }
+    .card.r4 h2 { background: var(--purple); }
+    .card ul { margin: 0; padding: 1rem 1.2rem 1.2rem 1.6rem; }
+    .card li { margin: 0 0 .7rem; }
+    .card li:last-child { margin: 0; }
+    h3 {
+      font-family: Arial, sans-serif;
+      color: var(--navy);
+      margin: 2rem 0 .6rem;
+    }
+    .who {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: .6rem;
+      margin: 1rem 0;
+    }
+    .who div {
+      background: #fff;
+      border-radius: 12px;
+      padding: .8rem .5rem;
+      text-align: center;
+      border: 2px solid var(--line);
+      font-family: Arial, sans-serif;
+    }
+    .who .role { font-weight: 700; font-size: .85rem; }
+    .who .job { font-weight: 700; margin: .2rem 0; }
+    .who .name { color: var(--muted); font-size: .85rem; }
+    .w1 { border-color: var(--teal); background: var(--teal-pale); color: var(--teal); }
+    .w2 { border-color: var(--blue); background: var(--blue-pale); color: var(--blue); }
+    .w3 { border-color: var(--orange); background: var(--orange-pale); color: var(--orange); }
+    .w5 { border-color: var(--green); background: var(--green-pale); color: var(--green); }
+    .w4 { border-color: var(--purple); background: var(--purple-pale); color: var(--purple); }
+    .who .job, .who .name { color: var(--ink); }
+    .flow { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .step {
+      background: #fff;
+      border-radius: 12px;
+      padding: .9rem 1rem .9rem 3.1rem;
+      position: relative;
+      border: 1px solid var(--line);
+      margin: 0 0 .7rem;
+    }
+    .step b.n {
+      position: absolute;
+      left: .7rem; top: .85rem;
+      width: 1.7rem; height: 1.7rem;
+      border-radius: 50%;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: .9rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step h4 { margin: 0 0 .25rem; font-family: Arial, sans-serif; font-size: 1rem; }
+    .step p { margin: 0; color: var(--muted); font-size: .95rem; }
+    .n3 { background: var(--orange); }
+    .n4 { background: var(--purple); }
+    .n5 { background: var(--green); }
+    .n2 { background: var(--blue); }
+    .nx { background: var(--red); }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+    .banner {
+      background: var(--navy);
+      color: #d6e4f0;
+      border-radius: 12px;
+      padding: 1.1rem 1.3rem;
+      margin-top: 1.5rem;
+    }
+    .banner h3 { color: #fff; margin: 0 0 .4rem; }
+    .banner p { margin: 0; }
+    .rules { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .8rem; }
+    .rule {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem;
+      border-top: 8px solid var(--navy);
+    }
+    .rule h4 { margin: 0 0 .4rem; font-family: Arial, sans-serif; }
+    footer { color: var(--muted); font-size: .85rem; margin-top: 2rem; }
+    @media (max-width: 800px) {
+      .cards, .who, .flow, .rules, .split { grid-template-columns: 1fr; }
+    }
+    @media print {
+      header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .card h2, .step b.n, .banner { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>AI Emergency Intake</strong>
+    <span>Role 3 and Role 4 — a simple picture for non-technical teammates</span>
+  </header>
+  <main>
+    <h1>The front desk and the records room</h1>
+    <p class="lead">Think of a hospital. <b>Role 3 is the front desk</b> (Mozzam). <b>Role 4 is the locked records room</b> (Ishaan). Staff never walk into the records room themselves. Everything goes through the front desk.</p>
+
+    <div class="cards">
+      <article class="card r3">
+        <h2>Role 3 — The front desk · Mozzam</h2>
+        <ul>
+          <li><b>Checks the badge.</b> Is this person allowed to send or review this case? The computer does not trust a name typed on a form.</li>
+          <li><b>Checks the paperwork.</b> Is the draft complete? If not, it is sent back with a plain reason.</li>
+          <li><b>Keeps everyone in sync.</b> When a new draft arrives, the staff screen updates live.</li>
+          <li><b>Hands work to records.</b> Asks Role 4 to look someone up, and later to file an approved case. Role 3 does not keep the final file itself.</li>
+        </ul>
+      </article>
+      <article class="card r4">
+        <h2>Role 4 — The records room · Ishaan</h2>
+        <ul>
+          <li><b>Looks up the patient.</b> Have we seen this person before? Answers: found, not found, or the notes disagree.</li>
+          <li><b>Files the approved case once.</b> Only after a clinician approves. The same request again does not create a second file.</li>
+          <li><b>Keeps a locked diary.</b> Who changed what, and when. That diary cannot be quietly edited or deleted.</li>
+          <li><b>Protects private details.</b> Sensitive words are locked. Dispatchers see less than clinicians.</li>
+        </ul>
+      </article>
+    </div>
+
+    <h3>Who talks to whom</h3>
+    <p>The staff screen never writes to the records room. The AI never writes there either. Only the front desk is allowed in.</p>
+    <div class="who">
+      <div class="w1"><div class="role">Role 1</div><div class="job">Voice call</div><div class="name">Soha</div></div>
+      <div class="w2"><div class="role">Role 2</div><div class="job">AI draft</div><div class="name">Fazwan</div></div>
+      <div class="w3"><div class="role">Role 3</div><div class="job">Front desk</div><div class="name">Mozzam</div></div>
+      <div class="w5"><div class="role">Role 5</div><div class="job">Staff screen</div><div class="name">Jonathan</div></div>
+      <div class="w4"><div class="role">Role 4</div><div class="job">Records room</div><div class="name">Ishaan</div></div>
+    </div>
+    <p>Voice → AI draft → <b>front desk</b> → staff screen. The front desk also talks to the <b>records room</b> (look up, then file).</p>
+
+    <h3>The story, start to finish</h3>
+    <div class="flow">
+      <div>
+        <div class="step"><b class="n n2">1</b><h4>A draft case arrives</h4><p>The voice call becomes text. The AI turns that into a structured draft: what hurts, what is missing, what disagrees, and what staff should notice. That draft is sent to the front desk.</p></div>
+        <div class="step"><b class="n n3">2</b><h4>Front desk checks three things</h4><p><b>Who</b> is sending this? <b>Is the form complete?</b> <b>Is this a newer version</b> than the one we already have? A repeat of the same request is treated as “we already have this,” not as a second case.</p></div>
+        <div class="split">
+          <div class="step"><b class="n nx">×</b><h4>Sent back</h4><p>Wrong person, incomplete form, or an older version. Staff see a clear message, not a crash.</p></div>
+          <div class="step"><b class="n n5">3</b><h4>Accepted — screen updates</h4><p>The live staff screen shows the draft, gaps, conflicts, and confidence. No refresh needed.</p></div>
+        </div>
+        <div class="step"><b class="n n3">4</b><h4>Need history? Ask records</h4><p>“Do we already know this patient?” Role 3 asks Role 4. The staff screen is not allowed to ask the records room directly.</p></div>
+        <div class="step"><b class="n n4">5</b><h4>Records room answers</h4><p><b>Found</b> — send the notes (clinicians see more; dispatchers see less). <b>Not found</b> — say so clearly. <b>Notes disagree</b> — flag it for a human. The answer goes back through Role 3, then the AI can update the draft.</p></div>
+      </div>
+      <div>
+        <div class="step"><b class="n n5">6</b><h4>Staff review the draft</h4><p>A clinician can save a draft, ask for more information, or approve. They can correct fields. Those corrections are protected so a later AI update does not wipe them.</p></div>
+        <div class="step"><b class="n n3">7</b><h4>Front desk checks the reviewer</h4><p>Identity comes from the signed-in badge, not from a name in the message. If the case changed while they were reading, they are asked to look at the latest version instead of overwriting someone else’s work.</p></div>
+        <div class="step"><b class="n n3">8</b><h4>If they approve — hand to records</h4><p>Only then does Role 3 ask Role 4 to file the finished case, the triage the human chose, and the list of corrections.</p></div>
+        <div class="step"><b class="n n4">9</b><h4>Filed once, with a locked diary</h4><p>The approved record is stored. Sensitive details are locked. The diary records who approved, what changed, and when. The same request again returns the original file — it does not create a duplicate.</p></div>
+        <div class="step"><b class="n n5">10</b><h4>Staff screen is told “saved”</h4><p>The front desk publishes the result. The reviewer sees that the case is approved and filed. The loop is closed.</p></div>
+      </div>
+    </div>
+
+    <h3>Three things everyone should remember</h3>
+    <div class="rules">
+      <div class="rule" style="border-top-color:var(--orange)">
+        <h4>The computer does not decide</h4>
+        <p>The AI draft is a helper. A qualified human still checks, corrects, and approves. There is no automatic diagnosis or final triage.</p>
+      </div>
+      <div class="rule" style="border-top-color:var(--purple)">
+        <h4>One door into the records</h4>
+        <p>The staff screen and the AI never write to the database. Role 3 checks the person, then Role 4 files the record.</p>
+      </div>
+      <div class="rule" style="border-top-color:var(--teal)">
+        <h4>Practice data only for now</h4>
+        <p>Names look like TEST-PATIENT. Notes start with SYN:. Real patient details, recordings, and passwords stay out of GitHub.</p>
+      </div>
+    </div>
+
+    <div class="banner">
+      <h3>If you remember only one picture</h3>
+      <p>Call → AI draft → <b>Role 3 checks it and shows it live</b> → staff review → <b>Role 3 checks the reviewer</b> → <b>Role 4 files it once and writes the diary</b> → staff see “saved”. Role 3 is the door. Role 4 is the vault. A human still makes the final call.</p>
+    </div>
+    <footer>This is a plain-language companion to the team workflow PDF. It does not replace that document.</footer>
+  </main>
+</body>
+</html>
