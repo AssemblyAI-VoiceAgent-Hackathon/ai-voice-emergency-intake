@@ -1,288 +1,114 @@
-[
-  {
-    "schemaVersion": "1.0.0",
-    "caseId": "case_demo_001",
-    "sessionId": "session_demo_001",
-    "caseVersion": 3,
-    "status": "needs_information",
-    "capturedAt": "2026-08-30T09:15:00Z",
-    "language": "ms-MY",
-    "subject": {
-      "patientReference": "patient_demo_001",
-      "ageYears": 52,
-      "sexAtBirth": "male"
-    },
-    "informants": ["patient", "staff"],
-    "chiefComplaint": {
-      "text": "Chest discomfort and shortness of breath",
-      "onsetText": "Approximately 30 minutes before arrival",
-      "sourceRefs": ["turn_12", "turn_14"]
-    },
-    "symptoms": [
-      {
-        "name": "chest discomfort",
-        "present": true,
-        "onsetText": "approximately 30 minutes ago",
-        "severity0To10": 7,
-        "location": "central chest",
-        "notes": null,
-        "sourceRefs": ["turn_12"]
-      },
-      {
-        "name": "shortness of breath",
-        "present": true,
-        "onsetText": null,
-        "severity0To10": null,
-        "location": null,
-        "notes": null,
-        "sourceRefs": ["turn_14"]
-      }
-    ],
-    "observations": [
-      {
-        "name": "oxygen_saturation",
-        "value": 93,
-        "unit": "%",
-        "origin": "measured",
-        "observedAt": "2026-08-30T09:14:30Z",
-        "sourceRefs": ["staff_observation_02"]
-      }
-    ],
-    "history": {
-      "conditions": [
-        {
-          "name": "hypertension",
-          "status": "reported",
-          "details": null,
-          "sourceRefs": ["turn_18"]
-        }
-      ],
-      "medications": [],
-      "allergies": [
-        {
-          "name": "allergy status",
-          "status": "unknown",
-          "details": null,
-          "sourceRefs": []
-        }
-      ]
-    },
-    "summary": {
-      "oneLine": "Adult patient reports acute chest discomfort with shortness of breath.",
-      "narrative": "Symptoms reportedly began around 30 minutes before arrival. Staff recorded oxygen saturation at 93%. Medication and allergy details remain incomplete."
-    },
-    "safetySignals": [
-      {
-        "code": "ACUTE_CHEST_SYMPTOMS",
-        "label": "Acute chest symptoms reported",
-        "status": "present",
-        "evidenceSourceRefs": ["turn_12", "turn_14"]
-      }
-    ],
-    "informationGaps": [
-      {
-        "fieldPath": "/history/medications",
-        "question": "What medications is the patient currently taking?",
-        "priority": "required"
-      },
-      {
-        "fieldPath": "/history/allergies",
-        "question": "Does the patient have any known allergies?",
-        "priority": "required"
-      }
-    ],
-    "conflicts": [],
-    "provenance": [
-      {
-        "fieldPath": "/chiefComplaint/text",
-        "sourceRefs": ["turn_12", "turn_14"],
-        "confidence": "high",
-        "verificationStatus": "reported"
-      },
-      {
-        "fieldPath": "/observations/0/value",
-        "sourceRefs": ["staff_observation_02"],
-        "confidence": "high",
-        "verificationStatus": "staff_confirmed"
-      }
-    ],
-    "extractionMetadata": {
-      "promptVersion": "role2-extraction-v1",
-      "model": "synthetic-example",
-      "completedAt": "2026-08-30T09:15:01Z",
-      "outcome": "success"
-    }
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "case_demo_001",
+  "sessionId": "session_demo_001",
+  "caseVersion": 3,
+  "status": "needs_information",
+  "capturedAt": "2026-08-30T09:15:00Z",
+  "language": "ms-MY",
+  "subject": {
+    "patientReference": "patient_demo_001",
+    "ageYears": 52,
+    "sexAtBirth": "male"
   },
-  {
-    "schemaVersion": "1.0.0",
-    "caseId": "case_demo_sufficient",
-    "sessionId": "session_demo_sufficient",
-    "caseVersion": 1,
-    "status": "ready_for_review",
-    "capturedAt": "2026-08-30T10:00:00Z",
-    "language": "en-MY",
-    "subject": {
-      "patientReference": null,
-      "ageYears": 34,
-      "sexAtBirth": "female"
-    },
-    "informants": ["patient"],
-    "chiefComplaint": {
-      "text": "Pain and swelling of the left ankle after a fall",
-      "onsetText": "About one hour ago",
-      "sourceRefs": ["turn_02"]
-    },
-    "symptoms": [
-      {
-        "name": "left ankle pain",
-        "present": true,
-        "onsetText": "about one hour ago",
-        "severity0To10": 6,
-        "location": "left ankle",
-        "notes": "Reported after a fall",
-        "sourceRefs": ["turn_02"]
-      }
-    ],
-    "observations": [],
-    "history": {
-      "conditions": [],
-      "medications": [],
-      "allergies": [
-        {
-          "name": "known allergies",
-          "status": "denied",
-          "details": null,
-          "sourceRefs": ["turn_06"]
-        }
-      ]
-    },
-    "summary": {
-      "oneLine": "Adult patient reports left ankle pain and swelling after a fall.",
-      "narrative": "The patient reports a fall about one hour ago followed by left ankle pain rated six out of ten and swelling."
-    },
-    "safetySignals": [],
-    "informationGaps": [],
-    "conflicts": [],
-    "provenance": [
-      {
-        "fieldPath": "/chiefComplaint/text",
-        "sourceRefs": ["turn_02"],
-        "confidence": "high",
-        "verificationStatus": "reported"
-      },
-      {
-        "fieldPath": "/history/allergies/0/status",
-        "sourceRefs": ["turn_06"],
-        "confidence": "high",
-        "verificationStatus": "reported"
-      }
-    ],
-    "extractionMetadata": {
-      "promptVersion": "role2-extraction-v1",
-      "model": "synthetic-example",
-      "completedAt": "2026-08-30T10:00:01Z",
-      "outcome": "success"
-    }
+  "informants": ["patient", "staff"],
+  "chiefComplaint": {
+    "text": "Chest discomfort and shortness of breath",
+    "onsetText": "Approximately 30 minutes before arrival",
+    "sourceRefs": ["turn_12", "turn_14"]
   },
-  {
-    "schemaVersion": "1.0.0",
-    "caseId": "case_demo_conflicting",
-    "sessionId": "session_demo_conflicting",
-    "caseVersion": 2,
-    "status": "needs_information",
-    "capturedAt": "2026-08-30T11:00:00Z",
-    "language": "en-MY",
-    "subject": {
-      "patientReference": null,
-      "ageYears": null,
-      "sexAtBirth": "unknown"
+  "symptoms": [
+    {
+      "name": "chest discomfort",
+      "present": true,
+      "onsetText": "approximately 30 minutes ago",
+      "severity0To10": 7,
+      "location": "central chest",
+      "notes": null,
+      "sourceRefs": ["turn_12"]
     },
-    "informants": ["patient", "caregiver"],
-    "chiefComplaint": {
-      "text": "Dizziness after standing",
+    {
+      "name": "shortness of breath",
+      "present": true,
       "onsetText": null,
-      "sourceRefs": ["turn_02"]
-    },
-    "symptoms": [
-      {
-        "name": "dizziness",
-        "present": true,
-        "onsetText": null,
-        "severity0To10": null,
-        "location": null,
-        "notes": "Reported after standing",
-        "sourceRefs": ["turn_02"]
-      }
-    ],
-    "observations": [],
-    "history": {
-      "conditions": [],
-      "medications": [],
-      "allergies": [
-        {
-          "name": "allergy status",
-          "status": "unknown",
-          "details": "Patient and caregiver gave conflicting statements.",
-          "sourceRefs": ["turn_04", "turn_05"]
-        }
-      ]
-    },
-    "summary": {
-      "oneLine": "Patient reports dizziness; allergy information is conflicting.",
-      "narrative": "Dizziness was reported after standing. The allergy statement requires clarification before staff review."
-    },
-    "safetySignals": [
-      {
-        "code": "POSSIBLE_LOSS_OF_CONSCIOUSNESS",
-        "label": "Loss of consciousness information conflicts",
-        "status": "uncertain",
-        "evidenceSourceRefs": ["turn_07", "turn_08"]
-      }
-    ],
-    "informationGaps": [
-      {
-        "fieldPath": "/history/allergies",
-        "question": "Please clarify whether the patient has a known allergy and, if so, which substance.",
-        "priority": "required"
-      }
-    ],
-    "conflicts": [
-      {
-        "fieldPath": "/history/allergies",
-        "values": [
-          { "value": "penicillin allergy reported", "sourceRefs": ["turn_04"] },
-          { "value": "no known allergies reported", "sourceRefs": ["turn_05"] }
-        ],
-        "status": "unresolved"
-      },
-      {
-        "fieldPath": "/safetySignals/POSSIBLE_LOSS_OF_CONSCIOUSNESS",
-        "values": [
-          { "value": "brief loss of consciousness reported", "sourceRefs": ["turn_07"] },
-          { "value": "loss of consciousness denied", "sourceRefs": ["turn_08"] }
-        ],
-        "status": "unresolved"
-      }
-    ],
-    "provenance": [
-      {
-        "fieldPath": "/chiefComplaint/text",
-        "sourceRefs": ["turn_02"],
-        "confidence": "high",
-        "verificationStatus": "reported"
-      },
-      {
-        "fieldPath": "/history/allergies/0/status",
-        "sourceRefs": ["turn_04", "turn_05"],
-        "confidence": "low",
-        "verificationStatus": "unverified"
-      }
-    ],
-    "extractionMetadata": {
-      "promptVersion": "role2-extraction-v1",
-      "model": "synthetic-example",
-      "completedAt": "2026-08-30T11:00:01Z",
-      "outcome": "success"
+      "severity0To10": null,
+      "location": null,
+      "notes": null,
+      "sourceRefs": ["turn_14"]
     }
+  ],
+  "observations": [
+    {
+      "name": "oxygen_saturation",
+      "value": 93,
+      "unit": "%",
+      "origin": "measured",
+      "observedAt": "2026-08-30T09:14:30Z",
+      "sourceRefs": ["staff_observation_02"]
+    }
+  ],
+  "history": {
+    "conditions": [
+      {
+        "name": "hypertension",
+        "status": "reported",
+        "details": null,
+        "sourceRefs": ["turn_18"]
+      }
+    ],
+    "medications": [],
+    "allergies": [
+      {
+        "name": "allergy status",
+        "status": "unknown",
+        "details": null,
+        "sourceRefs": []
+      }
+    ]
+  },
+  "summary": {
+    "oneLine": "Adult patient reports acute chest discomfort with shortness of breath.",
+    "narrative": "Symptoms reportedly began around 30 minutes before arrival. Staff recorded oxygen saturation at 93%. Medication and allergy details remain incomplete."
+  },
+  "safetySignals": [
+    {
+      "code": "ACUTE_CHEST_SYMPTOMS",
+      "label": "Acute chest symptoms reported",
+      "status": "present",
+      "evidenceSourceRefs": ["turn_12", "turn_14"]
+    }
+  ],
+  "informationGaps": [
+    {
+      "fieldPath": "/history/medications",
+      "question": "What medications is the patient currently taking?",
+      "priority": "required"
+    },
+    {
+      "fieldPath": "/history/allergies",
+      "question": "Does the patient have any known allergies?",
+      "priority": "required"
+    }
+  ],
+  "conflicts": [],
+  "provenance": [
+    {
+      "fieldPath": "/chiefComplaint/text",
+      "sourceRefs": ["turn_12", "turn_14"],
+      "confidence": "high",
+      "verificationStatus": "reported"
+    },
+    {
+      "fieldPath": "/observations/0/value",
+      "sourceRefs": ["staff_observation_02"],
+      "confidence": "high",
+      "verificationStatus": "staff_confirmed"
+    }
+  ],
+  "extractionMetadata": {
+    "promptVersion": "role2-extraction-v1",
+    "model": "synthetic-example",
+    "completedAt": "2026-08-30T09:15:01Z",
+    "outcome": "success"
   }
-]
+}

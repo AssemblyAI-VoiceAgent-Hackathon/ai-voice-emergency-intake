@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Voice Emergency Intake
 
-## Getting Started
+Private team repository for an AI-assisted voice intake prototype. The system is intended to capture spoken emergency-intake information, convert it into a structured case, pass it through a secure backend, and present it to authorised staff for human review.
 
-First, run the development server:
+> This prototype does not diagnose patients or make the final triage decision. A qualified human reviewer remains responsible for verification, triage and approval.
+
+## Confirmed team roles
+
+| Role | Team member | GitHub |
+|---|---|---|
+| Role 1 — Voice / conversation | Soha Raees | [@soharaees](https://github.com/soharaees) |
+| Role 2 — AI extraction | Fazwan Zainuddin | [@fazwanproperty](https://github.com/fazwanproperty) |
+| Role 3 — Backend / integration | Mozzam Shahid | [@MozzamShahid](https://github.com/MozzamShahid) |
+| Role 4 — Data / persistence | Ishaan Sama | [@IshaanSama038X](https://github.com/IshaanSama038X) |
+| Role 5 — Staff dashboard / review | Jonathan | [@halojonathan](https://github.com/halojonathan) |
+| Demo and presentation | Mariam Habib | [@MaryamHabib2](https://github.com/MaryamHabib2) |
+
+## Current repository contents
+
+- `contracts/structured-case.schema.json` — Role 2 structured extraction contract.
+- `contracts/intake-transcript.schema.json` — Role 1/3 source envelope accepted by Role 2.
+- `contracts/staff-review.schema.json` — Role 5 staff-review contract.
+- `contracts/examples/` — synthetic sufficient, missing and conflicting payloads.
+- `contracts/ROLE2_ROLE3_ROLE5_HANDOFF.md` — proposed API, event and review workflow.
+- `src/extraction/` — provider-neutral, schema-first extraction and safe-failure engine.
+- `src/backend/` — Role 3 FastAPI ingestion, SSE, staff review, tool calling, and Role 4 save handoff.
+- `src/data/` — Role 4 persistence (Supabase hosted, SQLite for tests), authorised lookup, approved-record save, audit trail, and synthetic fixtures.
+- `supabase/migrations/` — Postgres schema for the hosted Supabase project.
+- `TEAM_PRIORITY_WORKLIST.md` — owner priorities, dependencies, integration order and first shared checkpoint.
+- `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf` — current team workflow, confirmed role reference and Ishaan Sama contribution map.
+- `output/pdf/Role3_Role4_Simple_Flowchart.pdf` — plain-English Role 3 / Role 4 flowchart for non-technical teammates (companion to v4, not a replacement).
+
+The workflow PDF is the confirmed role reference: Soha Raees (Role 1), Fazwan Zainuddin (Role 2), Mozzam Shahid (Role 3), Ishaan Sama (Role 4), Jonathan (Role 5), and Mariam Habib (demo and presentation). It also maps Ishaan Sama's EmergencyVoice tech-stack contribution into the shared FastAPI + SSE plan.
+
+## Proposed architecture
+
+1. Voice intake captures the conversation.
+2. AI extraction produces a traceable `StructuredCase` with sources, confidence, gaps, conflicts and safety signals.
+3. The backend validates, authenticates, versions and publishes case updates.
+4. The staff dashboard shows the draft for review and correction.
+5. An authorised human approves the final triage and record.
+
+## Team workflow
+
+1. Pick or receive a GitHub Issue.
+2. Create a branch from the latest `main`:
+
+   ```bash
+   git switch main
+   git pull
+   git switch -c feat/issue-number-short-description
+   ```
+
+3. Keep commits focused and never commit secrets, real patient data, recordings or identifiable transcripts.
+4. Push the branch and open a Pull Request linked to the Issue.
+5. Obtain at least one teammate review and resolve discussions.
+6. Merge using **Squash and merge**, then delete the feature branch.
+
+Recommended branch prefixes: `feat/`, `fix/`, `docs/`, `test/`, `chore/`.
+
+## Data and safety rules
+
+- Use synthetic data only unless the team has approved a protected-data environment.
+- Do not put patient details, voice recordings, transcripts, secrets or tokens in GitHub.
+- Do not log sensitive intake content in ordinary application logs.
+- Treat AI output as an unverified draft and preserve source/confidence information.
+- Require server-side authorisation, encryption in transit, retention controls and an audit trail before handling real data.
+
+## Getting started
+
+The repository currently contains the integration contract and examples. Each role should confirm the open decisions in `contracts/ROLE2_ROLE3_ROLE5_HANDOFF.md` before the API contract is frozen.
+
+Validate the JSON examples locally (requires Python and `jsonschema`):
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+python scripts/validate_contracts.py
+python -m unittest discover -s tests -v
+python -m src.data --validate-fixtures
+python -m src.data --check-supabase
+python -m src.backend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Role 4 talks to Supabase. Copy `.env.example` to `.env` and set `SUPABASE_URL` plus `SUPABASE_PUBLISHABLE_KEY`. The dashboard Connect dialog labels those `NEXT_PUBLIC_*` because it assumes Next.js; this repo is Python and accepts both names. Then run `supabase/migrations/20260907120000_role4_persistence.sql` in the SQL Editor so case/review/audit tables exist. Lookup already works against the existing `patients` and `history_notes` tables.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Role 2 implementation details and the provider-adapter boundary are documented
+in [`src/extraction/README.md`](src/extraction/README.md). The repository makes
+no external AI call and contains no provider credential; Role 3 injects the
+team's chosen model adapter at deployment time.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project management
 
-## Learn More
+- **Issues**: one deliverable or decision per Issue, with an owner and acceptance criteria.
+- **Milestones**: group Issues by competition checkpoint or demo release.
+- **Pull Requests**: link the relevant Issue using `Closes #123` when appropriate.
+- **Main branch**: always kept in a reviewable, demo-ready state.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full collaboration rules.
