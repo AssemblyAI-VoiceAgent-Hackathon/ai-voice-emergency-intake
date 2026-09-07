@@ -2,9 +2,9 @@
 * @fazwanproperty
 
 # Role-owned implementation areas.
-/src/voice/ @Shahzaib-Fraz
+/src/voice/ @soharaees
 /src/extraction/ @fazwanproperty
-/src/backend/ @MozzamShahid
+/backend/ @MozzamShahid
 /src/data/ @IshaanSama038X
 /src/dashboard/ @halojonathan
 /app/ @halojonathan
@@ -18,10 +18,10 @@
 # Shared contracts require the relevant producer/consumer owners.
 /contracts/structured-case.schema.json @fazwanproperty @MozzamShahid
 /contracts/examples/structured-case.example.json @fazwanproperty @MozzamShahid
-/contracts/intake-transcript.schema.json @Shahzaib-Fraz @fazwanproperty @MozzamShahid
-/contracts/examples/intake-transcript.example.json @Shahzaib-Fraz @fazwanproperty @MozzamShahid
+/contracts/intake-transcript.schema.json @soharaees @fazwanproperty @MozzamShahid
+/contracts/examples/intake-transcript.example.json @soharaees @fazwanproperty @MozzamShahid
 /contracts/examples/structured-case.*.example.json @fazwanproperty @MozzamShahid
 /src/extraction/ @fazwanproperty @MozzamShahid
 /contracts/staff-review.schema.json @MozzamShahid @halojonathan
 /contracts/examples/staff-review.example.json @MozzamShahid @halojonathan
-/contracts/ROLE2_ROLE3_ROLE5_HANDOFF.md @fazwanproperty @MozzamShahid @halojonathan
+/contracts/TEAM_INTEGRATION_HANDOFF.md @soharaees @fazwanproperty @MozzamShahid @IshaanSama038X @halojonathan

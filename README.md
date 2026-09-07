@@ -21,17 +21,46 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 - `contracts/intake-transcript.schema.json` — Role 1/3 source envelope accepted by Role 2.
 - `contracts/staff-review.schema.json` — Role 5 staff-review contract.
 - `contracts/examples/` — synthetic sufficient, missing and conflicting payloads.
-- `contracts/ROLE2_ROLE3_ROLE5_HANDOFF.md` — proposed API, event and review workflow.
+- `contracts/TEAM_INTEGRATION_HANDOFF.md` — complete Role 1–5 ownership, delivery paths and integration workflow.
 - `src/extraction/` — provider-neutral, schema-first extraction and safe-failure engine.
 - `src/backend/` — Role 3 FastAPI ingestion, SSE, staff review, tool calling, and Role 4 save handoff.
 - `src/data/` — Role 4 persistence (Supabase hosted, SQLite for tests), authorised lookup, approved-record save, audit trail, and synthetic fixtures.
 - `app/`, `components/dashboard/` — Role 5 staff review UI (Next.js). Talks only to Role 3; never writes to the database.
 - `supabase/migrations/` — Postgres schema for the hosted Supabase project.
 - `TEAM_PRIORITY_WORKLIST.md` — owner priorities, dependencies, integration order and first shared checkpoint.
-- `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf` — current team workflow, confirmed role reference and Ishaan Sama contribution map.
+- `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles.pdf` — current team workflow (v4), confirmed role reference and Ishaan Sama contribution map.
+- `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf` — exact versioned mirror of the current team workflow.
 - `output/pdf/Role3_Role4_Simple_Flowchart.pdf` — plain-English Role 3 / Role 4 flowchart for non-technical teammates (companion to v4, not a replacement).
 
 The workflow PDF is the confirmed role reference: Soha Raees (Role 1), Fazwan Zainuddin (Role 2), Mozzam Shahid (Role 3), Ishaan Sama (Role 4), Jonathan (Role 5), and Mariam Habib (demo and presentation). It also maps Ishaan Sama's EmergencyVoice tech-stack contribution into the shared FastAPI + SSE plan.
+
+## Repository and delivery map
+
+This repository is the single active product repository. The organisation repositories named `backend` and `frontend` are currently empty and are not part of this delivery workflow. Do not push project work to them unless the team first approves and documents a migration.
+
+| Owner | Delivery path in this repository |
+|---|---|
+| Role 1 — Soha | `src/voice/` |
+| Role 2 — Fazwan | `src/extraction/` |
+| Role 3 — Mozzam | `src/backend/` |
+| Role 4 — Ishaan | `src/data/` |
+| Role 5 — Jonathan | `app/dashboard/`, `components/dashboard/`, `lib/` and `types/` |
+| Demo — Mariam | `demo/` and `presentation/` |
+
+A branch is a temporary version of this same repository, not a separate delivery folder. GitHub shows a branch's own snapshot: an older branch can still show an old PDF or return a 404 for a file that was added later on `main`. Only reviewed and merged work appears on `main`.
+
+## Verified implementation snapshot — 7 September 2026
+
+| Area | Evidence currently visible in GitHub | Interpretation |
+|---|---|---|
+| Shared contracts and workflow | Present on `main` | Available to all roles as the integration baseline. |
+| Role 1 — Voice | No `src/voice/` implementation is visible on `main`; Issues #1, #13 and #14 remain open | Role 1 code delivery is still pending repository evidence. |
+| Role 2 — Extraction | `src/extraction/`, contract examples and tests are present on `main`; Issues #2, #15 and #16 are closed | Role 2 is delivered on `main`. |
+| Role 3 — Backend | `src/backend/` and backend tests are present on `main`; Issues #3, #17 and #19 are closed | Role 3 is delivered on `main`. |
+| Role 4 — Data | `src/data/`, the Supabase migration, synthetic fixtures and tests are present on `main`; Issues #4, #20 and #21 are closed | Role 4 is delivered on `main`. |
+| Role 5 — Dashboard | `app/dashboard/`, dashboard components and workflow tests are present on `main`; Issues #5, #22 and #23 are closed | Role 5 is delivered on `main`. |
+
+The remaining open GitHub work is Role 1 voice delivery (Issues #1, #13 and #14), the cross-role synthetic end-to-end demonstration (#7), domain/safety review (#6), and competition demo/presentation preparation (#11). Team members must keep ARIA status aligned and attach repository or test evidence; this document does not infer completion from chat messages.
 
 ## Proposed architecture
 
@@ -69,7 +98,7 @@ Recommended branch prefixes: `feat/`, `fix/`, `docs/`, `test/`, `chore/`.
 
 ## Getting started
 
-The repository currently contains the integration contract and examples. Each role should confirm the open decisions in `contracts/ROLE2_ROLE3_ROLE5_HANDOFF.md` before the API contract is frozen.
+The repository currently contains the integration contract and examples. Each role should confirm the open decisions in `contracts/TEAM_INTEGRATION_HANDOFF.md` before the API contract is frozen.
 
 Validate the JSON examples locally (requires Python and `jsonschema`):
 
@@ -102,5 +131,6 @@ team's chosen model adapter at deployment time.
 - **Milestones**: group Issues by competition checkpoint or demo release.
 - **Pull Requests**: link the relevant Issue using `Closes #123` when appropriate.
 - **Main branch**: always kept in a reviewable, demo-ready state.
+- **ARIA Project**: the source of truth for delivery status. Use `Backlog` → `In Progress` → `In Review` → `Done`, and attach a branch, Pull Request, test result or demo evidence.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full collaboration rules.

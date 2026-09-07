@@ -15,7 +15,8 @@ from pypdf.generic import ContentStream, TextStringObject, NameObject
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / 'output/pdf/archive/AI_Emergency_Intake_Team_Workflow_Roles_2026-08-30_v1.pdf'
-OUT = ROOT / 'output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf'
+CURRENT = ROOT / 'output/pdf/AI_Emergency_Intake_Team_Workflow_Roles.pdf'
+VERSIONED = ROOT / 'output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf'
 PREVIEW = ROOT / 'tmp/pdfs/workflow-v4-candidate.pdf'
 W,H = 1190.551,841.8898
 NAVY=colors.Color(.09,.196,.302)
@@ -120,15 +121,15 @@ for i,page in enumerate(reader.pages,1):
         p(c,'<b>Confirmed:</b> Soha Raees (Role 1), Fazwan Zainuddin (Role 2), Mozzam Shahid (Role 3), Ishaan Sama (Role 4) and Jonathan (Role 5).',68,665,1047,11,color=WHITE)
         p(c,'<b>Added:</b> Ishaan Sama\'s EmergencyVoice tech-stack contribution is mapped to the team workflow on page 6. <b>Retained:</b> FastAPI + SSE and human-owned clinical decisions.',68,699,1047,10.5,color=WHITE)
         # Small notes in the existing cards; no changes to card order or role colours.
-        pill(c,'v2: SSE publisher',506,493,145)
-        pill(c,'v2: SSE receiver',944,493,145)
+        pill(c,'SSE publisher',506,493,145)
+        pill(c,'SSE receiver',944,493,145)
         for x,name,col in zip([55,270,485,700,915],ROLE_NAMES.values(),[BLUE,TEAL,ORANGE,PURPLE,GREEN]):
             p(c,name,x+12,538,179,9.1,11,color=col,bold=True,align=1)
     elif i==2:
-        pill(c,'UNCHANGED FROM v1',42,89,153)
+        pill(c,'CURRENT FLOW',42,89,110)
     elif i==3:
         rect(c,42,85,1106,17,PALE,4)
-        p(c,'UPDATED IN v2: step 9 publishes SSE updates to step 11; staff review returns through an API. Lane order and step numbers are unchanged.',49,89,1088,8.4,9,color=AMBER,bold=True)
+        p(c,'CURRENT HANDOFF: step 9 publishes SSE updates to step 11; staff review returns through an API. Lane order and step numbers are unchanged.',49,89,1088,8.4,9,color=AMBER,bold=True)
         # Reuse the original label centres. Underlying old text was removed above.
         rect(c,630,516,62,13,PALE,3)
         p(c,'SSE UPDATE',636,519,60,7.5,8,color=GREEN,bold=True)
@@ -143,12 +144,12 @@ for i,page in enumerate(reader.pages,1):
             p(c,name,36,top,92,6.9,8,color=WHITE,bold=True,align=1)
     elif i==4:
         pill(c,'UPDATED CELLS',42,166,113)
-        p(c,'Highlighted notes clarify the SSE handoff. Role 1 is reassigned to Soha Raees in v4; the table structure is unchanged.',166,169,970,9,color=MUTED)
+        p(c,'Highlighted notes clarify the current SSE handoff. Role 1 is assigned to Soha Raees.',166,169,970,9,color=MUTED)
         # The original table grid is retained. Only four cells gain revised text.
-        p(c,'<font color="#945511"><b>UPDATED v2</b></font><br/>Response text to Role 1; tool requests and structured extraction to Role 3. The backend owns the SSE event wrapper.',445,350,218,9,12)
-        p(c,'<font color="#945511"><b>UPDATED v2</b></font><br/>FastAPI; authentication; validation; tool execution; workflow orchestration; SSE publishing and reconnection; staff-review APIs.',175,450,250,9,12)
-        p(c,'<font color="#945511"><b>UPDATED v2</b></font><br/>Queries and approved saves to Role 4; live SSE updates to Role 5; actual tool results to Role 2.',445,450,218,9,12)
-        p(c,'<font color="#945511"><b>UPDATED v2</b></font><br/>SSE updates with the draft, missing information, conflicts and tool status from Role 3; confirmed review/save responses.',680,645,218,9,12)
+        p(c,'<font color="#945511"><b>CURRENT</b></font><br/>Response text to Role 1; tool requests and structured extraction to Role 3. The backend owns the SSE event wrapper.',445,350,218,9,12)
+        p(c,'<font color="#945511"><b>CURRENT</b></font><br/>FastAPI; authentication; validation; tool execution; workflow orchestration; SSE publishing and reconnection; staff-review APIs.',175,450,250,9,12)
+        p(c,'<font color="#945511"><b>CURRENT</b></font><br/>Queries and approved saves to Role 4; live SSE updates to Role 5; actual tool results to Role 2.',445,450,218,9,12)
+        p(c,'<font color="#945511"><b>CURRENT</b></font><br/>SSE updates with the draft, missing information, conflicts and tool status from Role 3; confirmed review/save responses.',680,645,218,9,12)
         for top,name in [(304,ROLE_NAMES[1]),(404,ROLE_NAMES[2]),(504,ROLE_NAMES[3]),(604,ROLE_NAMES[4]),(704,ROLE_NAMES[5])]:
             p(c,name,50,top,112,8.5,10,bold=True)
     footer(c,i)
@@ -162,7 +163,7 @@ c.setFillColor(NAVY);c.setFont('Helvetica-Bold',23)
 c.drawString(42,H-48,'4. Team Status and Next Actions')
 p(c,'3 September update - Role 1 reassigned to Soha Raees; next actions and the shared synthetic-case target remain unchanged.',42,58,1040,10.5,color=MUTED)
 c.setStrokeColor(colors.HexColor('#D9E1E8'));c.line(42,H-78,W-42,H-78)
-pill(c,'NEW IN v2',1056,33,92)
+pill(c,'CURRENT v4',1056,33,92)
 rect(c,42,94,1106,49,colors.HexColor('#EAF0FF'),8,colors.HexColor('#ADC4FF'))
 p(c,'<b>Current direction:</b> FastAPI + SSE. <b>Example received:</b> EXTRACTION_UPDATE JSON. <b>Implementation status:</b> each owner to confirm; no completion is assumed.',50,104,1088,10.3)
 p(c,'The shared payload is an example, not yet the final contract. SSE specifies live delivery; it does not decide which database we use.',50,123,1088,10.1)
@@ -184,8 +185,8 @@ def table(headers,rows,widths,top,row_colours=None,size=9.5,pad=8):
     t.drawOn(c,42,H-top-h)
     return top+h
 
-p(c,'What changed from the version already shared?',42,157,1100,12.5,bold=True,color=NAVY)
-end=table(['Reference in v1','Earlier wording / position','v2 update'],[
+p(c,'Current integration clarifications',42,157,1100,12.5,bold=True,color=NAVY)
+end=table(['Workflow area','Earlier wording / position','Current v4 direction'],[
  ('Page 3: step 9 to step 11','LIVE EVENT; transport not named on the diagram.','SSE UPDATE: FastAPI sends live draft updates to the staff dashboard.'),
  ('Page 3: review return path','STAFF APPROVAL.','STAFF REVIEW API: staff edits/approval return to Role 3; approved records are saved via Role 4.'),
  ('Page 4: handoffs; page 5 added','Generic live case events; no dated next-action sheet.','SSE sender/receiver responsibilities clarified; shared data decisions and next deliverables listed below.')
@@ -268,7 +269,12 @@ for name in ROLE_NAMES.values():
 assert 'EmergencyVoice - Tech Stack Document' in full
 for label in ['1. Current Emergency Intake Flow','2. Proposed AI-Assisted Workflow by Role','3. Ownership and Handoff Contract']:
     assert label in full
+published = PREVIEW.read_bytes()
+CURRENT.write_bytes(published)
+VERSIONED.write_bytes(published)
+assert CURRENT.read_bytes() == VERSIONED.read_bytes()
 print('Candidate:',PREVIEW)
 print('Pages:',len(result.pages))
 print('Last-page content bottom:',round(top+125,1))
-print('Stable destination after visual QA:',OUT)
+print('Published current:',CURRENT)
+print('Published versioned mirror:',VERSIONED)

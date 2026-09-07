@@ -5,15 +5,15 @@
 /Producer (pypdf)
 /Title (AI Emergency Patient Intake \055 Team Workflow and Role Ownership)
 /Author (International Competition Team Fazwan)
-/Subject (Architecture Draft v2 \055 31 Aug 2026 \055 FastAPI SSE handoff update\073 same baseline layout)
-/Keywords (team workflow\054 role ownership\054 FastAPI\054 SSE\054 v2\054 team review)
+/Subject (Architecture Draft v4 \055 3 Sep 2026 \055 Role 1 reassigned to Soha Raees)
+/Keywords (team workflow\054 confirmed role ownership\054 Soha Raees\054 Ishaan Sama\054 FastAPI\054 SSE\054 v4\054 team review)
 >>
 endobj
 2 0 obj
 <<
 /Type /Pages
-/Count 5
-/Kids [ 4 0 R 11 0 R 16 0 R 20 0 R 27 0 R ]
+/Count 6
+/Kids [ 4 0 R 11 0 R 16 0 R 20 0 R 27 0 R 33 0 R ]
 >>
 endobj
 3 0 obj
@@ -48,7 +48,7 @@ endobj
 endobj
 5 0 obj
 <<
-/Length 9365
+/Length 10035
 >>
 stream
 q
@@ -83,7 +83,7 @@ BT
 14.4 TL
 /F1 12 Tf
 0 -27 Td
-(Updated architecture proposal for team review \174 v2 \174 31 Aug 2026) Tj
+(Role 1 reassignment and confirmed team update \174 v4 \174 3 Sep 2026) Tj
 ET
 0.129 0.255 0.361 rg
 0.302 0.439 0.533 RG
@@ -429,7 +429,7 @@ BT
 11.4 TL
 /F1 9.5 Tf
 -907.4091 -200 Td
-(Team review\072 confirm the updated handoffs and next actions on page 5\056 Final clinical decisions remain staff\055owned\056) Tj
+(Team review\072 confirmed owners are named throughout\056 See page 6 for Ishaan Sama\047s technical contribution and open decisions\056) Tj
 ET
 
 Q
@@ -465,7 +465,7 @@ BT
 1 0 0 1 0 3.6 Tm
 /F2 12 Tf
 15.6 TL
-(31 AUG UPDATE \055 WHAT CHANGED SINCE v1) Tj
+(3 SEP UPDATE \055 ROLE 1 REASSIGNED AND TEAM ROSTER CONFIRMED) Tj
 T*
 ET
 Q
@@ -478,9 +478,9 @@ BT
 14.3 TL
 /F2 11 Tf
 1 1 1 rg
-(Updated\072) Tj
+(Confirmed\072) Tj
 /F1-0 11 Tf
-( FastAPI \053 SSE is the current team direction\056 The live\055event connection from Role 3 to Role 5 is now labelled SSE\073 staff review returns through the backend API\056) Tj
+( Soha Raees \050Role 1\051\054 Fazwan Zainuddin \050Role 2\051\054 Mozzam Shahid \050Role 3\051\054 Ishaan Sama \050Role 4\051 and Jonathan \050Role 5\051\056) Tj
 T*
 ET
 Q
@@ -493,13 +493,13 @@ BT
 13.65 TL
 /F2 10.5 Tf
 1 1 1 rg
-(Unchanged\072) Tj
+(Added\072) Tj
 /F1-0 10.5 Tf
-( the same five roles\054 workflow steps\054 follow\055up questions\054 record retrieval and human approval\056 ) Tj
+( Ishaan Sama\047s EmergencyVoice tech\055stack contribution is mapped to the team workflow on page 6\056 ) Tj
 /F2 10.5 Tf
-(Still open\072) Tj
+(Retained\072) Tj
 /F1-0 10.5 Tf
-( final data format\054 database and each owner\047s implementation readiness\056) Tj
+( FastAPI \053 SSE and human\055owned clinical decisions\056) Tj
 T*
 ET
 Q
@@ -526,7 +526,7 @@ BT
 1 0 0 1 0 0.5 Tm
 /F2 7.5 Tf
 8 TL
-(v2\072 SSE publisher) Tj
+(SSE publisher) Tj
 T*
 ET
 Q
@@ -553,8 +553,83 @@ BT
 1 0 0 1 0 0.5 Tm
 /F2 7.5 Tf
 8 TL
-(v2\072 SSE receiver) Tj
+(SSE receiver) Tj
 T*
+ET
+Q
+Q
+q
+1 0 0 1 67 292.8898 cm
+q
+0.184 0.42 1 rg
+BT
+1 0 0 1 0 1.9 Tm
+/F2 9.1 Tf
+11 TL
+59.4154 0 Td
+(SOHA RAEES) Tj
+T*
+-59.4154 0 Td
+ET
+Q
+Q
+q
+1 0 0 1 282 292.8898 cm
+q
+0.059 0.545 0.553 rg
+BT
+1 0 0 1 0 1.9 Tm
+/F2 9.1 Tf
+11 TL
+43.50405 0 Td
+(FAZWAN ZAINUDDIN) Tj
+T*
+-43.50405 0 Td
+ET
+Q
+Q
+q
+1 0 0 1 497 292.8898 cm
+q
+0.902 0.494 0.133 rg
+BT
+1 0 0 1 0 1.9 Tm
+/F2 9.1 Tf
+11 TL
+50.82955 0 Td
+(MOZZAM SHAHID) Tj
+T*
+-50.82955 0 Td
+ET
+Q
+Q
+q
+1 0 0 1 712 292.8898 cm
+q
+0.404 0.314 0.643 rg
+BT
+1 0 0 1 0 1.9 Tm
+/F2 9.1 Tf
+11 TL
+57.39975 0 Td
+(ISHAAN SAMA) Tj
+T*
+-57.39975 0 Td
+ET
+Q
+Q
+q
+1 0 0 1 927 292.8898 cm
+q
+0.18 0.545 0.341 rg
+BT
+1 0 0 1 0 1.9 Tm
+/F2 9.1 Tf
+11 TL
+64.22475 0 Td
+(JONATHAN) Tj
+T*
+-64.22475 0 Td
 ET
 Q
 Q
@@ -564,8 +639,8 @@ BT
 10.2 TL
 ET
 BT
-1 0 0 1 972.618 24 Tm
-(Architecture Draft v2  \174  31 Aug 2026  \174  Page 1) Tj
+1 0 0 1 977.344 24 Tm
+(Architecture Draft v4  \174  3 Sep 2026  \174  Page 1) Tj
 T*
 ET
 Q
@@ -640,7 +715,7 @@ endobj
 endobj
 12 0 obj
 <<
-/Length 13492
+/Length 13486
 >>
 stream
 q
@@ -1593,10 +1668,10 @@ ET
 1 0.94902 0.862745 RG
 n
 46 735.8898 m
-191 735.8898 l
-193.2112 735.8898 195 737.6786 195 739.8898 c
-195 748.8898 l
-195 751.101 193.2112 752.8898 191 752.8898 c
+148 735.8898 l
+150.2112 735.8898 152 737.6786 152 739.8898 c
+152 748.8898 l
+152 751.101 150.2112 752.8898 148 752.8898 c
 46 752.8898 l
 43.7888 752.8898 42 751.101 42 748.8898 c
 42 739.8898 l
@@ -1611,7 +1686,7 @@ BT
 1 0 0 1 0 0.5 Tm
 /F2-0 7.5 Tf
 8 TL
-(UNCHANGED FROM v1) Tj
+(CURRENT FLOW) Tj
 T*
 ET
 Q
@@ -1622,8 +1697,8 @@ BT
 10.2 TL
 ET
 BT
-1 0 0 1 972.618 24 Tm
-(Architecture Draft v2  \174  31 Aug 2026  \174  Page 2) Tj
+1 0 0 1 977.344 24 Tm
+(Architecture Draft v4  \174  3 Sep 2026  \174  Page 2) Tj
 T*
 ET
 Q
@@ -1682,7 +1757,7 @@ endobj
 endobj
 17 0 obj
 <<
-/Length 19786
+/Length 20432
 >>
 stream
 q
@@ -1828,7 +1903,7 @@ T*
 ET
 BT
 1 0 0 1 67.996 551 Tm
-(Fazwan) Tj
+() Tj
 T*
 ET
 1 0.941176 0.882353 rg
@@ -2961,7 +3036,7 @@ BT
 1 0 0 1 0 0.6 Tm
 /F2-0 8.4 Tf
 9 TL
-(UPDATED IN v2\072 step 9 publishes SSE updates to step 11\073 staff review returns through an API\056 Lane order and step numbers are unchanged\056) Tj
+(CURRENT HANDOFF\072 step 9 publishes SSE updates to step 11\073 staff review returns through an API\056 Lane order and step numbers are unchanged\056) Tj
 T*
 ET
 Q
@@ -3107,14 +3182,89 @@ T*
 ET
 Q
 Q
+q
+1 0 0 1 36 661.8898 cm
+q
+1 1 1 rg
+BT
+1 0 0 1 0 1.1 Tm
+/F2-0 6.9 Tf
+8 TL
+23.1886 0 Td
+(SOHA RAEES) Tj
+T*
+-23.1886 0 Td
+ET
+Q
+Q
+q
+1 0 0 1 36 539.8898 cm
+q
+1 1 1 rg
+BT
+1 0 0 1 0 1.1 Tm
+/F2-0 6.9 Tf
+8 TL
+11.12395 0 Td
+(FAZWAN ZAINUDDIN) Tj
+T*
+-11.12395 0 Td
+ET
+Q
+Q
+q
+1 0 0 1 36 406.8898 cm
+q
+1 1 1 rg
+BT
+1 0 0 1 0 1.1 Tm
+/F2-0 6.9 Tf
+8 TL
+16.67845 0 Td
+(MOZZAM SHAHID) Tj
+T*
+-16.67845 0 Td
+ET
+Q
+Q
+q
+1 0 0 1 36 273.8898 cm
+q
+1 1 1 rg
+BT
+1 0 0 1 0 1.1 Tm
+/F2-0 6.9 Tf
+8 TL
+21.66025 0 Td
+(ISHAAN SAMA) Tj
+T*
+-21.66025 0 Td
+ET
+Q
+Q
+q
+1 0 0 1 36 141.8898 cm
+q
+1 1 1 rg
+BT
+1 0 0 1 0 1.1 Tm
+/F2-0 6.9 Tf
+8 TL
+26.83525 0 Td
+(JONATHAN) Tj
+T*
+-26.83525 0 Td
+ET
+Q
+Q
 0.36 0.412 0.459 rg
 BT
 /F1-0 8.5 Tf
 10.2 TL
 ET
 BT
-1 0 0 1 972.618 24 Tm
-(Architecture Draft v2  \174  31 Aug 2026  \174  Page 3) Tj
+1 0 0 1 977.344 24 Tm
+(Architecture Draft v4  \174  3 Sep 2026  \174  Page 3) Tj
 T*
 ET
 Q
@@ -3168,7 +3318,7 @@ endobj
 endobj
 21 0 obj
 <<
-/Length 7972
+/Length 8546
 >>
 stream
 q
@@ -3315,7 +3465,7 @@ T*
 (AI \057 Agent Engineer) Tj
 /F1 8.7 Tf
 0 -11.2 Td
-(Fazwan) Tj
+() Tj
 ET
 1 0 0 1 125 0 cm
 BT
@@ -3361,7 +3511,7 @@ BT
 [ (B) 1 (a) -1 (ck) 1 (en) -1 (d ) 1 (E) -1 (n) 1 (gi) -1 (n) 1 (ee) -1 (r) ] TJ
 /F2 8.7 Tf
 0 -12.8269 Td
-(Askeri) Tj
+() Tj
 ET
 /GS0 gs
 1 0 0 1 125 -19.299988 cm
@@ -3414,7 +3564,7 @@ BT
 [ (D) 1 (a) -1 (t) 1 (ab) -1 (as) 1 (e ) -1 (\046 ) 1 (I) -1 (nt) 1 (eg) -1 (ra) 1 (t) -1 (io) 1 (n) ] TJ
 /F2 8.7 Tf
 0 -12.8269 Td
-(Ishan) Tj
+() Tj
 ET
 /GS0 gs
 1 0 0 1 124 -13.699997 cm
@@ -3592,7 +3742,7 @@ BT
 1 0 0 1 0 2.7 Tm
 /F1-0 9 Tf
 11.7 TL
-(Highlighted notes below clarify the SSE handoff\056 Role ownership and table structure are unchanged\056) Tj
+(Highlighted notes clarify the current SSE handoff\056 Role 1 is assigned to Soha Raees\056) Tj
 T*
 ET
 Q
@@ -3605,7 +3755,7 @@ BT
 12 TL
 /F2-0 9 Tf
 0.580392 0.333333 0.066667 rg
-(UPDATED v2) Tj
+(CURRENT) Tj
 /F1-0 9 Tf
 0.090196 0.137255 0.184314 rg
 T*
@@ -3628,7 +3778,7 @@ BT
 12 TL
 /F2-0 9 Tf
 0.580392 0.333333 0.066667 rg
-(UPDATED v2) Tj
+(CURRENT) Tj
 /F1-0 9 Tf
 0.090196 0.137255 0.184314 rg
 T*
@@ -3649,7 +3799,7 @@ BT
 12 TL
 /F2-0 9 Tf
 0.580392 0.333333 0.066667 rg
-(UPDATED v2) Tj
+(CURRENT) Tj
 /F1-0 9 Tf
 0.090196 0.137255 0.184314 rg
 T*
@@ -3668,7 +3818,7 @@ BT
 12 TL
 /F2-0 9 Tf
 0.580392 0.333333 0.066667 rg
-(UPDATED v2) Tj
+(CURRENT) Tj
 /F1-0 9 Tf
 0.090196 0.137255 0.184314 rg
 T*
@@ -3681,14 +3831,79 @@ T*
 ET
 Q
 Q
+q
+1 0 0 1 50 527.8898 cm
+q
+0.090196 0.137255 0.184314 rg
+BT
+1 0 0 1 0 1.5 Tm
+/F2-0 8.5 Tf
+10 TL
+(SOHA RAEES) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 50 427.8898 cm
+q
+0.090196 0.137255 0.184314 rg
+BT
+1 0 0 1 0 1.5 Tm
+/F2-0 8.5 Tf
+10 TL
+(FAZWAN ZAINUDDIN) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 50 327.8898 cm
+q
+0.090196 0.137255 0.184314 rg
+BT
+1 0 0 1 0 1.5 Tm
+/F2-0 8.5 Tf
+10 TL
+(MOZZAM SHAHID) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 50 227.8898 cm
+q
+0.090196 0.137255 0.184314 rg
+BT
+1 0 0 1 0 1.5 Tm
+/F2-0 8.5 Tf
+10 TL
+(ISHAAN SAMA) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 50 127.8898 cm
+q
+0.090196 0.137255 0.184314 rg
+BT
+1 0 0 1 0 1.5 Tm
+/F2-0 8.5 Tf
+10 TL
+(JONATHAN) Tj
+T*
+ET
+Q
+Q
 0.36 0.412 0.459 rg
 BT
 /F1-0 8.5 Tf
 10.2 TL
 ET
 BT
-1 0 0 1 972.618 24 Tm
-(Architecture Draft v2  \174  31 Aug 2026  \174  Page 4) Tj
+1 0 0 1 977.344 24 Tm
+(Architecture Draft v4  \174  3 Sep 2026  \174  Page 4) Tj
 T*
 ET
 Q
@@ -3780,10 +3995,10 @@ endobj
 29 0 obj
 <<
 /Filter [ /ASCII85Decode /FlateDecode ]
-/Length 3941
+/Length 3992
 >>
 stream
-Gau0F=``=e&q8H9kXTJj)W<lULFq5W;G&7@,'0<'gOd57L_p73*)onF5CUA=)1\AJ6LfqKQVG\TRD,QqlQ4\hiNKB_:KKq+Aor$0PO6_56+/.'Rf,q/fnlqB&p>7VE%QjF`tL>X+ii]$:+-0"&cK.@drQpr>nKMF7'dW!H@f`a=j`Q_C"f#=@SXE'c\<c\PEeT82k'\?ZQFFS5>HrKKU-R^XHBY>+C*:OJNi&gYp%'RR;dlIo3R:Z9DFAP<s1]cGO!m=Bcl*@TlrRp)G0*ka\=+SW*)_bQV$]qlSD/V@ZaY@eQK%d6$&H+23W:)I0ECpAD0j_8?/"J-0J5l(DpnmPgZ@n@_g0jpa[QG!Ws!fj8(Bb(bNq+q]AT@`F3/MZm+8u,2rFm[P+O3OG8S)(kNQ$i.R]JI)"t,eP9p2YTS)CXET9h]PTanFs%dZhY-K"8l%_i"^T='A*JhbK@[m9g^]$Tg!hYj=])r$[r%t1SA(!7/O'qX'G'')r*[.0DKspfdI+!U]66\[\(I"5*U_C?jiQM;JMCTc`Gf4>Pr\Z&ji.k+X8\3b!rN@3)3usg"_DDKMNgQc:4K%.>M;%i'cu+<i.\6V)c'Q;$Sp6RCf#ccWskOkA\LT!*"<T?BIeYo'KXOJ:TMQWKGT;Jf*Z[8(:s$r_Et?_g/t.X/bHo/2/Cr=R@:jTT6S*>6dX_7Z*eb5nT20:HGZeEN*Nh#M;9@=#=FMS8KW[Z@KIM\)0[QVEPUOhTEuTQ2eEf/8oW4D)o@u=I$F#QNpl"pjm>A-FS`8E.TnSbcRPplc)"=+E>7^2;n>`hAo`)_J#=r,VLm$Nm09K;5EjVYQZ*nCbVjLUDis;!B(qLMZ^]:Ms8M3;Vo`aI5CN?T]5P(r?>B_E&giELjVRYC.?ejFj\m<QC<Fgd>uAGa]S:_qK1i?4FsZ<)h9W6C/RO0[DuU&2p.Fc@^p2V5Z.c?A#.%n0#hR1>?7'_^9gM\#lO9RIoILsC;\rT!jNL%k-#"T+el8j3@i(Q7.>M0eEVZMY^7l#c/()TLYTKH0H<Onl#98!Z!+/ApP1nM?G:/%H5pQMU_"4U/2WQ^]carM2&-=eg6ca2hUbS!@:5c.%;$*P6I%VagA28WmZM;HW8Ub'(3;*iE<:E!X+X$Ju7'2!b*FAplU4W;l^d>L'.6K8B"FCeF/)[8r,S:7s4:[mCp,=2H^<XCR4&GXBf65`r"0X(TMN\MTYY?N+3<fY'=UchNR68H#^\!Q)*T9&maCB)Y[]R&NOl+?9`6h:*AHcr;K0j^NkhUS[P:Fmtb+?ajSe[<.60ki%pimfC;R-2gD)[J@,R8N"Yn*o$]+1qf_RM\7h563QT\/igH'IAr_X#9#`U$[UP<CPV@oMphc.=C=^J8][<s3_DeEaDTe6t!CGVVN8Fhm-BnlR3=&]Y[A8#M@FP4mh#I:T9f1%0KhPq4sA=gS$n;#'P!!ktX?5*SVrie^$C<@g5G64K`mACFQ_r,K%_e`a9[pbJ=D?dn*(mf)h0aj8ucqu?#25Q,m1>R#=V)L]\Pf$kMXH<ldTKH;?VW9h5d0R']k&&I*6fQ$Nq]AVi:KR5U[U8N9Hapa?58FM]QA`i)`;-uVGkj^*icfKORRE$T57gZhZKLQh@B/Lqn^acb/*Gk@h.ZhB8-`KQg9.??MFWZf."WD=sAT_Fs=9[g&I2$htOQGub30\-K</`<h<ujD3e?I3\<"@&EFFYT]a;"iWRC`]lQV[K<q?d1N57o$p6eDlYa7^*N,K*VE?q_*Xn?`kF=#tqV9hsp[`MONWG.Oak'?uaDMs0AC#'H[[dLk=EksdV-A%<K*%6`c3[b?XhGIR,D-$Y)mLEjS%!B3b)O<tqJDr&-(NlG=.4?NhQ>UL4>Zr)VoLE[4TLkR*%oR$35E?Ti'[p[8e)>T`3O`:2s;63S0VrW<Zch;1[?$\21Aa[",#4utfV7h:-X,/Qa!V"Z7#26<TXUC"J.\+"=H%?7qc5jlYHKshJr\EgBY_4U^Dd];YJ;JZ+M-'lFJ0Y%l`K']P%9;/FrU/L+SS:lCE1apms$"m@1)S$:N47Fcd8SUI'm+,"Z9#KSjQXX":>b;%UK=f^XA+DL=gg5Ze(6>W6'IdX!P`Dsqt9Z,#e6DL.Fa\bfc%sUU9aL7[B*@p<HZq9;5^J+W>)Y^iLA0JFm&@U@o,9JLSKr/iNYE=b[nT(rWdJX8^;^+QA?r@*1[*S/F:RlcGAUFPn3n.AZ`fsEt(Dtam(SQ0ET:LT/a+c33[tU%?B-&&b1;)$Jr,h*mm^Qm#bkU.KM()"R@&sX$7<+WZPJ#A4r$`eR_t$<q?I!R;l(Mf6i<t-32g.2T0X#J$*3.S3=7(\o$^km,?#JR2Sp3>ut"7Ma`qDOR!dd1)Mm38g][93-b_"dEW*C>cAXgPp)Q;*J%;=&=%cMZalM\Afn;$U#F)diPIcB,Uohk0_f2=Gh;))"SpHpiNo7M^<$bHf:XFj708gKcV2M.GoSpk^NKDRpnj#U3MYZh]WTpFbGoA#Q`@DOC(SGJ6hps]K=Q3)(r1Y&-!pUDAKBL84dFR,qPq`tPUfEEIVVgE3[%_?:1;.7I1^]9hi5/'Z3:cIn-KqXe.CKCnVA3-'u)Qa(tp[JYNdoT!G.PH.XPs29QH#g9Z&,uk;oTS86Vg?a9]rrl.!3L*1;H8#a(J8[s!1sr-qR%kDQVtR.e,9[Js/!8h0XaOd@Q4#S05mG+Gt]"$T[e,=aj9')[:%33jS"Y_28A`*%K*.D0Hj4ehk=ea#>C<^l&>$4NhWjV'd(lh[@IY1tK%$uN$F"3Z4_4M\(9lN#s'EGSD&-rb)$S3j,X?lmt;o#ac<]pft!)UYA7n/FCM<s-Iq7HiJ.Y.JV6g`f`:Z\e-'PE"54-b1^8%DO1=o*BkX>POh7h<PbSM3\=3OMR!Zg>>O+#_9%GY@dkN<9d:IW2d)C@5TP80!G&q?uRGm?(`b>kA_G#-3pW%F+#9-N&tt#F7&i"8Z?hBknZ/GOUc;$nP")6C3*C)iRd$>^bF9@5Z,6[,lI=mKh7*4@Y8C/?*W%MpnD6f@M,/#GCupC&*]Up)q1p<:aO6>Qtg_13[H[O]$V<[3!&G^+T1#]5ZD(EPsA<d:`m9;Gl7!X*k6NLIto8["L@K^Sl9Y%[6gfD7/1LdGOauYSh<m-Mr263\G5Ige5`[3KYie^MdOMI9Sl,DoX^>EGb<`An@[`!YA7A@C=]hi/q3]Kp>WRMid+5+R!S0Zp7*]PlJf9#Z!4$e@*%m(MdO+7_8cc;HT/_<kel*FdDp&aq1V"]^:h7ks(0'VZLhROrV:n72n--XO8#[?E7GRX"^G!\HPu39hs)uN&Y[f^7`Q^!lRnX$9oZOG!mpdqr9]KIH1t8_=.Kb*W2co0%KY3b[!@,GY$TPR-6tfML+m3`_-(soM5RfW<l"H8R#Hl;aa'5#(j(TOf]^C3\=DtXcnmM+h>nPD=0QKWMjpgWZFs)klp37f9a6bM$H3ReB,t4;;nbt\X5(St6::aR1JTOq$ZrA\S3:]_;:#t`r+<?3bg'N0NR-f309IGYMX)Ug*i4][X;O=U=bUMEIsLh,Tft8/QX8K"d[AsZQ)6&:)B&$>(skgYDH!?!2;?/B%-,gY-b',c@f19s7mJ"?IRX/dfRaW9m-"LV>-?s5B/WYa/W79k)2eg38T"$=aVqASmTQ.K5$\OK310%Q1Gt?-)FA_oU.P4e?Oaf,@:+:e_\_sMle:4aZu!@U`!iWn]NjtF>(36@Z(l7\R_=mJfcQ%2V$u=(A@g8Io`_EiIDc\bU<$2O5^sF/q]$a.>MU<pK!o7Ep0WR<2dbqrOHnGP4&X\iYM45#U&*;@DlUH`*!OOuAjY2=k9iDN@\_r*K@/`QMj%57[I#[i/Jm<38lliNa>+5G&_I@pl5ZEkWcXZ6)eu(H:C>He*2<I07lTcl:i1>,jpt"UPQ(\BkTUu~>
+Gau0F=a/UY(4Ol=^gj6O6eiLTa[tQRHWhf)eTB*Lb^h4a@SMt7(V/t%+$\Wd^dXR-1h07#&ePM&]A^@0BJU$GD=rCaB'fJd9s8DG4)DWA[`:Nhs,kRg'5kdJgMt$=CH8JDS>_8SF'P0tKKLq%d;PL34bn`rbG-JGfR1s#H(<-U=L7m.e4mnM^0nG@O.'?#F^!kVhq7ic2ZJdQq0b#',IFu@@Z=oX!UbOD&+jkfNt!7Ua+VWQTCu/F=PQt_\308;\p#d=Q^_0]+(WK^bsKpCS[5pPPBaR$U8lY^>V9,aYkqlUfU\,0\n!hK-o?p@k^"OX[1Xd_<\HI:FdegJU6;SnjeJo^elnk0C[u!^njg7K"4hq@?QT"Ypjlrqf68*ndBYlXp\c@=$jT78CM)=-`-pP2q_E=*iUGKXTa)VB:?_L!L:ocSD.6_#"XVf5]a<9]qK>?qJ313qpX,!nD*]!BD9LO@a[EO&lem2+LYT=Seh%Y?;7DqE[h;D1f>d-B+7_+C#B*^ncnD=:?N3(?*Aq!SDJ<r(lZq1B5+/K!bO5YDKjbe8JJhM>j[YUU6\qoA_mgH>:Uk%MgfPGYV2[$(#57#B]=Zb`S8Gsk)NX8>n3YQcN@2$@`sImq\PQNJONu4PFQQdYLnfO@#&PZ+S4^idqm;A7LO2>N[B3h,A"ak1BIq(?Y)Pl]eNtqU<jVX'6I^+ZCuY9G%mb]s7HW;V7aLHkab3hL)4>@['&,i9%YbseQJN.[6j,Il12_7,lG*LhTF)ZZ2^TQ,:2ob=/7Hb#Qt<n'j88TtH$bW9<7R50b\OXX9<$51Ki4<>%e]Z[FtK`jlLPJ^41i8"EFrhT)n_[=+k@Uj#M,"$<\=k61Ag84mcq^fk0r_4J,0$4C-H,lgjcmu[+Ytk[0BW_#\'(9a[8]nOfV[TS--e3<_8E,drGnnU1[Xs]q,;-WiB4jj3OlI/Y@fIG6!Y\CesKe!,-3O['m$\_7W:ZNHiPPYu&s29PSjDJ^g.%!%J:JQYA'-ihA%+Z^bRNWf9^#AL]3r6*>#Il)/p>A1:JYTUQ^!@*V*Ek>_k/!7&OcJag!V9dPkl$r[RdL^3?uk<7]\j>?35]BpH%!h@^lV)>#)YN98nop0-_"RV%jmFM!pn,nThZ$2.eSE<rSrn,9%ZiYF=pcQ@;-%tt4(:#fZd(D'l"<i(l5YL?54:WpX%$3u3%$*9_RFcfk)F!ZEcJ!SPJ!-WfBnHFA"=5&.KE=<;+cC^l:U/S)]d%-E]1sa:=<"hg.rIr(^D>q[1+Sq6N(P')WT-BbhJ"=Z/B,GO0$6VO5I)`m'NIc*4FW/sqp!m(L:$W"834=jLb22:hfNBL*ldT0D>/5gHt*!!i__K*!gk2k/1+=n:UWD9lVgaPj3<o.Rsfhq]jq+q]\4'2Xc@][J7B"CMZ@7L$CnNs#cu#=a_;u!deJ7<q1VH'M\`!YZ)gZ!=crV]PZWk*'$+%S*XYc)i,HbBjiL9$cr+a[q2CrW.<D/%]c,GbWQDZB?X7$FX3[F,5(1!<EEm#RT=s]*?Z'JjJqTU$UCXn+lY7n-S$L\`nJKY=AL\F60:<l5^#9q4"Y'Qo<XJ'EVF")M`fq@4>*7YF6Ro>hQ:iJK)sZs]==iNB<10X0j*QVr,>GPMX(4_<JQJ+o3lpM$.T&7YM%[J9PkDPt:J%)a)/pF(3AmL4$0;1Ong]&Y1VbpZV=D`LES1OD'Jl[9U?[n'Q0juY6Tem/!3(dd#7:-GLnc']n$`T.nK.UP(d#/:2]KTTg&XY7#T94X>kqR8d^D^b?*;g:"4g56okL4hEb#b&#+.^4BSWsq2ab1(%V_hYL3,cn3KC68U>Oe/I)H^U6GLF#T+==M:<\hGS06OsIAIpl/;s0D)BOgE>USSd[*_u+%XB%;Yng6-d-nh"L^Vn*ha^+Y89(i$)f`?V)T=2]U5[k<]@ie#qkXPH<T7ns@R)jgOgK=GAMl2s0G)42P7`%ALXlXJ/JV%9KmNh2&'c1)'(scQfD]ggLBnR%BR_<j$4#OPDo*aIJ3)WXs/[L(SUO#XG%A@5\(eXXF*+%iHi$"5/b55jOXf3387KnZ]i(Ok/]ISMhN4WOP<"%9Jjt*o32B7m`K\3a#GnVD&\j/&H_5i7E4M4XWOOT1dg_I-pgoH-Q)k7c@<Y@IP/Q:&O>,gQPB@48A3f>LB%*KgJHj)YF5.9T-(^Qh:V#g"K?.S]-V9`0/dB1R+@i=@&N4fE#UfB;K'67@h]#]I#>/5g&C7XE:-Hh:Z%3T:[K6\7E%V':7_\jTOljmiH-j&Q]S24F!kc\(8!97>#EUXtZnmADh;P;3(#b<B2_)1878r1WAHG&aihKChkUb+T"EJ9[&kQ%$Z%9G^(=CX$VQRXB'dr.c</N/=]OY$K>c()Mq!!a>;j]K69HoTK3EZ]\d8"c,>cSd[V'27ae;G-NJdtcuin&:Gk)<G7m#m8dZ'Di'P+RUrs.k8G9!$J$TdZ>MRn,L]c4@MK7<KF:,c<!4TdiaH'S$F:IN"S=?COOq%&8)50W.VN)5O&0^96ADX0QC[=/sJ'C)3`06Xb\G_;%SG'[D40-"R$RjWGK*Sr<0=\nj/`"cItaE@hN'HQp)R$-cT*0*3g)S)`t@=bI$<\:GS$DSTO"YL8Lq]Oh*TF(gJ^B8dgG:!nDmSLHoSb-Y%q?!X=jnigV.-IY'.RGLn"a:47Y(+""&ED&8G#J3_U.uL6:F/E2/?I\/]U</8cWl[)b'mZ:2^.ME@8-1ErU=j'fq1pKB[$DqULTE]_1/;Wq50Vu@+r<-7hP`$=C%h_(r0UNS9Y@;bnkN>Bo"O+O4c2rkD5!7V,orhr1bc-BR)stOT).H^\4rK^'/Bo[E#WV,Fc.pZ[]m>"<($,O@T^ISPZrGY_u+Pj3$F!i:nU_a()\drV_O\9k1\LE4a`L[K%pP#Dn(^TLkkV2e0=nT]amG^.cccf">bTT.JU@Rh?$PV<T>bVH;Ia5"js?=,C/!"8(;fUQO/;.WCd@`T"U(e_C7Jf.kp]YdQ"o2\iA;jJ=`!G(Q`WCeYVeY,(F$$\o'9'R\A=6)0A_Qkr:+RllZ4Q0uN(pD&pJM^L#.:RJ<eLnS/Z,@CLlhd1,>^\fK8%DG]H@m?hXq6TSF06b:[q7jp<6b9QZ7<C^$2gK$gD_b_GdRX"budN5oEKRS\$\iOlqrgpE;oiXY\/VO"97XHBH31d9ZQlG"e4h)*lqU?Ohj+Q3KgDaSAF\MHqhZ19S1O,PG!Va7cNNd2&h.g!J;E)HuX1o87\u=-,/uG5PNBO0e6er#l,drVQ*"4ja^CeJT&WepGem&%NlO`6pf-0b=ePGPLVq^O,]:Z7i\sC%%?%9GTZ('MDm/&lpFhF@RRK=tJ*PA4lTPnsGmI8J<DlI4fII32dHqoBCCl2nQb5D5gfY%)VLTrm)R]:t@\g]qdZYZr6S,cp%D8hSIeL@#VnHW]C$`kS&EQ4IF.0oQ@9bKm+k,cft9W/7n=DRpl\@$3GcnlA`h@UZi^#3]c0K34(0R'PDlp7em2?cYs2.VNuZVE+C)-o$#.M)"Lf9!]0,ZK\MMCt0u'>gd9*qF\b$&,Z7=$,0;-_IZ!X@Sr@S(4E)qL]sQKh+"i?)K!?FoR.*o3Qi[UoWs$R\9)dg'ac6]eLs1QP=Oh5W`C>a,<r]+?umI5"9o:SPD5Vh,bEQhd&5^g+`LVU6!<[FMM?UfC"f2,;1IiOXc.6pUCpUC6pG#PH%:(GQes(Q9Tl3k3VB1:$=<1a)dTbJ6oQq.KP1J$"1]UYH08CF7u<plE>XTZ<^@;MS*Y#W6_oZr'j+b8)Z]i#:7d&57kqP)$4kiZI1RPQ)tFB`8I&XaAICOIk9aZj<2rVmId4]E/UOV4rMadmd7mEHVsIfVln"AR`A]6W.%tD;ruC,"j@Qj_U@9/;S(M:N/EK)7Z[MG.!m&K*AANd(Z1TP>;I>A1(H\>H6*R,qKhY29NEUY:]j^G<+5aVA*cF=WR(F^>Q`MU(M<Ys!]Kj-]>-4S~>
 endstream
 endobj
 30 0 obj
@@ -3810,47 +4025,100 @@ endobj
 /Type /Font
 >>
 endobj
+33 0 obj
+<<
+/Contents 34 0 R
+/MediaBox [ 0 0 1190.551 841.8898 ]
+/Resources <<
+/Font 35 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+34 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ]
+/Length 3679
+>>
+stream
+Gau0FgN)&W(4GpYi%]'pMYG<aP7tQf1NqeJ8iu30?Q]]=fT66ZMcFutnRl]hUaTGZP"&3D<Bu)M#1gMj9j#WX?VC>^c5:oA@'^q,B%_"*AsR5BCiR@q(2&@>0uJlrAiQ[4b0?=mBJ\D:JTbGrm6EeCg,WH."d*;J@2-"9`a3opHR&-);J'CW(4p2cK1n_QGeRY=eX#fsc$@<C:gGEkVG:\$*F&HX(>mTbJ"@)s%SXc`0QEVV_f-`c$_\$]Md#AHIV4[LGpIpoQt^e[CQ@A#,k@up9j*@dAi0mZo8Ef%"\Y&ZL6tVrb+54/`EYK2Yu:(k8iA[jCWY^ZbLm+Qn<V:d_rd\l7CEmVZVB15#3,Z7^IIFTO;UPt4.a?K#VFM:++?8oeY`9<Znc5rDJ49d[==LJ3=`i\g^!lsTl11=7pCE4N+P/X9TS?-gA0#JT=]$>eFj@+ZM)UX7C7SU&GfZ_dXCYRD?o.YIC)AbYY9uB-O]<j13_W5>B.54?8p]]#f:9EL,kdN*3Mc7&#Dk0Fsh&i=hg;Uh8a0_Zh=%prB[oj1e;g@%Iuj7M/\92qSN`ja.M:H/fCc<@=#%HTi.VGGF',(X%RX71V7iQJUXQ,G%CAp]ffh)6bNs*eL\>_>9%ac\%O5UUmuIlMmD%``RsIIM`GYK\^ba>#='i-L1Qc:S(aIm@m/HH%a^$5OH^3FrFjM94LZ9rdu<\H0QJo!-ggPXI^il+Y'4Ed;IW9:7R,IGafLOsX[YbkbJ6-HUS02]E-/>7M.&p1?k6HMNt1m.+B3BF/^aJg.GEDGd&4(8l@:sg8F!%5Z<NC"7fWV-RW2[!pasq4-_T4KA+uolL2sJ`V,/;aaUp[oY[sA7"gK6&=-A%XQ^B4Gp?\6.Dh%YQG@cs-o&0t@(`RPud\0Eg9r5XMBZ$\JX6WmUOl_5Zn`i"5fGuEI`XhalC[T*[pq_F.]%3"W$D(#Y,STNN-F&rB]&\,OQUu`.fT^Y=;*WNuInK:VKI&W8Tkk&C`GCGtS`6m]fMs(ZM&[:]J)ll>*9dqE"4FF7'-h+M,Bi?0J)l+JOJ)N4-[E%%-2BN<hmE4lgb(LLU(jHJML*.>\nkj6";;N"!Pt/]_.2/_Z'`KE(fhh.GW388V">p,i``6`'jlmqJSc<3Y"G:]eJNJ'7t1-LcoIlJSU/C^q=ie9A+M;0-EC"r^1l[RW;Xf<qVpq3/U7b/=\T`Ol7IN[@]g<Tk@q5:s"2E=.tDHjSBnAQ>,A`)`/\8p;4P:T6J@99H9RN9S5-cYJ-(\(oM+Wm6#$=[!u6@'$Cj94)'IlV/6O;7AQT"e6ia=q.hJ@%4t?0`bpn9-(1hO4j+eDRRLke\(g;qeMk:h<D\T<P0DSB*]LG:+L$G-C4U+p2f5&0#D3kmlCBBfF03D-Q0EFDID).]l(.2C=`(mj4mIti+rs9*V:g<O91h`H."'pdXNe2=MGK7l0md;Z6-Hf8*:?h!WRuaBs&K+dX<qU(4_Y0Bm1+#8!.sP1t#/[0$rW%":YHTl]m3<gi_gd0+J[fqW#YP`^()V`;+u?]U@_6#;]*%Jakp3rX&p)@K52$M<i0!hK?p!G;8Qs-_p$,T8WVK9?WEXeK-8]#+DKVM=^U/F#d<003dWXkEf;2V@gSGkf*kEpcg49?^WJ>qX4hhtFMo]A_i*!M`'jPl`h5NiUSQ7U7+q1_iC,X$aCpf?1IIOYK:8sXOOn(V)^,a2H*Qp0B2fQbRD<0V7K:[8?L?eth:4#P)n4U0Wr`pud\GJ3PDuX9N.#<705]=[`],09';gHF@*+'>KgN*;<P,=4ergP3daDgNrYp(WH?RgT0&$.EgY?g20JmV3J@6fB>d#=,_1YcbWBK00G9oXX,6TJ1]4Oc,9Cn5%?[rTNPRO-L8^-B5G#TnGOA`"0!Ai#MQ?8p3Z:%DkU;VA74$D,oe<sQn^Ul)Z]Q,o9U_o9#qS1Nb4,Llp>eh82eYA/&OUF7GG-2!SK(Q/Usp#:"8^j.@OJKa1^<i`$"V[[[[LC)]Y\2!9a6"YgG.;C;1(@tM1@K;=:7jP3u3bdrj2O014n2*@V53Yn"^Vo9hlLb\!N:!.A9WgcEUN;7#l<rOj@pMlX?9AR.(:g<+b!rq(3^R,0J5t+Zg@55"I&mHTQ?$&`EqYu)ITX6kCKW,Df:[(J>id[&m#qta>O7M0Oc5J20W@Yh!12&-WXR#5VW98DP-n1'V'`Ic$m6$_;L\oL(YILVn7<b`lmGQ.;3jNt8uMg68]@*Mj^rlI<Pt6kWu'f`^P!^4qRcS#T;Pke"'[qoS8E#`ZD=MA]SR=8k]rAhI$ojpPCLa:/lr>AiZ:i18cr:Lk%kr55s8>/a[#Pu,5TRI/H7"SW@MN^n=cZCe!9KREVnuNVD&8q`fqY=-q?8!l%;KmFAPQCU6:<PNsdT`_&JdoP?])Oq3muG=S[,48n%.Fn.YZbmIa7nB=Cs/f,npD2t)63IJa4#U8TeR_'ut%FXaZ1(0%(U8ZcW3-fd1IIdkTp1ue`tY!9SQ1M>j@PM0VCb+\EV2G$Kt5<#DMF<"ctiS,jX4/l>k'!,JCKc*mHQ]Qa1_Oe<(!f>X2U7@kZFOM^jB4!$cr]H?9q5GfbD'=Zf/(,\4K%F(SAkH90+n>KH@.R`C&uYr]KW81Y0pFRfETZuH]5r.N(pTdP0B%kQHk9Q&Q/a/#5o9P*?K:U!QRG]"(t/g>+r5,qBjR-_=K>Bg$U:D$@>F-uYEAo;&nLoc)1E2hU<0&gi;X2;%nc=aP&J3pAr-XuMl`V:c"=#^LX*_ZL#=%P=VhFZD/4jJi7L1Z1&7&BrQ8M,iqDC;;A[7`N2AqHR'9iHg(DjjK;$6>;7p'=5XT,_LN/#n!JCrqal-Q7%+&Uk)YGARQ0)s\NNHY<m'm]h1#FF;oRYh(?Xr7LS_?n\h&XDkHQ0UiF5UkVeX:*>@(S!l9G(u"]ZFp>^TWQ-EgnW==\&j>RE5X8&OpeDi>"si<D]C6QO$oinK0.858&7QO&1C<5ZS6W&)A$LU`&fQ,<6fH^:_V?eT8;o>1`b$SaUOYUI*kuC"h9:f<&8*B3X9XHJ<&hXc#/EYAW_8J\"\,<s!NN0*S@j9NMR#NP6+*$SG^::q-:1TJ!$^eNhs=S[PMUIe<MNT:m.&0)@`pdKRHs2id)OKt;(8BH8fi2+$+\nfW],l&qRJFYmd4>=1%:A+-%hHUKb_YDGbT.qhS%qNd6aR=k75m6[0g@/JWOYb01q[pgXXf1O@ocgZP%h`l/KrFG3NB(mLW3\aOgC.7J:l#nc91#4[44hPLiiQ]/n1%c:(0>(qNebm.QC)V8BB?g-mk'ZjaH@Ghlk;cbZB5_\E_pMdrI(9"@Z^+@,GRuV=^7&=3rk@Z9\+_d)/]Pgn5uptTFR$*B;Q><M^ZPpu&L_\uE8IkbWQa<9n#Ma9T6IgWSof8(GoQ5AW/I*'2n(8;Sg1^r/#Ca#nV([]:MKE$O>XbA;Q_<g;.b<Si<qih&[o,`G]nQlUN[%'s6RGrF'J)Lfh]bID7/Ok_jcW!G*Ro)6SVcrUS_iNi[pY#CA=Wa)bR]pn#m^h>r3LCL%+j*%"22tQ*ao)q@)mJdPcAC>`-r>I>p^on]2bPmDK8PnWr?6l,Kt[lOA%*]dpl.c6<Ss_f8s1^Ui3G;8ug*WcB;,=n6^[mTmj3@JWltg5B_&;/#M*'!S_B",dLN8,~>
+endstream
+endobj
+35 0 obj
+<<
+/F1 36 0 R
+/F2 37 0 R
+>>
+endobj
+36 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+37 0 obj
+<<
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
+>>
+endobj
 xref
-0 33
+0 38
 0000000000 65535 f 
 0000000015 00000 n 
-0000000372 00000 n 
-0000000459 00000 n 
-0000000508 00000 n 
-0000000790 00000 n 
-0000010207 00000 n 
-0000010257 00000 n 
-0000010369 00000 n 
-0000010476 00000 n 
-0000010583 00000 n 
-0000010696 00000 n 
-0000010966 00000 n 
-0000024512 00000 n 
-0000024620 00000 n 
-0000024733 00000 n 
-0000024849 00000 n 
-0000025119 00000 n 
-0000044959 00000 n 
-0000045067 00000 n 
-0000045180 00000 n 
-0000045490 00000 n 
-0000053515 00000 n 
-0000053566 00000 n 
-0000053674 00000 n 
-0000053956 00000 n 
-0000054162 00000 n 
-0000054275 00000 n 
-0000054496 00000 n 
-0000054735 00000 n 
-0000058769 00000 n 
-0000058813 00000 n 
-0000058921 00000 n 
+0000000392 00000 n 
+0000000486 00000 n 
+0000000535 00000 n 
+0000000817 00000 n 
+0000010905 00000 n 
+0000010955 00000 n 
+0000011067 00000 n 
+0000011174 00000 n 
+0000011281 00000 n 
+0000011394 00000 n 
+0000011664 00000 n 
+0000025204 00000 n 
+0000025312 00000 n 
+0000025425 00000 n 
+0000025541 00000 n 
+0000025811 00000 n 
+0000046297 00000 n 
+0000046405 00000 n 
+0000046518 00000 n 
+0000046828 00000 n 
+0000055427 00000 n 
+0000055478 00000 n 
+0000055586 00000 n 
+0000055868 00000 n 
+0000056074 00000 n 
+0000056187 00000 n 
+0000056408 00000 n 
+0000056647 00000 n 
+0000060732 00000 n 
+0000060776 00000 n 
+0000060884 00000 n 
+0000060997 00000 n 
+0000061199 00000 n 
+0000064971 00000 n 
+0000065015 00000 n 
+0000065123 00000 n 
 trailer
 <<
-/Size 33
+/Size 38
 /Root 3 0 R
 /Info 1 0 R
 >>
 startxref
-59034
+65236
 %%EOF

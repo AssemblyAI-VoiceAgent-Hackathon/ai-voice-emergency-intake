@@ -13,6 +13,18 @@ Status basis: architecture draft v4 dated 3 September 2026. This is a proposed e
 
 Role ownership is fixed. Each owner still needs to report implementation readiness, next evidence, blockers and target test date.
 
+## Repository and reporting rules
+
+- Use only `AssemblyAI-VoiceAgent-Hackathon/ai-voice-emergency-intake` for this product unless the team approves a migration.
+- Branch from the latest `main`. A feature branch is a temporary workspace, not a separate project or final delivery location.
+- Deliver Role 1 under `src/voice/`, Role 2 under `src/extraction/`, Role 3 under `backend/`, Role 4 under `src/data/`, Role 5 under `src/dashboard/`, and demo material under `demo/` or `presentation/`.
+- Link every branch and Pull Request to its assigned Issue on the ARIA Project.
+- Move the ARIA item to `In Progress` when work starts, `In Review` when a Pull Request is open, and `Done` only after merge and evidence.
+- If blocked, leave a dated Issue comment naming the blocker, the person or role needed, and the next action.
+- A completion message in chat is not enough. The Issue must contain a commit, Pull Request, test result, screenshot or demo-recording link.
+
+The complete Role 1–5 interface and handoff requirements are in `contracts/TEAM_INTEGRATION_HANDOFF.md`.
+
 ## Priority 0 - Freeze the shared contracts
 
 This is the first team action and should be completed before final integration.
@@ -109,7 +121,11 @@ Each owner should reply with:
 
 ## Copy-paste Discord message
 
-Team, here is the proposed priority and dependency order based on our workflow document. Please treat implementation status as unconfirmed until each owner replies.
+Team, please use the ARIA GitHub Project as our single source of truth. At present, a chat update alone does not show what is implemented or merged. Use only the `ai-voice-emergency-intake` repository, work in your assigned path, and update your Issue as follows: `Backlog` when not started, `In Progress` when coding begins, `In Review` when a Pull Request is open, and `Done` only after merge with evidence. If blocked, add a dated comment stating the blocker and who is needed.
+
+Please link your branch, Pull Request, test result, screenshot or demo recording to the Issue. This allows the whole team to see what is ready, what is still being reviewed and what has not started.
+
+Here is the proposed priority and dependency order based on our workflow document. Please treat implementation status as unconfirmed until each owner replies and updates GitHub.
 
 **P0 - Contract gate:** Roles 2/3/5 agree the payload fields, SSE events, snapshot vs partial updates, versions, source/unknown handling and staff-edit protection. Roles 3/4/5 agree the database, authentication, reconnect and review/save behaviour. We also need the domain/clinical owner to confirm triage codes, authorised approvers and mandatory approval fields.
 
