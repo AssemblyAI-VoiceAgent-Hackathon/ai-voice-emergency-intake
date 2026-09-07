@@ -5,7 +5,13 @@ import { Loader2 } from "lucide-react";
 
 export default function LoadingState() {
   return (
-    <div className="flex-1 w-full flex flex-col md:flex-row h-full bg-[#0a0a0f] overflow-hidden">
+    <div
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+      aria-label="Loading cases"
+      className="flex-1 w-full flex flex-col md:flex-row h-full bg-[#0a0a0f] overflow-hidden"
+    >
       {/* Left List Panel Skeleton */}
       <aside className="w-full md:w-[320px] lg:w-[360px] flex-shrink-0 bg-[#0c0c14] border-r border-zinc-800/80 p-4 space-y-4">
         <div className="h-4 bg-zinc-800/70 rounded w-1/2 animate-pulse mb-4" />

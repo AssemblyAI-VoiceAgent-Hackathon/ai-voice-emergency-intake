@@ -63,11 +63,13 @@ export default function ConflictCard({
         {conflict.values.map((v, idx) => {
           const isSelected = selectedIndex === idx;
           return (
-            <div
+            <button
+              type="button"
               key={idx}
               onClick={() => onSelectValue(idx)}
+              aria-pressed={isSelected}
               className={`
-                p-3.5 rounded-lg border cursor-pointer transition-all duration-200 flex items-start justify-between select-none
+                w-full text-left p-3.5 rounded-lg border cursor-pointer transition-all duration-200 flex items-start justify-between select-none
                 ${
                   isSelected
                     ? "bg-[#3954C0]/25 border-[#3954C0] ring-1 ring-[#3954C0]/60 text-white shadow-md"
@@ -102,7 +104,7 @@ export default function ConflictCard({
                   </span>
                 ))}
               </div>
-            </div>
+            </button>
           );
         })}
       </div>

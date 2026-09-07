@@ -14,7 +14,10 @@ export default function UnauthorizedState({
 }: UnauthorizedStateProps) {
 
   return (
-    <div className="flex-1 w-full bg-[#0a0a0f] text-white flex flex-col items-center justify-center p-6 text-center">
+    <div
+      role="alert"
+      className="flex-1 w-full bg-[#0a0a0f] text-white flex flex-col items-center justify-center p-6 text-center"
+    >
       <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-400 flex items-center justify-center mb-6">
         <Lock className="w-8 h-8 text-blue-400" />
       </div>

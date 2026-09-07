@@ -26,3 +26,9 @@ jobs:
         run: python scripts/validate_contracts.py
       - name: Test safe extraction pipeline
         run: python -m unittest discover -s tests -v
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+      - name: Test Role 5 review workflow
+        run: node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/dashboard/*.test.ts

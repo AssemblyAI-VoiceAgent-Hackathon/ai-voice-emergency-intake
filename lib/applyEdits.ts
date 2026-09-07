@@ -1,4 +1,4 @@
-import { PendingEdit } from "@/types/staffReview";
+import type { PendingEdit } from "../types/staffReview";
 
 function unescapeSegment(segment: string): string {
   return segment.replace(/~1/g, "/").replace(/~0/g, "~");

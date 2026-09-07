@@ -7,7 +7,7 @@ the repository root because that is the Next.js convention (`app/`,
 Role 5 talks **only** to Role 3. It never writes to Supabase or SQLite.
 Approved saves are Role 3 → Role 4.
 
-Issues covered: #5.
+Issues covered: #5, #22, #23.
 
 ## Modes
 
@@ -34,7 +34,12 @@ npm install
 npm run dev
 ```
 
-Open `/dashboard`. Ingest a case with the Role 3 service token first, then
-connect that `caseId` from the live bar. Approving a review stores the
-record through Role 4; the dashboard only shows the Role 3 `review_status`
-result.
+Open http://127.0.0.1:3000/dashboard. Ingest a case with the Role 3 service
+token first, then connect that `caseId` from the live bar. Approving a
+review stores the record through Role 4; the dashboard only shows the
+Role 3 `review_status` result.
+
+```bash
+python -m unittest discover -s tests -v
+npm run test:dashboard
+```

@@ -28,6 +28,7 @@ export default function StateSwitcher({
         <span className="hidden sm:inline text-[11px] uppercase tracking-wider text-zinc-400">Dev View</span>
       </div>
       <select
+        aria-label="Dashboard preview state"
         value={currentState}
         onChange={(e) => onStateChange(e.target.value as DashboardState)}
         className="bg-transparent text-white font-medium focus:outline-none cursor-pointer text-xs py-0.5"
