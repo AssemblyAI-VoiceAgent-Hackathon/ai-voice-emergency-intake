@@ -25,6 +25,7 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 - `src/extraction/` — provider-neutral, schema-first extraction and safe-failure engine.
 - `src/backend/` — Role 3 FastAPI ingestion, SSE, staff review, tool calling, and Role 4 save handoff.
 - `src/data/` — Role 4 persistence (Supabase hosted, SQLite for tests), authorised lookup, approved-record save, audit trail, and synthetic fixtures.
+- `app/`, `components/dashboard/` — Role 5 staff review UI (Next.js). Talks only to Role 3; never writes to the database.
 - `supabase/migrations/` — Postgres schema for the hosted Supabase project.
 - `TEAM_PRIORITY_WORKLIST.md` — owner priorities, dependencies, integration order and first shared checkpoint.
 - `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf` — current team workflow, confirmed role reference and Ishaan Sama contribution map.
@@ -79,6 +80,14 @@ python -m src.data --validate-fixtures
 python -m src.data --check-supabase
 python -m src.backend
 ```
+
+Staff dashboard (Role 5, after `npm install`):
+
+```bash
+npm run dev
+```
+
+Open `/dashboard`. Synthetic contract examples load without the backend. To exercise live SSE and review/save, run Role 3, ingest a case with the service token, then connect that `caseId`. Approvals persist through Role 4; the browser never calls Supabase.
 
 Role 4 talks to Supabase. Copy `.env.example` to `.env` and set `SUPABASE_URL` plus `SUPABASE_PUBLISHABLE_KEY`. The dashboard Connect dialog labels those `NEXT_PUBLIC_*` because it assumes Next.js; this repo is Python and accepts both names. Then run `supabase/migrations/20260907120000_role4_persistence.sql` in the SQL Editor so case/review/audit tables exist. Lookup already works against the existing `patients` and `history_notes` tables.
 
