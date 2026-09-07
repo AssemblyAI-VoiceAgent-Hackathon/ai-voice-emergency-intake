@@ -23,8 +23,14 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 - `contracts/examples/` — synthetic sufficient, missing and conflicting payloads.
 - `contracts/TEAM_INTEGRATION_HANDOFF.md` — complete Role 1–5 ownership, delivery paths and integration workflow.
 - `src/extraction/` — provider-neutral, schema-first extraction and safe-failure engine.
+- `src/backend/` — Role 3 FastAPI ingestion, SSE, staff review, tool calling, and Role 4 save handoff.
+- `src/data/` — Role 4 persistence (Supabase hosted, SQLite for tests), authorised lookup, approved-record save, audit trail, and synthetic fixtures.
+- `app/`, `components/dashboard/` — Role 5 staff review UI (Next.js). Talks only to Role 3; never writes to the database.
+- `supabase/migrations/` — Postgres schema for the hosted Supabase project.
 - `TEAM_PRIORITY_WORKLIST.md` — owner priorities, dependencies, integration order and first shared checkpoint.
 - `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles.pdf` — current team workflow (v4), confirmed role reference and Ishaan Sama contribution map.
+- `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf` — exact versioned mirror of the current team workflow.
+- `output/pdf/Role3_Role4_Simple_Flowchart.pdf` — plain-English Role 3 / Role 4 flowchart for non-technical teammates (companion to v4, not a replacement).
 
 The workflow PDF is the confirmed role reference: Soha Raees (Role 1), Fazwan Zainuddin (Role 2), Mozzam Shahid (Role 3), Ishaan Sama (Role 4), Jonathan (Role 5), and Mariam Habib (demo and presentation). It also maps Ishaan Sama's EmergencyVoice tech-stack contribution into the shared FastAPI + SSE plan.
 
@@ -36,9 +42,9 @@ This repository is the single active product repository. The organisation reposi
 |---|---|
 | Role 1 — Soha | `src/voice/` |
 | Role 2 — Fazwan | `src/extraction/` |
-| Role 3 — Mozzam | `backend/` |
+| Role 3 — Mozzam | `src/backend/` |
 | Role 4 — Ishaan | `src/data/` |
-| Role 5 — Jonathan | `src/dashboard/` |
+| Role 5 — Jonathan | `app/dashboard/`, `components/dashboard/`, `lib/` and `types/` |
 | Demo — Mariam | `demo/` and `presentation/` |
 
 A branch is a temporary version of this same repository, not a separate delivery folder. GitHub shows a branch's own snapshot: an older branch can still show an old PDF or return a 404 for a file that was added later on `main`. Only reviewed and merged work appears on `main`.
@@ -48,12 +54,13 @@ A branch is a temporary version of this same repository, not a separate delivery
 | Area | Evidence currently visible in GitHub | Interpretation |
 |---|---|---|
 | Shared contracts and workflow | Present on `main` | Available to all roles as the integration baseline. |
-| Role 1 — Voice | `service/voice-intake` currently points to the same commit as `main`; no `src/voice/` implementation is visible on `main` | No Role 1 code delivery can yet be verified from the repository. |
-| Role 2 — Extraction | `src/extraction/`, contract examples and tests are present on `main` | This is the only role implementation currently verifiable on `main`. |
-| Role 3 — Backend | Work is visible on `feature/backend-voice-intake-service`, including a top-level `backend/` path | The backend work is on a feature branch and is not part of `main` until reviewed and merged. |
-| Roles 4 and 5 | No role implementation path is visible on `main` | Delivery cannot yet be verified from `main`. |
+| Role 1 — Voice | No `src/voice/` implementation is visible on `main`; Issues #1, #13 and #14 remain open | Role 1 code delivery is still pending repository evidence. |
+| Role 2 — Extraction | `src/extraction/`, contract examples and tests are present on `main`; Issues #2, #15 and #16 are closed | Role 2 is delivered on `main`. |
+| Role 3 — Backend | `src/backend/` and backend tests are present on `main`; Issues #3, #17 and #19 are closed | Role 3 is delivered on `main`. |
+| Role 4 — Data | `src/data/`, the Supabase migration, synthetic fixtures and tests are present on `main`; Issues #4, #20 and #21 are closed | Role 4 is delivered on `main`. |
+| Role 5 — Dashboard | `app/dashboard/`, dashboard components and workflow tests are present on `main`; Issues #5, #22 and #23 are closed | Role 5 is delivered on `main`. |
 
-At the time of this snapshot, the ARIA board showed eight items in `Backlog`, three in `Done`, and none in `In Progress` or `In Review`. Team members must update their own Issue and attach evidence; this document does not infer completion from chat messages.
+The remaining open GitHub work is Role 1 voice delivery (Issues #1, #13 and #14), the cross-role synthetic end-to-end demonstration (#7), domain/safety review (#6), and competition demo/presentation preparation (#11). Team members must keep ARIA status aligned and attach repository or test evidence; this document does not infer completion from chat messages.
 
 ## Proposed architecture
 
@@ -98,7 +105,20 @@ Validate the JSON examples locally (requires Python and `jsonschema`):
 ```bash
 python scripts/validate_contracts.py
 python -m unittest discover -s tests -v
+python -m src.data --validate-fixtures
+python -m src.data --check-supabase
+python -m src.backend
 ```
+
+Staff dashboard (Role 5, after `npm install`):
+
+```bash
+npm run dev
+```
+
+Open `/dashboard`. Synthetic contract examples load without the backend. To exercise live SSE and review/save, run Role 3, ingest a case with the service token, then connect that `caseId`. Approvals persist through Role 4; the browser never calls Supabase.
+
+Role 4 talks to Supabase. Copy `.env.example` to `.env` and set `SUPABASE_URL` plus `SUPABASE_PUBLISHABLE_KEY`. The dashboard Connect dialog labels those `NEXT_PUBLIC_*` because it assumes Next.js; this repo is Python and accepts both names. Then run `supabase/migrations/20260907120000_role4_persistence.sql` in the SQL Editor so case/review/audit tables exist. Lookup already works against the existing `patients` and `history_notes` tables.
 
 Role 2 implementation details and the provider-adapter boundary are documented
 in [`src/extraction/README.md`](src/extraction/README.md). The repository makes

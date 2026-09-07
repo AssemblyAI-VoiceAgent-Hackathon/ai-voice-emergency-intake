@@ -17,3 +17,9 @@ Current team document: `AI_Emergency_Intake_Team_Workflow_Roles.pdf`.
 Current revision: v4, 3 September 2026. The original four pages are retained with targeted SSE/handoff edits, followed by the team-status page and a confirmed-roles/Ishaan-contribution page. Role 1 is assigned to Soha Raees (`soharaees`).
 
 The builder at `scripts/update_team_workflow_pdf.py` uses the archived 30 August baseline, validates a QA candidate under `tmp/pdfs/`, then publishes the stable current file and its exact v4 mirror. Render and visually inspect the stable file before sharing it.
+
+## Companion: Role 3 and Role 4 simple flowchart
+
+`Role3_Role4_Simple_Flowchart.pdf` is a two-page plain-English picture of Role 3 (front desk) and Role 4 (records room) for non-technical teammates. It does not replace v4 and does not change the confirmed role ownership or swimlanes.
+
+Rebuild with `python scripts/build_role3_role4_flowchart_pdf.py` (needs `reportlab`). A browser version lives at `../Role3_Role4_Simple_Flowchart.html`.
