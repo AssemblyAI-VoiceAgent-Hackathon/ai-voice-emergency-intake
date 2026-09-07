@@ -1,0 +1,416 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://team.example/schemas/structured-case.schema.json",
+  "title": "Role 2 Structured Case",
+  "description": "AI-extracted emergency intake information for backend validation and staff review. This object must not contain a final clinical triage decision.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "caseId",
+    "sessionId",
+    "caseVersion",
+    "status",
+    "capturedAt",
+    "language",
+    "subject",
+    "informants",
+    "chiefComplaint",
+    "symptoms",
+    "observations",
+    "history",
+    "summary",
+    "safetySignals",
+    "informationGaps",
+    "conflicts",
+    "provenance",
+    "extractionMetadata"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "caseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sessionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "caseVersion": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Monotonically increasing version used to prevent lost updates."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["collecting", "needs_information", "ready_for_review"]
+    },
+    "capturedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "language": {
+      "type": ["string", "null"]
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["patientReference", "ageYears", "sexAtBirth"],
+      "properties": {
+        "patientReference": {
+          "type": ["string", "null"],
+          "description": "Opaque patient reference supplied by the backend; not a database record owned by Role 2."
+        },
+        "ageYears": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 130
+        },
+        "sexAtBirth": {
+          "type": ["string", "null"],
+          "enum": ["female", "male", "intersex", "unknown", null]
+        }
+      }
+    },
+    "informants": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["patient", "caregiver", "staff", "verified_record", "unknown"]
+      }
+    },
+    "chiefComplaint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "onsetText", "sourceRefs"],
+      "properties": {
+        "text": {
+          "type": ["string", "null"]
+        },
+        "onsetText": {
+          "type": ["string", "null"]
+        },
+        "sourceRefs": {
+          "$ref": "#/$defs/sourceRefs"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"text": {"type": "string"}},
+            "required": ["text"]
+          },
+          "then": {
+            "properties": {"sourceRefs": {"minItems": 1}}
+          }
+        }
+      ]
+    },
+    "symptoms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/symptom"
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    },
+    "history": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conditions", "medications", "allergies"],
+      "properties": {
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/historyItem"
+          }
+        },
+        "medications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/historyItem"
+          }
+        },
+        "allergies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/historyItem"
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["oneLine", "narrative"],
+      "properties": {
+        "oneLine": {
+          "type": ["string", "null"]
+        },
+        "narrative": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "safetySignals": {
+      "type": "array",
+      "description": "Signals for staff attention only; they are not a diagnosis or final triage assignment.",
+      "items": {
+        "$ref": "#/$defs/safetySignal"
+      }
+    },
+    "informationGaps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/informationGap"
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/conflict"
+      }
+    },
+    "provenance": {
+      "type": "array",
+      "description": "Field-level source, confidence and verification metadata using JSON Pointer paths.",
+      "items": {
+        "$ref": "#/$defs/provenance"
+      }
+    },
+    "extractionMetadata": {
+      "type": "object",
+      "description": "Engine-owned metadata. The model output must not choose these values.",
+      "additionalProperties": false,
+      "required": ["promptVersion", "model", "completedAt", "outcome"],
+      "properties": {
+        "promptVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": ["string", "null"]
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "outcome": {
+          "const": "success"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sourceRefs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "symptom": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "present", "onsetText", "severity0To10", "location", "notes", "sourceRefs"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "present": {
+          "type": "boolean"
+        },
+        "onsetText": {
+          "type": ["string", "null"]
+        },
+        "severity0To10": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "maximum": 10
+        },
+        "location": {
+          "type": ["string", "null"]
+        },
+        "notes": {
+          "type": ["string", "null"]
+        },
+        "sourceRefs": {
+          "allOf": [
+            {"$ref": "#/$defs/sourceRefs"},
+            {"minItems": 1}
+          ]
+        }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "value", "unit", "origin", "observedAt", "sourceRefs"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {},
+        "unit": {
+          "type": ["string", "null"]
+        },
+        "origin": {
+          "type": "string",
+          "enum": ["reported", "measured", "observed", "verified_record"]
+        },
+        "observedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "sourceRefs": {
+          "allOf": [
+            {"$ref": "#/$defs/sourceRefs"},
+            {"minItems": 1}
+          ]
+        }
+      }
+    },
+    "historyItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "status", "details", "sourceRefs"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": ["reported", "denied", "unknown", "verified"]
+        },
+        "details": {
+          "type": ["string", "null"]
+        },
+        "sourceRefs": {
+          "$ref": "#/$defs/sourceRefs"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"status": {"not": {"const": "unknown"}}},
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {"sourceRefs": {"minItems": 1}}
+          }
+        }
+      ]
+    },
+    "safetySignal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "label", "status", "evidenceSourceRefs"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": ["present", "absent", "uncertain"]
+        },
+        "evidenceSourceRefs": {
+          "allOf": [
+            {"$ref": "#/$defs/sourceRefs"},
+            {"minItems": 1}
+          ]
+        }
+      }
+    },
+    "informationGap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fieldPath", "question", "priority"],
+      "properties": {
+        "fieldPath": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["required", "recommended", "optional"]
+        }
+      }
+    },
+    "conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fieldPath", "values", "status"],
+      "properties": {
+        "fieldPath": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "values": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "sourceRefs"],
+            "properties": {
+              "value": {},
+              "sourceRefs": {
+                "$ref": "#/$defs/sourceRefs"
+              }
+            }
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["unresolved", "resolved_by_staff"]
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fieldPath", "sourceRefs", "confidence", "verificationStatus"],
+      "properties": {
+        "fieldPath": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "sourceRefs": {
+          "allOf": [
+            {"$ref": "#/$defs/sourceRefs"},
+            {"minItems": 1}
+          ]
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low", "unknown"]
+        },
+        "verificationStatus": {
+          "type": "string",
+          "enum": ["unverified", "reported", "verified_record", "staff_confirmed"]
+        }
+      }
+    }
+  }
+}

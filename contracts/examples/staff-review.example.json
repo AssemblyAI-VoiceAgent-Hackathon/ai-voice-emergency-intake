@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "case_demo_001",
+  "baseCaseVersion": 3,
+  "idempotencyKey": "review-demo-001-v3",
+  "action": "approve",
+  "edits": [
+    {
+      "op": "replace",
+      "path": "/history/allergies",
+      "value": [
+        {
+          "name": "penicillin",
+          "status": "reported",
+          "details": "Patient reports a rash",
+          "sourceRefs": ["staff_review_01"]
+        }
+      ],
+      "reason": "Confirmed directly by staff during review"
+    }
+  ],
+  "informationRequest": null,
+  "finalTriage": {
+    "code": "CLINICAL_CODE_TO_BE_AGREED",
+    "label": "Human-selected triage category",
+    "rationale": "Selected by authorized emergency staff after clinical assessment"
+  },
+  "comment": "Synthetic example only"
+}

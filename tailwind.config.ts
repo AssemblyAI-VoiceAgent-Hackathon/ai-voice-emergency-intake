@@ -8,9 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        satoshi: ["Satoshi", "sans-serif"],
+        sans: ["Satoshi", "sans-serif"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "#000000",
+        foreground: "#FFFFFF",
+        aira: {
+          bg: "#000000",
+          text: "#FFFFFF",
+          blue: "#3954C0",
+          navy: "#080E29",
+          gray: "#575757",
+          red: "#FF3714",
+        },
       },
     },
   },
