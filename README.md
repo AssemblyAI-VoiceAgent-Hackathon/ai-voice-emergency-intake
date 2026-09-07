@@ -23,6 +23,7 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 - `contracts/examples/` — synthetic sufficient, missing and conflicting payloads.
 - `contracts/ROLE2_ROLE3_ROLE5_HANDOFF.md` — proposed API, event and review workflow.
 - `src/extraction/` — provider-neutral, schema-first extraction and safe-failure engine.
+- `src/data/` — Role 4 SQLite persistence, authorised lookup, approved-record save, audit trail, and synthetic fixtures.
 - `TEAM_PRIORITY_WORKLIST.md` — owner priorities, dependencies, integration order and first shared checkpoint.
 - `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf` — current team workflow, confirmed role reference and Ishaan Sama contribution map.
 
@@ -71,6 +72,7 @@ Validate the JSON examples locally (requires Python and `jsonschema`):
 ```bash
 python scripts/validate_contracts.py
 python -m unittest discover -s tests -v
+python -m src.data --validate-fixtures
 ```
 
 Role 2 implementation details and the provider-adapter boundary are documented
