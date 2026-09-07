@@ -1,0 +1,167 @@
+{
+  "patients": [
+    {
+      "id": 1,
+      "public_id": "patient_demo_001",
+      "phone_number": "9990001111",
+      "name": "TEST-PATIENT-001",
+      "age": 34,
+      "known_conditions": "SYN:Asthma",
+      "known_allergies": "SYN:Penicillin",
+      "scenario": "sufficient",
+      "created_at": "2026-09-02T10:00:00Z",
+      "conflicting_fields": {}
+    },
+    {
+      "id": 2,
+      "public_id": "patient_demo_002",
+      "phone_number": "9990002222",
+      "name": "TEST-PATIENT-002",
+      "age": 29,
+      "known_conditions": "SYN:Diabetes Type 1",
+      "known_allergies": "SYN:None",
+      "scenario": "sufficient",
+      "created_at": "2026-09-02T10:05:00Z",
+      "conflicting_fields": {}
+    },
+    {
+      "id": 3,
+      "public_id": "patient_demo_003",
+      "phone_number": "9990003333",
+      "name": "TEST-PATIENT-003",
+      "age": 52,
+      "known_conditions": "SYN:Hypertension, Coronary Artery Disease",
+      "known_allergies": "SYN:Aspirin",
+      "scenario": "sufficient",
+      "created_at": "2026-09-02T10:10:00Z",
+      "conflicting_fields": {}
+    },
+    {
+      "id": 4,
+      "public_id": "patient_demo_004",
+      "phone_number": null,
+      "name": "TEST-PATIENT-004",
+      "age": null,
+      "known_conditions": null,
+      "known_allergies": "SYN:Peanuts",
+      "scenario": "missing",
+      "created_at": "2026-09-02T10:15:00Z",
+      "conflicting_fields": {}
+    },
+    {
+      "id": 6,
+      "public_id": "patient_demo_006",
+      "phone_number": "9990006666",
+      "name": "TEST-PATIENT-006",
+      "age": 61,
+      "known_conditions": "SYN:Asthma",
+      "known_allergies": "SYN:Penicillin, Aspirin",
+      "scenario": "conflicting",
+      "created_at": "2026-09-02T10:20:00Z",
+      "conflicting_fields": {
+        "age": [61, 58, 64],
+        "known_allergies": ["SYN:Penicillin, Aspirin", "SYN:None", "SYN:Sulfa"],
+        "known_conditions": ["SYN:Asthma", "SYN:Asthma, COPD", "SYN:Asthma, Bronchitis"]
+      }
+    },
+    {
+      "id": 7,
+      "public_id": "patient_demo_007",
+      "phone_number": "9990007777",
+      "name": "TEST-PATIENT-007",
+      "age": 30,
+      "known_conditions": null,
+      "known_allergies": null,
+      "scenario": "missing",
+      "created_at": "2026-09-02T10:25:00Z",
+      "conflicting_fields": {}
+    },
+    {
+      "id": 8,
+      "public_id": "patient_demo_008",
+      "phone_number": "9990008888",
+      "name": "TEST-PATIENT-008",
+      "age": null,
+      "known_conditions": "SYN:Anemia",
+      "known_allergies": null,
+      "scenario": "missing",
+      "created_at": "2026-09-02T10:30:00Z",
+      "conflicting_fields": {}
+    }
+  ],
+  "notes": [
+    {
+      "id": 1,
+      "patient_id": 1,
+      "note_date": "2026-07-14",
+      "note_text": "SYN:Chest tightness, mild. Resolved after inhaler use.",
+      "created_at": "2026-07-14T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "patient_id": 1,
+      "note_date": "2026-08-02",
+      "note_text": "SYN:Follow-up: no recurrence, breathing normal.",
+      "created_at": "2026-08-02T10:00:00Z"
+    },
+    {
+      "id": 3,
+      "patient_id": 2,
+      "note_date": "2026-06-02",
+      "note_text": "SYN:Dizziness, low blood sugar episode. Advised regular meal timing.",
+      "created_at": "2026-06-02T10:00:00Z"
+    },
+    {
+      "id": 4,
+      "patient_id": 6,
+      "note_date": "2026-06-15",
+      "note_text": "SYN:Wheezing noted, inhaler prescribed.",
+      "created_at": "2026-06-15T10:00:00Z"
+    },
+    {
+      "id": 5,
+      "patient_id": 6,
+      "note_date": "2026-07-20",
+      "note_text": "SYN:Conflicting source says no drug allergies.",
+      "created_at": "2026-07-20T10:00:00Z"
+    },
+    {
+      "id": 6,
+      "patient_id": 999,
+      "note_date": "2026-08-10",
+      "note_text": "SYN:Orphan note for not-found scenario.",
+      "created_at": "2026-08-10T10:00:00Z"
+    },
+    {
+      "id": 7,
+      "patient_id": 3,
+      "note_date": "2026-05-20",
+      "note_text": "SYN:Elevated BP reading during routine checkup, medication adjusted.",
+      "created_at": "2026-05-20T10:00:00Z"
+    },
+    {
+      "id": 8,
+      "patient_id": 4,
+      "note_date": "2026-06-02",
+      "note_text": "SYN:Dizziness, low blood sugar episode.",
+      "created_at": "2026-06-02T11:00:00Z"
+    },
+    {
+      "id": 9,
+      "patient_id": 6,
+      "note_date": "2026-08-01",
+      "note_text": "SYN:Patient reports COPD diagnosis from outside provider.",
+      "created_at": "2026-08-01T10:00:00Z"
+    }
+  ],
+  "not_found_phone": "9990009999",
+  "metadata": {
+    "total_patients": 7,
+    "total_notes": 9,
+    "scenarios": {
+      "conflicting": 1,
+      "missing": 3,
+      "sufficient": 3
+    }
+  }
+}

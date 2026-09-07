@@ -23,6 +23,8 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 - `contracts/examples/` — synthetic sufficient, missing and conflicting payloads.
 - `contracts/ROLE2_ROLE3_ROLE5_HANDOFF.md` — proposed API, event and review workflow.
 - `src/extraction/` — provider-neutral, schema-first extraction and safe-failure engine.
+- `src/data/` — Role 4 persistence (Supabase hosted, SQLite for tests), authorised lookup, approved-record save, audit trail, and synthetic fixtures.
+- `supabase/migrations/` — Postgres schema for the hosted Supabase project.
 - `TEAM_PRIORITY_WORKLIST.md` — owner priorities, dependencies, integration order and first shared checkpoint.
 - `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf` — current team workflow, confirmed role reference and Ishaan Sama contribution map.
 
@@ -71,7 +73,11 @@ Validate the JSON examples locally (requires Python and `jsonschema`):
 ```bash
 python scripts/validate_contracts.py
 python -m unittest discover -s tests -v
+python -m src.data --validate-fixtures
+python -m src.data --check-supabase
 ```
+
+Role 4 talks to Supabase. Copy `.env.example` to `.env` and set `SUPABASE_URL` plus `SUPABASE_PUBLISHABLE_KEY`. The dashboard Connect dialog labels those `NEXT_PUBLIC_*` because it assumes Next.js; this repo is Python and accepts both names. Then run `supabase/migrations/20260907120000_role4_persistence.sql` in the SQL Editor so case/review/audit tables exist. Lookup already works against the existing `patients` and `history_notes` tables.
 
 Role 2 implementation details and the provider-adapter boundary are documented
 in [`src/extraction/README.md`](src/extraction/README.md). The repository makes
