@@ -11,10 +11,12 @@ import re
 import secrets
 import sqlite3
 from datetime import date, timedelta
+from functools import wraps
 from pathlib import Path
 from typing import Any, Optional
 
-from .audit import get_audit_trail, log_audit, utc_now, verify_audit_integrity
+from .audit import get_audit_trail as _sqlite_get_audit_trail, log_audit, utc_now
+from .audit import verify_audit_integrity as _sqlite_verify_audit_integrity
 from .crypto import (
     dec_master,
     dec_with_key,
@@ -32,6 +34,23 @@ from .schema import get_current_migration_version, migrate_db
 
 DEFAULT_DB_PATH = os.environ.get("ARIA_DB_PATH", os.path.join("tmp", "aria_mvp.db"))
 PHONE_PATTERN = re.compile(r"^999000\d{4}$")
+_AUTO = object()
+
+
+def _use_supabase(conn: Any) -> bool:
+    return getattr(conn, "backend", None) == "supabase"
+
+
+def _dispatch(fn):
+    @wraps(fn)
+    def wrapped(conn, *args, **kwargs):
+        if _use_supabase(conn):
+            from . import supabase_store
+
+            return getattr(supabase_store, fn.__name__)(conn, *args, **kwargs)
+        return fn(conn, *args, **kwargs)
+
+    return wrapped
 
 
 def get_connection(db_path: str = DEFAULT_DB_PATH) -> sqlite3.Connection:
@@ -43,10 +62,40 @@ def get_connection(db_path: str = DEFAULT_DB_PATH) -> sqlite3.Connection:
     return conn
 
 
-def init_db(db_path: str = DEFAULT_DB_PATH) -> sqlite3.Connection:
-    conn = get_connection(db_path)
+def init_db(db_path: Any = _AUTO) -> Any:
+    """Open Supabase when configured, otherwise the local SQLite file.
+
+    Passing an explicit path (including ``:memory:``) always uses SQLite so
+    unit tests stay offline.
+    """
+    if db_path is _AUTO:
+        backend = os.environ.get("ARIA_BACKEND", "auto").strip().lower()
+        if backend != "sqlite":
+            from .client import is_configured
+            from .supabase_store import init_db as init_supabase
+
+            if is_configured():
+                return init_supabase()
+        db_path = DEFAULT_DB_PATH
+    conn = get_connection(str(db_path))
     migrate_db(conn)
     return conn
+
+
+def verify_audit_integrity(conn: Any) -> tuple[bool, Optional[str]]:
+    if _use_supabase(conn):
+        from . import supabase_store
+
+        return supabase_store.verify_audit_integrity(conn)
+    return _sqlite_verify_audit_integrity(conn)
+
+
+def get_audit_trail(conn: Any, limit: int = 50) -> list[dict[str, Any]]:
+    if _use_supabase(conn):
+        from . import supabase_store
+
+        return supabase_store._select(conn, "audit_log", order=("id", True), limit=limit)
+    return _sqlite_get_audit_trail(conn, limit)
 
 
 def _public_from_idempotency(prefix: str, idempotency_key: str) -> str:
@@ -91,6 +140,7 @@ def dec_case(conn: sqlite3.Connection, case_id: int, ciphertext: Optional[str]) 
     return "[PURGED]" if not key else dec_with_key(key, ciphertext)
 
 
+@_dispatch
 def seed_synthetic_data(conn: sqlite3.Connection) -> None:
     if conn.execute("SELECT COUNT(*) FROM patients").fetchone()[0] > 0:
         return
@@ -132,6 +182,7 @@ def _is_demo_phone(phone: str) -> bool:
     return bool(PHONE_PATTERN.match(clean)) and clean in synthetic_phone_allowlist()
 
 
+@_dispatch
 def create_case_authorised(
     conn: sqlite3.Connection,
     phone: str,
@@ -198,6 +249,7 @@ def create_case_authorised(
         }
 
 
+@_dispatch
 def create_session_authorised(
     conn: sqlite3.Connection,
     case_id: Optional[int] = None,
@@ -256,6 +308,7 @@ def create_session_authorised(
         }
 
 
+@_dispatch
 def append_note_authorised(
     conn: sqlite3.Connection,
     phone: str,
@@ -310,6 +363,7 @@ def _resolve_case(
     return None
 
 
+@_dispatch
 def save_approved_record_authorised(
     conn: sqlite3.Connection,
     case_id: Optional[int] = None,
@@ -572,6 +626,7 @@ def _get_approved_info(conn: sqlite3.Connection, case_id: int, redacted: bool) -
     }
 
 
+@_dispatch
 def lookup_patient_authorised(
     conn: sqlite3.Connection,
     actor_id: str,
@@ -640,6 +695,7 @@ def lookup_patient_authorised(
     }
 
 
+@_dispatch
 def read_case_authorised(
     conn: sqlite3.Connection,
     actor_id: str,
@@ -668,6 +724,7 @@ def read_case_authorised(
     return out
 
 
+@_dispatch
 def get_case_lineage(conn: sqlite3.Connection, case_id: int) -> Optional[dict[str, Any]]:
     """Internal debug helper. Does not decrypt approved clinical payloads for export."""
     case_row = conn.execute(
@@ -707,6 +764,7 @@ def get_case_lineage(conn: sqlite3.Connection, case_id: int) -> Optional[dict[st
     }
 
 
+@_dispatch
 def read_audit_authorised(
     conn: sqlite3.Connection, actor_id: str, actor_role: str, limit: int = 200
 ) -> list[dict[str, Any]]:
@@ -717,6 +775,7 @@ def read_audit_authorised(
     return rows
 
 
+@_dispatch
 def purge_retention_authorised(
     conn: sqlite3.Connection,
     retention_days: int = 90,
@@ -779,6 +838,7 @@ def purge_retention_authorised(
     return {"purged_cases": cases_purged, "purged_patients": patients_purged, "cutoff": cutoff}
 
 
+@_dispatch
 def get_stats(conn: sqlite3.Connection) -> dict[str, Any]:
     valid, error = verify_audit_integrity(conn)
     return {

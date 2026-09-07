@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import json
+import os
 import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
+
+os.environ["ARIA_BACKEND"] = "sqlite"
 
 from src.data import (
     NOT_FOUND_PHONE,

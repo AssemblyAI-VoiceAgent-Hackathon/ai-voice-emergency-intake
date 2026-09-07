@@ -1,8 +1,11 @@
 # Role 4 — Data / persistence
 
-SQLite MVP for authorised patient lookup, approved-case storage, and an
-immutable review/audit history. Role 1 and Role 3 are not required to run or
-test this package.
+Supabase (Postgres) is the hosted backend. SQLite remains the offline test
+double so CI and Role 3 unit tests do not need network credentials.
+
+Authorised patient lookup, approved-case storage, and an immutable
+review/audit history. Role 1 and Role 3 are not required to run or test this
+package.
 
 Issues covered: #4, #20, #21.
 
@@ -34,8 +37,8 @@ from src.data import (
     verify_audit_integrity,
 )
 
-conn = init_db()          # ARIA_DB_PATH or tmp/aria_mvp.db
-seed_synthetic_data(conn)
+conn = init_db()          # Supabase when SUPABASE_URL is set, else SQLite
+seed_synthetic_data(conn)  # no-op if patients already exist in Supabase
 
 lookup_patient_authorised(conn, actor_id, Role.CLINICIAN, phone="9990001111")
 # not-found: 9990009999 -> {"error": "Patient not found"}
@@ -74,9 +77,27 @@ cannot be updated or deleted (SQLite triggers).
 
 Environment (synthetic demo defaults only):
 
-- `ARIA_DB_PATH` — SQLite file, default `tmp/aria_mvp.db`
+- `SUPABASE_URL` — project URL (`https://xxxx.supabase.co`)
+- `SUPABASE_PUBLISHABLE_KEY` — publishable/anon key (`sb_publishable_...`)
+- `SUPABASE_SECRET_KEY` — server secret (`sb_secret_...`). Prefer this in Role 3. Never commit it and never put it in the browser.
+- `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` — accepted aliases. The dashboard Connect dialog copies these Next.js names; this package is Python and maps them automatically.
+- `ARIA_BACKEND=sqlite` — force the local file even when Supabase env vars are set
+- `ARIA_DB_PATH` — SQLite file when Supabase is not configured, default `tmp/aria_mvp.db`
 - `ARIA_SECRET_KEY` — encryption and signatures
 - `ARIA_BLIND_SALT` — phone blind-index salt
+
+Copy `.env.example` to `.env`. Do not commit `.env`.
+
+The hosted project already has `patients` and `history_notes`. Lookup works
+against those tables. Cases, sessions, reviews, approved records, and the
+audit log are created by running
+`supabase/migrations/20260907120000_role4_persistence.sql` in the SQL Editor.
+
+```bash
+python -m src.data --check-supabase
+python -m src.data api stats
+echo {"phone":"9990001111"} | python -m src.data api lookup
+```
 
 ## Fixtures (load / reset / validate)
 

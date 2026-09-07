@@ -27,6 +27,7 @@ from .store import (
     seed_synthetic_data,
     verify_audit_integrity,
 )
+from .supabase_store import check_connection as check_supabase
 
 
 def _print_summary() -> None:
@@ -137,11 +138,17 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Role 4 persistence and synthetic fixtures")
     parser.add_argument("--validate-fixtures", action="store_true")
     parser.add_argument("--summary", action="store_true")
+    parser.add_argument("--check-supabase", action="store_true")
     parser.add_argument("--export", nargs="?", const="src/data/synthetic/records.json")
     parser.add_argument("--reset", action="store_true")
     parser.add_argument("api", nargs="?", choices=["api"])
     parser.add_argument("command", nargs="?")
     args = parser.parse_args()
+
+    if args.check_supabase:
+        status = check_supabase()
+        print(json.dumps(status, indent=2))
+        return 0 if status.get("ok") else 1
 
     if args.reset:
         fixtures.reset()
@@ -166,7 +173,16 @@ def main() -> int:
     if args.api == "api":
         return _run_api(args.command or "")
 
-    if not any([args.validate_fixtures, args.summary, args.export is not None, args.reset, args.api]):
+    if not any(
+        [
+            args.validate_fixtures,
+            args.summary,
+            args.check_supabase,
+            args.export is not None,
+            args.reset,
+            args.api,
+        ]
+    ):
         parser.print_help()
     return 0
 
