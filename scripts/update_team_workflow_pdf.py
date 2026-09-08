@@ -16,8 +16,8 @@ from pypdf.generic import ContentStream, TextStringObject, NameObject
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / 'output/pdf/archive/AI_Emergency_Intake_Team_Workflow_Roles_2026-08-30_v1.pdf'
 CURRENT = ROOT / 'output/pdf/AI_Emergency_Intake_Team_Workflow_Roles.pdf'
-VERSIONED = ROOT / 'output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf'
-PREVIEW = ROOT / 'tmp/pdfs/workflow-v4-candidate.pdf'
+VERSIONED = ROOT / 'output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v5.pdf'
+PREVIEW = ROOT / 'tmp/pdfs/workflow-v5-candidate.pdf'
 W,H = 1190.551,841.8898
 NAVY=colors.Color(.09,.196,.302)
 MUTED=colors.Color(.36,.412,.459)
@@ -62,7 +62,7 @@ def pill(c,label,x,top,w=94):
 def footer(c,page):
     c.setFillColor(MUTED if page!=1 else colors.HexColor('#C8D7E5'))
     c.setFont('Helvetica',8.5)
-    c.drawRightString(W-42,24,f'Architecture Draft v4  |  3 Sep 2026  |  Page {page}')
+    c.drawRightString(W-42,24,f'Implementation Workflow v5  |  8 Sep 2026  |  Page {page}')
 
 def edit_text(page,mapping):
     stream=ContentStream(page.get_contents(),reader)
@@ -84,8 +84,8 @@ for i,page in enumerate(reader.pages,1):
     edits={}
     if i>1:edits[f'Architecture Draft v1  |  30 Aug 2026  |  Page {i}']=''
     if i==1:
-        edits['A shared architecture proposal before implementation begins']='Role 1 reassignment and confirmed team update | v4 | 3 Sep 2026'
-        edits['Decision gate: the team reviews and agrees on this structure before role-level implementation starts.']='Team review: confirmed owners are named throughout. See page 6 for Ishaan Sama\'s technical contribution and open decisions.'
+        edits['A shared architecture proposal before implementation begins']='Implementation merged; integration and demo-readiness checkpoint | v5 | 8 Sep 2026'
+        edits['Decision gate: the team reviews and agrees on this structure before role-level implementation starts.']='All five role components are on main. See pages 5-6 for verified evidence, secure setup and the remaining demo gates.'
     if i==3:
         edits.update({
           'Fazwan':'',
@@ -117,9 +117,9 @@ for i,page in enumerate(reader.pages,1):
     stream=BytesIO();c=canvas.Canvas(stream,pagesize=(W,H))
     if i==1:
         rect(c,55,631,1080,106,colors.Color(.122,.255,.365),10,colors.Color(.32,.46,.56))
-        p(c,'3 SEP UPDATE - ROLE 1 REASSIGNED AND TEAM ROSTER CONFIRMED',68,644,1047,12,color=WHITE,bold=True)
-        p(c,'<b>Confirmed:</b> Soha Raees (Role 1), Fazwan Zainuddin (Role 2), Mozzam Shahid (Role 3), Ishaan Sama (Role 4) and Jonathan (Role 5).',68,665,1047,11,color=WHITE)
-        p(c,'<b>Added:</b> Ishaan Sama\'s EmergencyVoice tech-stack contribution is mapped to the team workflow on page 6. <b>Retained:</b> FastAPI + SSE and human-owned clinical decisions.',68,699,1047,10.5,color=WHITE)
+        p(c,'8 SEP UPDATE - ALL FIVE ROLE COMPONENTS ARE NOW ON MAIN',68,644,1047,12,color=WHITE,bold=True)
+        p(c,'<b>Verified locally:</b> backend, voice demo service and dashboard run together; a synthetic case was extracted and accepted by Role 3.',68,665,1047,11,color=WHITE)
+        p(c,'<b>Next:</b> rotate exposed keys, configure Supabase securely, close domain review and complete the recorded end-to-end demo and rehearsal.',68,699,1047,10.5,color=WHITE)
         # Small notes in the existing cards; no changes to card order or role colours.
         pill(c,'SSE publisher',506,493,145)
         pill(c,'SSE receiver',944,493,145)
@@ -160,13 +160,13 @@ for i,page in enumerate(reader.pages,1):
 # One continuation page: same dimensions, typography, headings, margins and role colours.
 stream=BytesIO();c=canvas.Canvas(stream,pagesize=(W,H))
 c.setFillColor(NAVY);c.setFont('Helvetica-Bold',23)
-c.drawString(42,H-48,'4. Team Status and Next Actions')
-p(c,'3 September update - Role 1 reassigned to Soha Raees; next actions and the shared synthetic-case target remain unchanged.',42,58,1040,10.5,color=MUTED)
+c.drawString(42,H-48,'4. Implementation Status and Demo Readiness')
+p(c,'8 September update - all five role components are on main; integration, security and presentation gates remain.',42,58,1040,10.5,color=MUTED)
 c.setStrokeColor(colors.HexColor('#D9E1E8'));c.line(42,H-78,W-42,H-78)
-pill(c,'CURRENT v4',1056,33,92)
+pill(c,'CURRENT v5',1056,33,92)
 rect(c,42,94,1106,49,colors.HexColor('#EAF0FF'),8,colors.HexColor('#ADC4FF'))
-p(c,'<b>Current direction:</b> FastAPI + SSE. <b>Example received:</b> EXTRACTION_UPDATE JSON. <b>Implementation status:</b> each owner to confirm; no completion is assumed.',50,104,1088,10.3)
-p(c,'The shared payload is an example, not yet the final contract. SSE specifies live delivery; it does not decide which database we use.',50,123,1088,10.1)
+p(c,'<b>Current implementation:</b> AssemblyAI-compatible voice + Role 2 extraction + FastAPI/SSE + Supabase/SQLite + Next.js dashboard.',50,104,1088,10.3)
+p(c,'<b>Readiness rule:</b> component delivery is complete; competition readiness requires secure keys, domain sign-off and a recorded end-to-end rehearsal.',50,123,1088,10.1)
 
 def table(headers,rows,widths,top,row_colours=None,size=9.5,pad=8):
     hs=ParagraphStyle('h',fontName='Helvetica-Bold',fontSize=size,leading=size*1.25,textColor=WHITE)
@@ -185,30 +185,29 @@ def table(headers,rows,widths,top,row_colours=None,size=9.5,pad=8):
     t.drawOn(c,42,H-top-h)
     return top+h
 
-p(c,'Current integration clarifications',42,157,1100,12.5,bold=True,color=NAVY)
-end=table(['Workflow area','Earlier wording / position','Current v4 direction'],[
- ('Page 3: step 9 to step 11','LIVE EVENT; transport not named on the diagram.','SSE UPDATE: FastAPI sends live draft updates to the staff dashboard.'),
- ('Page 3: review return path','STAFF APPROVAL.','STAFF REVIEW API: staff edits/approval return to Role 3; approved records are saved via Role 4.'),
- ('Page 4: handoffs; page 5 added','Generic live case events; no dated next-action sheet.','SSE sender/receiver responsibilities clarified; shared data decisions and next deliverables listed below.')
+p(c,'Verified implementation state',42,157,1100,12.5,bold=True,color=NAVY)
+end=table(['Area','Evidence on 8 September','Meaning'],[
+ ('Roles 1-5','All implementation paths are on main; Role 1-5 delivery issues are closed.','Component delivery is complete; PR #34 contains the final integration improvements.'),
+ ('Local verification','49 Python tests, 6 dashboard tests, contract validation and Next.js production build pass.','Backend :8000, voice demo :8001 and dashboard :3000 can run together.'),
+ ('Hosted services','Team evidence reports AssemblyAI and Supabase testing; Fazwan\'s machine has no local .env yet.','Hosted access is not ready on this machine until fresh keys are configured securely.')
 ],[221,363,522],177,size=9.3,pad=7)
 
-p(c,'Next deliverable from each owner',42,end+15,1100,12.5,bold=True,color=NAVY)
-end=table(['Same role / owner','Next action','Evidence to share with the team'],[
- ('<b>Role 1 - Soha Raees</b>','Provide transcript turns and session references; connect the follow-up response from Role 2.','One synthetic spoken exchange becomes text, followed by one question and answer.'),
- ('<b>Role 2 - Fazwan Zainuddin</b>','Align extraction fields with the sample; retain source labels; prepare the prompt and expected outputs.','Examples for sufficient, missing and conflicting information; output ready for Role 3 validation.'),
- ('<b>Role 3 - Mozzam Shahid</b>','Confirm intake/review interfaces and authentication; publish the agreed sample through SSE.','One sample update reaches Role 5; reconnect works; review and save confirmation are returned.'),
- ('<b>Role 4 - Ishaan Sama</b>','Confirm database, identifiers, authorised retrieval and approved-record/audit storage.','One synthetic lookup, one not-found result and one saved approved record without duplicate writes.'),
- ('<b>Role 5 - Jonathan</b>','Display SSE draft updates; show gaps/conflicts; send staff edits and approval back to Role 3.','One live update without refresh; staff corrections survive later updates; save status is visible.'),
- ('<b>Demo - Mariam Habib</b>','Coordinate a script and joint test once owners report readiness; use synthetic data only.','One complete intake-to-review-to-save demonstration; any simulated component is labelled.')
+p(c,'Readiness actions in order',42,end+15,1100,12.5,bold=True,color=NAVY)
+end=table(['Priority / owner','Action','Completion evidence'],[
+ ('<b>1 - Security / key owners</b>','Do not merge PR #35 with .env. Rotate exposed keys; address the two high npm audit findings before public deployment.','Old keys revoked; clean PR and secret scan pass; dependency upgrade or mitigation is documented.'),
+ ('<b>2 - Ishaan + Fazwan</b>','Create a new local .env from .env.example; use the project URL and fresh server-side key. Never commit it.','python -m src.data --check-supabase reports OK without printing credentials.'),
+ ('<b>3 - Role 4 + Role 3</b>','Confirm the Role 4 migration and tables in Supabase Table Editor; run one synthetic lookup and approved save.','Patient lookup, case, review, approved record and audit row are visible exactly once.'),
+ ('<b>4 - All technical owners</b>','Run backend, voice and dashboard together; complete one synthetic intake-to-review-to-save flow.','Issue #7 has timestamps, case ID, screenshots/log summary and known limitations.'),
+ ('<b>5 - Domain + Mariam</b>','Close clinical/safety decisions, prepare fallback screenshots/recording and run a timed rehearsal.','Issues #6 and #11 are closed with sign-off, script, timing and action items.')
 ],[173,460,473],end+36,row_colours=ROWCOLS+[colors.HexColor('#F5F7FA')],size=9.5,pad=8)
 
 top=end+17
 rect(c,42,top,1106,86,PALE,8,colors.HexColor('#EDC88C'))
-p(c,'TEAM CONFIRMATION BEFORE INTEGRATION',52,top+10,1085,10.5,color=AMBER,bold=True)
-p(c,'<b>Roles 2 / 3 / 5:</b> agree field/event names, full-state vs partial updates, versions, unknown/source handling and review protection. <b>Roles 3 / 4 / 5:</b> confirm database, authentication and reconnect/save behaviour.',52,top+29,1084,9.8)
-p(c,'<b>Everyone:</b> reply with agree / requested changes, what is ready, next deliverable, blocker and target test date. First target: one shared synthetic case reaches the dashboard, is reviewed by staff and is saved successfully.',52,top+57,1084,9.8)
-p(c,'Scope: same workflow and owners as the previously shared PDF. AI prepares a draft; authorised staff retain the final clinical decision. Clinical approval rules require domain review.',42,top+97,1106,8.4,color=MUTED)
-p(c,'Technical reference: <link href="https://fastapi.tiangolo.com/tutorial/server-sent-events/" color="#0F8B8D">FastAPI SSE documentation</link>. Based on the 30 Aug workflow and the 31 Aug team update. Full implementation readiness is for owners to confirm.',42,top+112,1106,8.4,color=MUTED)
+p(c,'NEXT TEAM CHECKPOINT - DEMO READINESS, NOT MORE FEATURE BUILDING',52,top+10,1085,10.5,color=AMBER,bold=True)
+p(c,'Use the merged implementation as-is. Focus on secure configuration, one repeatable synthetic scenario, human-review evidence and a backup demo path.',52,top+29,1084,9.8)
+p(c,'Do not use real patient data. AI output remains an unverified draft; authorised staff retain the final clinical decision. Domain approval rules must be recorded before the competition demo.',52,top+57,1084,9.8)
+p(c,'Stable run guide: GETTING_STARTED.md. Supabase is optional for local development; SQLite is the safe fallback. Hosted persistence requires the migration and fresh keys.',42,top+97,1106,8.4,color=MUTED)
+p(c,'Technical reference: <link href="https://fastapi.tiangolo.com/tutorial/server-sent-events/" color="#0F8B8D">FastAPI SSE documentation</link>. Verified against main commit aa95e0c on 8 September 2026.',42,top+112,1106,8.4,color=MUTED)
 footer(c,5);c.save();stream.seek(0)
 writer.add_page(PdfReader(stream).pages[0])
 
@@ -216,45 +215,45 @@ writer.add_page(PdfReader(stream).pages[0])
 # tech-stack proposal without silently replacing the current FastAPI + SSE direction.
 stream=BytesIO();c=canvas.Canvas(stream,pagesize=(W,H))
 c.setFillColor(NAVY);c.setFont('Helvetica-Bold',23)
-c.drawString(42,H-48,'5. Confirmed Team Roles and Ishaan Sama Contribution')
-p(c,'Current team names are listed below. Role 1 was reassigned to Soha Raees on 3 September 2026.',42,58,1040,10.5,color=MUTED)
+c.drawString(42,H-48,'5. Confirmed Roles, Delivered Components and Supabase')
+p(c,'All role implementations are now on main. Ownership remains unchanged; the team now moves to integration and demo readiness.',42,58,1040,10.5,color=MUTED)
 c.setStrokeColor(colors.HexColor('#D9E1E8'));c.line(42,H-78,W-42,H-78)
-pill(c,'UPDATED IN v4',1048,59,100)
+pill(c,'CURRENT v5',1048,59,100)
 
-p(c,'Confirmed role ownership',42,96,1100,12.5,bold=True,color=NAVY)
-end=table(['Role','Registered team member','Primary ownership'],[
- ('<b>Role 1</b>','<b>Soha Raees</b>','Real-time voice, transcript turns, turn-taking, interruption handling and spoken response.'),
- ('<b>Role 2</b>','<b>Fazwan Zainuddin</b>','Agent prompt, structured extraction, source/confidence, gaps, conflicts and safety guardrails.'),
- ('<b>Role 3</b>','<b>Mozzam Shahid</b>','FastAPI backend, authentication, validation, orchestration, SSE and review APIs.'),
- ('<b>Role 4</b>','<b>Ishaan Sama</b>','Synthetic patient data, authorised retrieval, persistence, audit, privacy and retention.'),
- ('<b>Role 5</b>','<b>Jonathan</b>','Staff dashboard, live updates, human review, corrections and approval interface.'),
- ('<b>Demo</b>','<b>Mariam Habib</b>','Team coordination, synthetic demo script, rehearsal and presentation flow.')
+p(c,'Confirmed role ownership and delivered paths',42,96,1100,12.5,bold=True,color=NAVY)
+end=table(['Role','Registered team member','Delivered on main'],[
+ ('<b>Role 1</b>','<b>Soha Raees</b>','src/voice: AssemblyAI-compatible conversation, turn sanitisation, demo handoff and voice UI.'),
+ ('<b>Role 2</b>','<b>Fazwan Zainuddin</b>','src/extraction: schema-first extraction, safe failures, demo adapter and OpenAI-compatible provider.'),
+ ('<b>Role 3</b>','<b>Mozzam Shahid</b>','src/backend: FastAPI authentication, validation, SSE, tools, staff review and persistence handoff.'),
+ ('<b>Role 4</b>','<b>Ishaan Sama</b>','src/data + migration: synthetic data, Supabase/SQLite persistence, RBAC, encryption and audit.'),
+ ('<b>Role 5</b>','<b>Jonathan</b>','app/dashboard + components: live case list, gaps/conflicts, edits, review and approval workflow.'),
+ ('<b>Demo</b>','<b>Mariam Habib</b>','Issue #11 remains open: demo script, rehearsal, fallback assets and presentation delivery.')
 ],[110,245,751],116,row_colours=ROWCOLS+[colors.HexColor('#F5F7FA')],size=9.3,pad=7)
 
-p(c,'Ishaan Sama tech-stack input - incorporated into team planning',42,end+16,1100,12.5,bold=True,color=NAVY)
-end=table(['Contribution','How it is incorporated','Owner / status'],[
- ('AssemblyAI voice layer','Voice Agent API with STT, VAD/turn-taking, sentiment, disfluency, word timestamps and tool calling is the proposed real-time signal source.','Role 1 + Role 3; model/API choice to confirm.'),
- ('Demo call transport','Use browser/WebRTC for the fastest demo; keep Twilio as an optional realism upgrade if time and cost permit.','Role 1 + Role 3; open decision.'),
- ('Schema-first extraction','Use JSON-Schema tool calling; represent missing data as nullable/unknown and never force or guess a clinical value.','Role 2 + Role 3; aligned with current contract.'),
- ('Distress indicator','Combine sentiment, disfluency and pacing into an auditable HIGH/MEDIUM/LOW signal, kept separate from clinical severity and final triage.','Roles 2/3/5; formula requires agreement.'),
- ('Mock patient data','Use synthetic records, server-side filtered lookup and an explicit retention/audit policy. SQLite is sufficient for MVP; Postgres remains an option.','Role 4 + Role 3; DB choice open.'),
- ('Brief and dashboard','Generate a fixed structured brief, publish through the current FastAPI + SSE path and require visible human review. LeMUR is a candidate, not an automatic dependency.','Roles 2/3/5; FastAPI + SSE retained.'),
- ('Privacy and scope','Apply PII redaction to retained transcripts, use synthetic data, state what is deleted/retained and prohibit autonomous diagnosis or triage scoring.','All roles; mandatory safety constraint.')
+p(c,'Ishaan Sama tech-stack input - implementation outcome',42,end+16,1100,12.5,bold=True,color=NAVY)
+end=table(['Contribution','Current implementation','Owner / readiness'],[
+ ('AssemblyAI voice layer','Role 1 includes the AssemblyAI-compatible agent, browser audio/captions, turn-taking configuration and secure token route.','Role 1 + Role 3; live use needs a fresh AssemblyAI key.'),
+ ('Demo call transport','Browser voice UI is the MVP transport. Twilio is not required for the current competition path.','Role 1 + Role 5; local demo path verified.'),
+ ('Schema-first extraction','StructuredCase remains schema-first with sources, gaps, conflicts and safe failure. OpenRouter/OpenAI is optional; demo fallback exists.','Role 2 + Role 3; tests pass.'),
+ ('Distress indicator','Safety signals remain separate from final clinical triage. No autonomous diagnosis or final decision is permitted.','Roles 2/3/5; domain vocabulary still needs #6 sign-off.'),
+ ('Mock patient data','Supabase/Postgres is the hosted store; SQLite is the local/test fallback. The Role 4 migration creates case/review/audit tables.','Role 4 + Role 3; confirm fresh-key access and migration.'),
+ ('Brief and dashboard','FastAPI publishes SSE updates to the Next.js staff dashboard; review actions return through Role 3 and save through Role 4.','Roles 2/3/4/5; automated and local smoke tests pass.'),
+ ('Privacy and scope','Synthetic data, RBAC, encryption, retention and audit controls are implemented. Secrets stay in an untracked local .env.','All roles; exposed keys must be rotated before live demo.')
 ],[205,603,298],end+37,row_colours=[colors.HexColor('#F7FAFC'),colors.HexColor('#EEF6F5')],size=8.35,pad=6)
 
 top=end+15
 rect(c,42,top,1106,49,PALE,8,colors.HexColor('#EDC88C'))
-p(c,'DECISIONS TO CLOSE EARLY',52,top+9,1085,10.2,color=AMBER,bold=True)
-p(c,'Universal-3 Pro/API availability; browser-only vs Twilio; SQLite vs Postgres; LeMUR vs current LLM path; exact distress-signal formula; raw-audio and transcript retention.',52,top+27,1084,9.2)
-p(c,'Contribution source: Ishaan Sama, EmergencyVoice - Tech Stack Document (31 Aug 2026). Team direction remains FastAPI + SSE unless the owners agree a documented change.',42,top+63,1106,8.4,color=MUTED)
+p(c,'REMAINING READINESS GATES',52,top+9,1085,10.2,color=AMBER,bold=True)
+p(c,'Rotate exposed keys; configure a clean local .env; resolve public-deployment dependency risk; verify Supabase and one approved save; close #6, #7 and #11; rehearse.',52,top+27,1084,9.2)
+p(c,'Contribution source: Ishaan Sama, EmergencyVoice - Tech Stack Document (31 Aug 2026). Current evidence: main aa95e0c, local verification and PR #34 test report (8 Sep 2026).',42,top+63,1106,8.4,color=MUTED)
 footer(c,6);c.save();stream.seek(0)
 writer.add_page(PdfReader(stream).pages[0])
 
 writer.add_metadata({
  '/Title':'AI Emergency Patient Intake - Team Workflow and Role Ownership',
  '/Author':'International Competition Team Fazwan',
- '/Subject':'Architecture Draft v4 - 3 Sep 2026 - Role 1 reassigned to Soha Raees',
- '/Keywords':'team workflow, confirmed role ownership, Soha Raees, Ishaan Sama, FastAPI, SSE, v4, team review',
+ '/Subject':'Implementation Workflow v5 - 8 Sep 2026 - demo readiness and Supabase setup',
+ '/Keywords':'team workflow, implementation status, demo readiness, Supabase, FastAPI, SSE, v5, security',
 })
 PREVIEW.parent.mkdir(parents=True,exist_ok=True)
 with PREVIEW.open('wb') as f:writer.write(f)

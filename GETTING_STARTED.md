@@ -48,6 +48,16 @@ Copy the example env file and fill in what you have:
 cp .env.example .env
 ```
 
+Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Never commit `.env`. If a key is ever pushed to GitHub, remove the file from the branch and rotate/revoke every exposed key before continuing.
+
+Before any internet-facing deployment, run `npm audit --omit=dev` and resolve or document the production dependency findings. The current Next.js 14 line requires a separately tested upgrade; this does not block the local synthetic demo.
+
 Open `.env` and set what applies to you:
 
 - **Always safe to leave as-is**: the `ARIA_*` demo tokens and ports — these are fine for local dev.
@@ -67,6 +77,8 @@ You can check everything is wired correctly at any point with:
 python -m src.data --check-supabase
 ```
 
+The Supabase project overview does not show table contents. Use **Table Editor** to inspect `patients`, `history_notes`, `cases`, `sessions`, `reviews`, `approved_records`, and `audit_log`. “No repository connected” only means Supabase GitHub integration is not enabled; the application connects through `SUPABASE_URL` and a server-side key in your local `.env`.
+
 ## 3. Run it — three processes, three terminals
 
 ```bash
@@ -77,6 +89,19 @@ python -m src.backend
 python -m src.voice
 
 # Terminal 3 — Role 5 dashboard / call UI (port 3000)
+npm run dev
+```
+
+On Windows, activate the project virtual environment in each Python terminal first, or call it explicitly:
+
+```powershell
+# Terminal 1
+.\.venv\Scripts\python.exe -m src.backend
+
+# Terminal 2
+.\.venv\Scripts\python.exe -m src.voice
+
+# Terminal 3
 npm run dev
 ```
 
@@ -93,6 +118,14 @@ curl http://127.0.0.1:8001/health
 2. Tap the orb and talk to Aira (or, if you don't have an AssemblyAI key, click "Send a demo case to staff" instead).
 3. When the call naturally wraps up, it ends itself and hands off automatically — you'll get a short case number and a link to the staff dashboard.
 4. Open **http://localhost:3000/dashboard** to see the case land, watch it fill in live, and try the review actions (save draft, request more info, approve).
+
+For the fastest no-key smoke test, keep the three processes running and call:
+
+```powershell
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8001/api/voice/demo-intake
+```
+
+The response should contain `extraction.status: success` and `ingest.httpStatus: 202`; `case_demo_001` should then appear on the dashboard.
 
 ## Troubleshooting
 
