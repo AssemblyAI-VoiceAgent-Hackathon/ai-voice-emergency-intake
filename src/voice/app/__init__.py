@@ -1,0 +1,1 @@
+"""FastAPI Emergency Voice server."""
