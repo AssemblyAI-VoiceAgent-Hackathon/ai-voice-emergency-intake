@@ -52,12 +52,12 @@ This repository is the single active product repository. The organisation reposi
 
 A branch is a temporary version of this same repository, not a separate delivery folder. GitHub shows a branch's own snapshot: an older branch can still show an old PDF or return a 404 for a file that was added later on `main`. Only reviewed and merged work appears on `main`.
 
-## Verified implementation snapshot — 7 September 2026
+## Verified implementation snapshot — 8 September 2026
 
 | Area | Evidence currently visible in GitHub | Interpretation |
 |---|---|---|
 | Shared contracts and workflow | Present on `main` | Available to all roles as the integration baseline. |
-| Role 1 — Voice | No `src/voice/` implementation is visible on `main`; Issues #1, #13 and #14 remain open | Role 1 code delivery is still pending repository evidence. |
+| Role 1 — Voice | `src/voice/` (AssemblyAI voice agent, audio capture/playback worklets, static demo UI, Dockerfile) is present on `main`, built by Soha Raees ([@soharaees](https://github.com/soharaees)) | Role 1 is delivered on `main`. |
 | Role 2 — Extraction | `src/extraction/`, contract examples and tests are present on `main`; Issues #2, #15 and #16 are closed | Role 2 is delivered on `main`. |
 | Role 3 — Backend | `src/backend/` and backend tests are present on `main`; Issues #3, #17 and #19 are closed | Role 3 is delivered on `main`. |
 | Role 4 — Data | `src/data/`, the Supabase migration, synthetic fixtures and tests are present on `main`; Issues #4, #20 and #21 are closed | Role 4 is delivered on `main`. |
