@@ -4,6 +4,8 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 
 > This prototype does not diagnose patients or make the final triage decision. A qualified human reviewer remains responsible for verification, triage and approval.
 
+**New to this repo?** See [GETTING_STARTED.md](GETTING_STARTED.md) for a full step-by-step guide: what to install, how to configure `.env`, and how to run and try the whole system locally.
+
 ## Confirmed team roles
 
 | Role | Team member | GitHub |
