@@ -28,14 +28,34 @@ The client now sanitizes malformed values before pushing them into the final tur
 
 ## Configuration
 
-Create a `.env` file in the project root with your AssemblyAI credentials:
+ ## Create a `.env` file in the project root with your AssemblyAI credentials:
+    1- Generate ASSEMBLYAI_API_KEY  from https://www.assemblyai.com/dashboard/api-keys 
 
-```dotenv
-ASSEMBLYAI_API_KEY=your_api_key_here
-AGENT=emergency-voice
-```
 
-The `.env` file is ignored by Git and must not be committed.
+        ```dotenv
+        ASSEMBLYAI_API_KEY=your_api_key_here 
+        ```
+     2- create AGENT variable 
+
+        ```dotenv 
+        AGENT=emergency-voice
+        ```
+
+     3- Publish the emergency voice agent
+
+        From this directory, publish the agent to AssemblyAI:
+
+            ```bash
+            python -m scripts.publish
+            ```
+
+            The command reads `AGENT=emergency-voice` and creates or updates the agent defined in `app/agents/emergency-voice.jsonc`. When a new agent is created, its ID is saved automatically in `.env` as:
+
+            ```dotenv
+            AGENT_ID_EMERGENCY_VOICE=<generated-agent-id>
+            ```
+
+            Keep this value in `.env`. Future publishes reuse that ID and update the existing agent. If the ID is missing or the agent was deleted, run the publish command again to generate a new one.
 
 ## How To Test
 
