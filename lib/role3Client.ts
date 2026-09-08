@@ -124,6 +124,21 @@ export async function getCaseSnapshot(caseId: string): Promise<CaseSnapshot> {
   return response.json();
 }
 
+export interface CaseListItem {
+  caseId: string;
+  sessionId: string | null;
+  caseVersion: number;
+  reviewStatus: string;
+  status?: string;
+  summary?: string | null;
+}
+
+export async function listCases(): Promise<CaseListItem[]> {
+  const response = await role3Fetch("/api/v1/cases");
+  const body = (await response.json()) as { cases?: CaseListItem[] };
+  return Array.isArray(body.cases) ? body.cases : [];
+}
+
 export async function lookupPatientAuthorised(opts: {
   phone?: string;
   patientPublicId?: string;

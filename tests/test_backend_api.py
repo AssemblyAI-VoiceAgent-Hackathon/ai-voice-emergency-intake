@@ -79,6 +79,10 @@ class BackendApiTests(unittest.TestCase):
         duplicate = self._ingest()
         self.assertEqual(duplicate.status_code, 202)
         self.assertEqual(duplicate.json()["status"], "accepted")
+        listed = self.client.get("/api/v1/cases", headers=STAFF)
+        self.assertEqual(listed.status_code, 200, listed.text)
+        ids = [item["caseId"] for item in listed.json()["cases"]]
+        self.assertIn("case_demo_001", ids)
         snapshot = self.client.get("/api/v1/cases/case_demo_001", headers=STAFF)
         self.assertEqual(snapshot.status_code, 200)
         self.assertEqual(snapshot.json()["caseVersion"], 3)
@@ -242,6 +246,10 @@ class BackendApiTests(unittest.TestCase):
 
         missing = self.client.get("/api/v1/patients/lookup", params={"phone": "9990009999"}, headers=STAFF)
         self.assertEqual(missing.status_code, 404)
+
+        history = self.client.get("/api/v1/patients/patient_demo_001/history", headers=SERVICE)
+        self.assertEqual(history.status_code, 200, history.text)
+        self.assertIn("patient", history.json())
 
 
 if __name__ == "__main__":

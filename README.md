@@ -22,6 +22,7 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 - `contracts/staff-review.schema.json` — Role 5 staff-review contract.
 - `contracts/examples/` — synthetic sufficient, missing and conflicting payloads.
 - `contracts/TEAM_INTEGRATION_HANDOFF.md` — complete Role 1–5 ownership, delivery paths and integration workflow.
+- `src/voice/` — Role 1 AssemblyAI voice capture. Emits `intake-transcript` turns, runs Role 2 extraction, and ingests into Role 3.
 - `src/extraction/` — provider-neutral, schema-first extraction and safe-failure engine.
 - `src/backend/` — Role 3 FastAPI ingestion, SSE, staff review, tool calling, and Role 4 save handoff.
 - `src/data/` — Role 4 persistence (Supabase hosted, SQLite for tests), authorised lookup, approved-record save, audit trail, and synthetic fixtures.
@@ -108,7 +109,10 @@ python -m unittest discover -s tests -v
 python -m src.data --validate-fixtures
 python -m src.data --check-supabase
 python -m src.backend
+python -m src.voice
 ```
+
+Role 3 listens on `http://127.0.0.1:8000`. Role 1 listens on `http://127.0.0.1:8001` so the two FastAPI apps can run together. Without `ASSEMBLYAI_API_KEY`, Role 1 starts in demo mode: `POST /api/voice/handoff` and `POST /api/voice/demo-intake` still wrap turns in `intake-transcript.schema.json`, run Role 2, and ingest into Role 3.
 
 Staff dashboard (Role 5, after `npm install`):
 
@@ -116,7 +120,9 @@ Staff dashboard (Role 5, after `npm install`):
 npm run dev
 ```
 
-Open `/dashboard`. Synthetic contract examples load without the backend. To exercise live SSE and review/save, run Role 3, ingest a case with the service token, then connect that `caseId`. Approvals persist through Role 4; the browser never calls Supabase.
+Open `/dashboard`. Synthetic contract examples load without the backend. To exercise live SSE and review/save, run Role 3, ingest a case with the service token (or Role 1 handoff), then connect that `caseId`. Approvals persist through Role 4; the browser never calls Supabase.
+
+Live voice UI: `http://127.0.0.1:8001` (requires `ASSEMBLYAI_API_KEY`). After the websocket closes, the client posts sanitized turns to Role 2/3.
 
 Role 4 talks to Supabase. Copy `.env.example` to `.env` and set `SUPABASE_URL` plus `SUPABASE_PUBLISHABLE_KEY`. The dashboard Connect dialog labels those `NEXT_PUBLIC_*` because it assumes Next.js; this repo is Python and accepts both names. Then run `supabase/migrations/20260907120000_role4_persistence.sql` in the SQL Editor so case/review/audit tables exist. Lookup already works against the existing `patients` and `history_notes` tables.
 
