@@ -83,6 +83,24 @@ class CaseRegistry:
             "linkedPatientPublicId": record.linked_patient_public_id,
         }
 
+    def list_ready(self) -> list[dict[str, Any]]:
+        items: list[dict[str, Any]] = []
+        for record in reversed(list(self._cases.values())):
+            if record.structured_case is None:
+                continue
+            summary = (record.structured_case.get("summary") or {}).get("oneLine")
+            items.append(
+                {
+                    "caseId": record.case_id,
+                    "sessionId": record.session_id,
+                    "caseVersion": record.case_version,
+                    "reviewStatus": record.review_status,
+                    "status": record.structured_case.get("status"),
+                    "summary": summary,
+                }
+            )
+        return items
+
     def publish(self, record: CaseRecord, event_type: str, data: dict[str, Any]) -> CaseEvent:
         event = CaseEvent(
             event_id=new_event_id(),

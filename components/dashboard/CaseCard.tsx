@@ -7,26 +7,31 @@ import { Clock, AlertCircle, CheckCircle2, HelpCircle } from "lucide-react";
 interface CaseCardProps {
   caseItem: StructuredCase;
   isSelected: boolean;
+  incoming?: boolean;
   onSelect: () => void;
 }
 
 export default function CaseCard({
   caseItem,
   isSelected,
+  incoming = false,
   onSelect,
 }: CaseCardProps) {
   const patientLabel =
-    caseItem.subject.patientReference || caseItem.caseId;
+    caseItem.subject.patientReference ||
+    (caseItem.caseId.startsWith("case_")
+      ? `Caller ${caseItem.caseId.slice(-4)}`
+      : `Case #${caseItem.caseId}`);
 
   // Format capturedAt as readable date/time
   const formatCapturedAt = (isoString: string) => {
     try {
       const date = new Date(isoString);
-      const now = new Date("2026-08-30T12:00:00Z"); // relative base matching contract test dates
-      const diffMs = now.getTime() - date.getTime();
+      const diffMs = Date.now() - date.getTime();
       const diffMins = Math.floor(diffMs / (1000 * 60));
       const diffHours = Math.floor(diffMins / 60);
 
+      if (diffMins < 1 && diffMins >= 0) return "Just now";
       if (diffMins < 60 && diffMins >= 0) return `${diffMins}m ago`;
       if (diffHours < 24 && diffHours >= 0) return `${diffHours}h ago`;
 
@@ -83,6 +88,8 @@ export default function CaseCard({
         ${
           isSelected
             ? "bg-[#080E29] border-[#3954C0] shadow-lg ring-1 ring-[#3954C0]/40"
+            : incoming
+            ? "bg-[#080E29]/70 border-emerald-500/40 hover:border-emerald-400/60"
             : "bg-[#111116] hover:bg-[#181820] border-zinc-800/80 hover:border-zinc-700"
         }
       `}

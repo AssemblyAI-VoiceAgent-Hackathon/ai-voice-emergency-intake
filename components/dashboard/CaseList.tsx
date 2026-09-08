@@ -8,12 +8,14 @@ import { Search, Inbox } from "lucide-react";
 interface CaseListProps {
   cases: StructuredCase[];
   selectedCaseId: string | null;
+  incomingCaseId?: string | null;
   onSelectCase: (caseId: string) => void;
 }
 
 export default function CaseList({
   cases,
   selectedCaseId,
+  incomingCaseId = null,
   onSelectCase,
 }: CaseListProps) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -39,7 +41,7 @@ export default function CaseList({
             Cases ({cases.length})
           </h2>
           <span className="text-[10px] px-2 py-0.5 rounded bg-[#3954C0]/20 text-blue-300 font-semibold border border-[#3954C0]/30">
-            v1.0.0 Contract
+            Voice intake
           </span>
         </div>
 
@@ -69,6 +71,7 @@ export default function CaseList({
               key={c.caseId}
               caseItem={c}
               isSelected={c.caseId === selectedCaseId}
+              incoming={c.caseId === incomingCaseId}
               onSelect={() => onSelectCase(c.caseId)}
             />
           ))

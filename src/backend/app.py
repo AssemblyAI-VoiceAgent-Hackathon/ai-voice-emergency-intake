@@ -95,6 +95,14 @@ def create_app(conn: Any = None) -> FastAPI:
     async def health() -> dict[str, str]:
         return {"status": "ok", "role": "3"}
 
+    @app.get("/api/v1/cases")
+    async def list_cases(request: Request) -> JSONResponse:
+        principal = authenticate(request)
+        require_scopes(principal, READ_SCOPE)
+        items = app.state.registry.list_ready()
+        _safe_log(request, action="list_cases", count=len(items))
+        return _json_response(request, 200, {"cases": items})
+
     @app.post("/api/v1/cases/{case_id}/structured-case")
     async def ingest_structured_case(case_id: str, request: Request) -> JSONResponse:
         principal = authenticate(request)
@@ -329,6 +337,20 @@ def create_app(conn: Any = None) -> FastAPI:
         if status == 404:
             raise ApiError(404, "PATIENT_NOT_FOUND", "Patient not found.")
         _safe_log(request, action="lookup", status="ok")
+        return _json_response(request, 200, result)
+
+    @app.get("/api/v1/patients/{patient_id}/history")
+    async def patient_history(patient_id: str, request: Request) -> JSONResponse:
+        """Role 1 AssemblyAI HTTP-tool alias for authorised Role 4 lookup."""
+        principal = authenticate(request)
+        require_scopes(principal, READ_SCOPE, TOOL_SCOPE)
+        role = "DISPATCHER" if principal.actor_role == "DISPATCHER" else "CLINICIAN"
+        result = app.state.persistence.lookup_patient(
+            principal.actor_id, role, patient_public_id=patient_id
+        )
+        if result.get("error") == "Patient not found":
+            raise ApiError(404, "PATIENT_NOT_FOUND", "Patient not found.")
+        _safe_log(request, action="history", status="ok")
         return _json_response(request, 200, result)
 
     return app

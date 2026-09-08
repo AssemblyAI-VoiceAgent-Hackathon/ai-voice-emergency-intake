@@ -37,3 +37,7 @@ else:
 The repository does not include provider credentials or network calls. Use
 synthetic data only during development and keep provider secrets in the backend
 environment.
+
+`src/extraction/demo_adapter.py` is the fallback generator Role 1 uses when no
+external model is configured. It copies facts from final non-agent turns only
+and never emits a diagnosis or final triage decision.

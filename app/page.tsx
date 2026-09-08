@@ -13,7 +13,7 @@ export default function HomePage() {
         <AiraLogo className="h-10 w-auto mb-2" />
 
         <p className="text-zinc-400 text-sm max-w-sm leading-relaxed">
-          Emergency Voice Triage &amp; Medical Summary Assistant
+          Voice intake for patients. Live review for ER staff.
         </p>
 
         {/* Portal Cards */}
@@ -27,8 +27,8 @@ export default function HomePage() {
                 <Phone className="w-6 h-6" />
               </div>
               <div className="text-left">
-                <div className="font-semibold text-white text-base">Patient Call Screen</div>
-                <div className="text-xs text-zinc-400">Launch Aira Voice Interface (/call)</div>
+                <div className="font-semibold text-white text-base">Patient call</div>
+                <div className="text-xs text-zinc-400">Talk with Aira. The summary goes to staff.</div>
               </div>
             </div>
             <ArrowRight className="w-5 h-5 text-blue-400 group-hover:translate-x-1 transition-transform" />
@@ -43,8 +43,8 @@ export default function HomePage() {
                 <LayoutDashboard className="w-6 h-6" />
               </div>
               <div className="text-left">
-                <div className="font-semibold text-white text-base">Staff Dashboard</div>
-                <div className="text-xs text-zinc-400">ER Review Dashboard (/dashboard)</div>
+                <div className="font-semibold text-white text-base">Staff dashboard</div>
+                <div className="text-xs text-zinc-400">Review live intake, edit, and approve.</div>
               </div>
             </div>
             <ArrowRight className="w-5 h-5 text-zinc-500 group-hover:text-zinc-300 group-hover:translate-x-1 transition-transform" />

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Activity } from "lucide-react";
 
 export default function EmptyState() {
@@ -19,8 +20,15 @@ export default function EmptyState() {
       </h2>
 
       <p className="text-zinc-400 max-w-sm text-sm leading-relaxed">
-        New cases will appear here as calls come in.
+        New cases appear here when a patient finishes a call on the Aira intake screen.
       </p>
+
+      <Link
+        href="/call"
+        className="mt-6 text-sm font-semibold px-4 py-2 rounded-lg bg-[#3954C0] hover:bg-[#4a65d0] text-white"
+      >
+        Open patient call screen
+      </Link>
     </div>
   );
 }

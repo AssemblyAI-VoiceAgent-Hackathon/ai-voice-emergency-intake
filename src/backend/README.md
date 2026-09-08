@@ -11,12 +11,14 @@ Issues covered: #3, #17, #19.
 | Method | Path | Auth | Purpose |
 |---|---|---|---|
 | `GET` | `/health` | none | Liveness |
+| `GET` | `/api/v1/cases` | staff / service / dispatcher | List ingested cases for the Role 5 dashboard |
 | `POST` | `/api/v1/cases/{caseId}/structured-case` | service | Role 2 ingest |
 | `GET` | `/api/v1/cases/{caseId}` | staff / service / dispatcher | Snapshot |
 | `GET` | `/api/v1/cases/{caseId}/events` | staff / service / dispatcher | SSE |
 | `POST` | `/api/v1/cases/{caseId}/reviews` | staff clinician | Role 5 review |
 | `POST` | `/api/v1/cases/{caseId}/tools` | service / staff | `lookup_patient` |
 | `GET` | `/api/v1/patients/lookup` | staff / service | Authorised Role 4 lookup |
+| `GET` | `/api/v1/patients/{patientId}/history` | staff / service | Role 1 AssemblyAI HTTP-tool alias for the same lookup |
 
 SSE events: `case.snapshot`, `case.updated`, `case.tool_status`, `case.review_status`.
 Reconnect with `Last-Event-ID`. Duplicate `Idempotency-Key` values return the original result. Stale `caseVersion` / `baseCaseVersion` returns `409`.
