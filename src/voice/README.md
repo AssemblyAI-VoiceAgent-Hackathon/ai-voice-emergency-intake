@@ -1,5 +1,7 @@
 # Role 1 — Voice / conversation capture
 
+Built by Soha Raees ([@soharaees](https://github.com/soharaees)): the AssemblyAI voice agent integration, browser audio capture/playback (`lib/voiceClient.ts`), the static demo UI, and the Docker setup below.
+
 Issue #1: Build the synthetic voice/conversation capture path that supplies stable transcript turns to the extraction component.
 
 This service is Role 1 in the team pipeline:
