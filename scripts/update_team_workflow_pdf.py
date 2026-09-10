@@ -62,7 +62,7 @@ def pill(c,label,x,top,w=94):
 def footer(c,page):
     c.setFillColor(MUTED if page!=1 else colors.HexColor('#C8D7E5'))
     c.setFont('Helvetica',8.5)
-    c.drawRightString(W-42,24,f'Implementation Workflow v5  |  8 Sep 2026  |  Page {page}')
+    c.drawRightString(W-42,24,f'Implementation Workflow v5  |  Updated 10 Sep 2026  |  Page {page}')
 
 def edit_text(page,mapping):
     stream=ContentStream(page.get_contents(),reader)
@@ -84,7 +84,7 @@ for i,page in enumerate(reader.pages,1):
     edits={}
     if i>1:edits[f'Architecture Draft v1  |  30 Aug 2026  |  Page {i}']=''
     if i==1:
-        edits['A shared architecture proposal before implementation begins']='Implementation merged; integration and demo-readiness checkpoint | v5 | 8 Sep 2026'
+        edits['A shared architecture proposal before implementation begins']='Implementation merged; integration and demo-readiness checkpoint | v5 | updated 10 Sep 2026'
         edits['Decision gate: the team reviews and agrees on this structure before role-level implementation starts.']='All five role components are on main. See pages 5-6 for verified evidence, secure setup and the remaining demo gates.'
     if i==3:
         edits.update({
@@ -117,7 +117,7 @@ for i,page in enumerate(reader.pages,1):
     stream=BytesIO();c=canvas.Canvas(stream,pagesize=(W,H))
     if i==1:
         rect(c,55,631,1080,106,colors.Color(.122,.255,.365),10,colors.Color(.32,.46,.56))
-        p(c,'8 SEP UPDATE - ALL FIVE ROLE COMPONENTS ARE NOW ON MAIN',68,644,1047,12,color=WHITE,bold=True)
+        p(c,'10 SEP UPDATE - ALL FIVE ROLE COMPONENTS ARE NOW ON MAIN',68,644,1047,12,color=WHITE,bold=True)
         p(c,'<b>Verified locally:</b> backend, voice demo service and dashboard run together; a synthetic case was extracted and accepted by Role 3.',68,665,1047,11,color=WHITE)
         p(c,'<b>Next:</b> rotate exposed keys, configure Supabase securely, close domain review and complete the recorded end-to-end demo and rehearsal.',68,699,1047,10.5,color=WHITE)
         # Small notes in the existing cards; no changes to card order or role colours.
@@ -161,7 +161,7 @@ for i,page in enumerate(reader.pages,1):
 stream=BytesIO();c=canvas.Canvas(stream,pagesize=(W,H))
 c.setFillColor(NAVY);c.setFont('Helvetica-Bold',23)
 c.drawString(42,H-48,'4. Implementation Status and Demo Readiness')
-p(c,'8 September update - all five role components are on main; integration, security and presentation gates remain.',42,58,1040,10.5,color=MUTED)
+p(c,'10 September update - all five role components are on main; credential rotation, integration and presentation gates remain.',42,58,1040,10.5,color=MUTED)
 c.setStrokeColor(colors.HexColor('#D9E1E8'));c.line(42,H-78,W-42,H-78)
 pill(c,'CURRENT v5',1056,33,92)
 rect(c,42,94,1106,49,colors.HexColor('#EAF0FF'),8,colors.HexColor('#ADC4FF'))
@@ -186,15 +186,15 @@ def table(headers,rows,widths,top,row_colours=None,size=9.5,pad=8):
     return top+h
 
 p(c,'Verified implementation state',42,157,1100,12.5,bold=True,color=NAVY)
-end=table(['Area','Evidence on 8 September','Meaning'],[
+end=table(['Area','Evidence verified by 10 September','Meaning'],[
  ('Roles 1-5','All implementation paths are on main; Role 1-5 delivery issues are closed.','Component delivery is complete; PR #34 contains the final integration improvements.'),
- ('Local verification','49 Python tests, 6 dashboard tests, contract validation and Next.js production build pass.','Backend :8000, voice demo :8001 and dashboard :3000 can run together.'),
+ ('Local verification','49 Python tests, 6 dashboard tests, contract validation, Next.js 16.3.4 production build and npm audit pass.','Backend :8000, voice demo :8001 and dashboard :3000 can run together; the dependency audit reports zero known vulnerabilities.'),
  ('Hosted services','Team evidence reports AssemblyAI and Supabase testing; Fazwan\'s machine has no local .env yet.','Hosted access is not ready on this machine until fresh keys are configured securely.')
 ],[221,363,522],177,size=9.3,pad=7)
 
 p(c,'Readiness actions in order',42,end+15,1100,12.5,bold=True,color=NAVY)
 end=table(['Priority / owner','Action','Completion evidence'],[
- ('<b>1 - Security / key owners</b>','Do not merge PR #35 with .env. Rotate exposed keys; address the two high npm audit findings before public deployment.','Old keys revoked; clean PR and secret scan pass; dependency upgrade or mitigation is documented.'),
+ ('<b>1 - Security / key owners</b>','PR #35 merged with .env. PR #36 removes it, but key owners must still rotate every exposed value before public deployment.','Old keys revoked; fresh values exist only in approved secret stores; a secret scan passes.'),
  ('<b>2 - Ishaan + Fazwan</b>','Create a new local .env from .env.example; use the project URL and fresh server-side key. Never commit it.','python -m src.data --check-supabase reports OK without printing credentials.'),
  ('<b>3 - Role 4 + Role 3</b>','Confirm the Role 4 migration and tables in Supabase Table Editor; run one synthetic lookup and approved save.','Patient lookup, case, review, approved record and audit row are visible exactly once.'),
  ('<b>4 - All technical owners</b>','Run backend, voice and dashboard together; complete one synthetic intake-to-review-to-save flow.','Issue #7 has timestamps, case ID, screenshots/log summary and known limitations.'),
@@ -207,7 +207,7 @@ p(c,'NEXT TEAM CHECKPOINT - DEMO READINESS, NOT MORE FEATURE BUILDING',52,top+10
 p(c,'Use the merged implementation as-is. Focus on secure configuration, one repeatable synthetic scenario, human-review evidence and a backup demo path.',52,top+29,1084,9.8)
 p(c,'Do not use real patient data. AI output remains an unverified draft; authorised staff retain the final clinical decision. Domain approval rules must be recorded before the competition demo.',52,top+57,1084,9.8)
 p(c,'Stable run guide: GETTING_STARTED.md. Supabase is optional for local development; SQLite is the safe fallback. Hosted persistence requires the migration and fresh keys.',42,top+97,1106,8.4,color=MUTED)
-p(c,'Technical reference: <link href="https://fastapi.tiangolo.com/tutorial/server-sent-events/" color="#0F8B8D">FastAPI SSE documentation</link>. Verified against main commit aa95e0c on 8 September 2026.',42,top+112,1106,8.4,color=MUTED)
+p(c,'Technical reference: <link href="https://fastapi.tiangolo.com/tutorial/server-sent-events/" color="#0F8B8D">FastAPI SSE documentation</link>. PR #36 reverified after merging the latest main on 10 September 2026.',42,top+112,1106,8.4,color=MUTED)
 footer(c,5);c.save();stream.seek(0)
 writer.add_page(PdfReader(stream).pages[0])
 
@@ -244,15 +244,15 @@ end=table(['Contribution','Current implementation','Owner / readiness'],[
 top=end+15
 rect(c,42,top,1106,49,PALE,8,colors.HexColor('#EDC88C'))
 p(c,'REMAINING READINESS GATES',52,top+9,1085,10.2,color=AMBER,bold=True)
-p(c,'Rotate exposed keys; configure a clean local .env; resolve public-deployment dependency risk; verify Supabase and one approved save; close #6, #7 and #11; rehearse.',52,top+27,1084,9.2)
-p(c,'Contribution source: Ishaan Sama, EmergencyVoice - Tech Stack Document (31 Aug 2026). Current evidence: main aa95e0c, local verification and PR #34 test report (8 Sep 2026).',42,top+63,1106,8.4,color=MUTED)
+p(c,'Rotate exposed keys; configure a clean local .env; replace demo-only browser authentication before public hosting; verify Supabase and one approved save; close #6, #7 and #11; rehearse.',52,top+27,1084,9.2)
+p(c,'Contribution source: Ishaan Sama, EmergencyVoice - Tech Stack Document (31 Aug 2026). Current evidence: latest main plus PR #36 verification on 10 Sep 2026.',42,top+63,1106,8.4,color=MUTED)
 footer(c,6);c.save();stream.seek(0)
 writer.add_page(PdfReader(stream).pages[0])
 
 writer.add_metadata({
  '/Title':'AI Emergency Patient Intake - Team Workflow and Role Ownership',
  '/Author':'International Competition Team Fazwan',
- '/Subject':'Implementation Workflow v5 - 8 Sep 2026 - demo readiness and Supabase setup',
+ '/Subject':'Implementation Workflow v5 - updated 10 Sep 2026 - demo readiness and Supabase setup',
  '/Keywords':'team workflow, implementation status, demo readiness, Supabase, FastAPI, SSE, v5, security',
 })
 PREVIEW.parent.mkdir(parents=True,exist_ok=True)

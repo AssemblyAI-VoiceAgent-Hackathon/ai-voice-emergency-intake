@@ -21,7 +21,7 @@ It's built from five pieces that run as separate processes:
 ## Prerequisites
 
 - **Python 3.11+**
-- **Node.js 18+** and npm
+- **Node.js 20.9+** and npm
 - Optional but recommended for a full working demo:
   - An **AssemblyAI** API key (for live voice calls) — https://www.assemblyai.com
   - An **OpenRouter** API key (cheap, for DeepSeek-powered case extraction) — https://openrouter.ai — or an **OpenAI** API key instead
@@ -56,7 +56,7 @@ Copy-Item .env.example .env
 
 Never commit `.env`. If a key is ever pushed to GitHub, remove the file from the branch and rotate/revoke every exposed key before continuing.
 
-Before any internet-facing deployment, run `npm audit --omit=dev` and resolve or document the production dependency findings. The current Next.js 14 line requires a separately tested upgrade; this does not block the local synthetic demo.
+Before any internet-facing deployment, run `npm audit --omit=dev`. The repository is currently pinned to Next.js 16.3.4; the 10 September verification reports zero known production dependency vulnerabilities.
 
 Open `.env` and set what applies to you:
 

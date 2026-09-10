@@ -14,7 +14,7 @@ Current team document: `AI_Emergency_Intake_Team_Workflow_Roles.pdf`.
 - Separate the team's current direction from proposals and decisions awaiting confirmation. Do not infer implementation completion.
 - Preserve prior versions in `archive/`; do not share the superseded nine-page alignment report.
 
-Current revision: v5, 8 September 2026. The original four pages and confirmed ownership are retained. Pages 5–6 now record implementation evidence, the verified local run path, Supabase setup, security remediation, and the remaining integration/demo gates.
+Current revision: v5, updated 10 September 2026. The original four pages and confirmed ownership are retained. Pages 5–6 now record implementation evidence, the verified local run path, Supabase setup, security remediation, and the remaining integration/demo gates.
 
 The builder at `scripts/update_team_workflow_pdf.py` uses the archived 30 August baseline, validates a QA candidate under `tmp/pdfs/`, then publishes the stable current file and its exact v5 mirror. Render and visually inspect the stable file before sharing it.
 
