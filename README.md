@@ -32,7 +32,8 @@ Private team repository for an AI-assisted voice intake prototype. The system is
 - `supabase/migrations/` — Postgres schema for the hosted Supabase project.
 - `TEAM_PRIORITY_WORKLIST.md` — owner priorities, dependencies, integration order and first shared checkpoint.
 - `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles.pdf` — current team workflow (v4), confirmed role reference and Ishaan Sama contribution map.
-- `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf` — exact versioned mirror of the current team workflow.
+- `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v5.pdf` — exact versioned mirror of the current team workflow.
+- `output/pdf/AI_Emergency_Intake_Team_Workflow_Roles_v4.pdf` — preserved previous version.
 - `output/pdf/Role3_Role4_Simple_Flowchart.pdf` — plain-English Role 3 / Role 4 flowchart for non-technical teammates (companion to v4, not a replacement).
 
 The workflow PDF is the confirmed role reference: Soha Raees (Role 1), Fazwan Zainuddin (Role 2), Mozzam Shahid (Role 3), Ishaan Sama (Role 4), Jonathan (Role 5), and Mariam Habib (demo and presentation). It also maps Ishaan Sama's EmergencyVoice tech-stack contribution into the shared FastAPI + SSE plan.
@@ -57,13 +58,13 @@ A branch is a temporary version of this same repository, not a separate delivery
 | Area | Evidence currently visible in GitHub | Interpretation |
 |---|---|---|
 | Shared contracts and workflow | Present on `main` | Available to all roles as the integration baseline. |
-| Role 1 — Voice | `src/voice/` (AssemblyAI voice agent, audio capture/playback worklets, static demo UI, Dockerfile) is present on `main`, built by Soha Raees ([@soharaees](https://github.com/soharaees)) | Role 1 is delivered on `main`. |
-| Role 2 — Extraction | `src/extraction/`, contract examples and tests are present on `main`; Issues #2, #15 and #16 are closed | Role 2 is delivered on `main`. |
+| Role 1 — Voice | `src/voice/` (AssemblyAI voice agent, audio capture/playback worklets, static demo UI and Dockerfile) is present on `main`, built by Soha Raees ([@soharaees](https://github.com/soharaees)); Issues #1, #13 and #14 are closed; the demo handoff is covered by tests and a local smoke test | Role 1 is delivered on `main`. Live AssemblyAI operation still requires a securely configured key. |
+| Role 2 — Extraction | `src/extraction/`, the OpenAI-compatible adapter, demo fallback, contract examples and tests are present on `main`; Issues #2, #15 and #16 are closed | Role 2 is delivered on `main`. A real LLM requires securely configured OpenRouter or OpenAI credentials. |
 | Role 3 — Backend | `src/backend/` and backend tests are present on `main`; Issues #3, #17 and #19 are closed | Role 3 is delivered on `main`. |
 | Role 4 — Data | `src/data/`, the Supabase migration, synthetic fixtures and tests are present on `main`; Issues #4, #20 and #21 are closed | Role 4 is delivered on `main`. |
 | Role 5 — Dashboard | `app/dashboard/`, dashboard components and workflow tests are present on `main`; Issues #5, #22 and #23 are closed | Role 5 is delivered on `main`. |
 
-The remaining open GitHub work is Role 1 voice delivery (Issues #1, #13 and #14), the cross-role synthetic end-to-end demonstration (#7), domain/safety review (#6), and competition demo/presentation preparation (#11). Team members must keep ARIA status aligned and attach repository or test evidence; this document does not infer completion from chat messages.
+All five role implementations are now present on `main`. Component completion is not the same as competition readiness: the remaining delivery gates are the cross-role synthetic end-to-end demonstration (#7), domain/safety review (#6), and competition demo/presentation preparation (#11). PR #35 was merged with a committed `.env`; this follow-up removes the file, but every exposed credential must still be rotated because deletion does not invalidate a copied key. Next.js is upgraded to the patched 16.3.4 release and the production dependency audit reports zero known vulnerabilities. Team members must keep ARIA status aligned and attach repository or test evidence.
 
 ## Proposed architecture
 

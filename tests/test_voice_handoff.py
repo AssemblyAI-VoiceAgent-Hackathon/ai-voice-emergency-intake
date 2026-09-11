@@ -7,6 +7,7 @@ from pathlib import Path
 
 os.environ.setdefault("ARIA_VOICE_DEMO", "1")
 os.environ.setdefault("ARIA_BACKEND", "sqlite")
+os.environ.setdefault("ARIA_EXTRACTION_PROVIDER", "demo")
 
 from src.extraction import extract_structured_case
 from src.extraction.demo_adapter import demo_generate, generate_structured_case
