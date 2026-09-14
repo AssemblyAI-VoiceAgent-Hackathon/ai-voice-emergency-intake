@@ -4,6 +4,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -213,16 +214,24 @@ def publish_agent(agent: dict, name: str = "", reuse_by_name: bool = False) -> d
     explicit = bool(os.environ.get("AGENT_ID"))
     agent_id = stored_agent_id(name)
     if agent_id:
-        try:
-            current = aai(f"/agents/{agent_id}")
-            if current.get("name") and current["name"] != agent.get("name"):
-                print(f'Note: agent {agent_id} was "{current["name"]}"')
-            aai(f"/agents/{agent_id}", method="PUT", body=agent)
-            return {"id": agent_id, "created": False, "saved": True, "key": key}
-        except ApiError as error:
-            if error.status != 404:
-                raise
-            print(f"Agent {agent_id} no longer exists, creating a new one")
+        # A 404 here has been observed to be transient in some network
+        # environments (the same agent is reachable moments later from a
+        # different network path), so retry a couple of times before
+        # concluding the agent is really gone and creating a new one.
+        attempts = 3
+        for attempt in range(attempts):
+            try:
+                current = aai(f"/agents/{agent_id}")
+                if current.get("name") and current["name"] != agent.get("name"):
+                    print(f'Note: agent {agent_id} was "{current["name"]}"')
+                aai(f"/agents/{agent_id}", method="PUT", body=agent)
+                return {"id": agent_id, "created": False, "saved": True, "key": key}
+            except ApiError as error:
+                if error.status != 404:
+                    raise
+                if attempt < attempts - 1:
+                    time.sleep(1.5 * (attempt + 1))
+        print(f"Agent {agent_id} no longer exists, creating a new one")
     if reuse_by_name:
         existing = next(
             (item for item in aai("/agents").get("agents", [])
