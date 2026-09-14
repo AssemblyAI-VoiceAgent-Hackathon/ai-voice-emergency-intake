@@ -4,13 +4,19 @@
 # and are reached through next.config.mjs's /role3 and /role1 rewrites.
 set -e
 
-python -m src.backend &
+DASHBOARD_PORT="${PORT:-3000}"
+
+# Railway sets a single $PORT for the whole container; that belongs to
+# the dashboard only. Strip it here so the backend/voice fall back to
+# their fixed internal ARIA_BIND_PORT/ARIA_VOICE_BIND_PORT (8000/8001)
+# instead of racing the dashboard for the same port.
+env -u PORT python -m src.backend &
 BACKEND_PID=$!
 
-python -m src.voice &
+env -u PORT python -m src.voice &
 VOICE_PID=$!
 
-npm start &
+PORT="$DASHBOARD_PORT" npm start &
 DASHBOARD_PID=$!
 
 # If any one process dies, stop the container so Railway restarts it
