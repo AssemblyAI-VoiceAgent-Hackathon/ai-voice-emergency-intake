@@ -22,8 +22,8 @@ def main() -> None:
     import uvicorn
 
     load_env()
-    host = os.environ.get("ARIA_VOICE_BIND_HOST", "127.0.0.1")
-    port = int(os.environ.get("ARIA_VOICE_BIND_PORT", "8001"))
+    host = os.environ.get("ARIA_VOICE_BIND_HOST", "0.0.0.0")
+    port = int(os.environ.get("PORT", os.environ.get("ARIA_VOICE_BIND_PORT", "8001")))
     uvicorn.run(app, host=host, port=port, log_level="info")
 
 
