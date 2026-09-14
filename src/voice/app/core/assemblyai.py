@@ -214,11 +214,16 @@ def publish_agent(agent: dict, name: str = "", reuse_by_name: bool = False) -> d
     explicit = bool(os.environ.get("AGENT_ID"))
     agent_id = stored_agent_id(name)
     if agent_id:
-        # A 404 here has been observed to be transient in some network
-        # environments (the same agent is reachable moments later from a
-        # different network path), so retry a couple of times before
-        # concluding the agent is really gone and creating a new one.
+        # Some deploy networks resolve agents.assemblyai.com to a
+        # different regional AssemblyAI cluster than the one this agent
+        # actually lives in, so a 404 (or any other failure) here is not
+        # proof the agent is gone. Retry briefly, then fall back to
+        # trusting the stored id rather than minting a duplicate agent
+        # that the realtime voice gateway won't recognize either — a
+        # phantom "created" agent breaks live calls worse than an
+        # unrefreshed prompt does.
         attempts = 3
+        last_error: Optional[ApiError] = None
         for attempt in range(attempts):
             try:
                 current = aai(f"/agents/{agent_id}")
@@ -227,11 +232,16 @@ def publish_agent(agent: dict, name: str = "", reuse_by_name: bool = False) -> d
                 aai(f"/agents/{agent_id}", method="PUT", body=agent)
                 return {"id": agent_id, "created": False, "saved": True, "key": key}
             except ApiError as error:
+                last_error = error
                 if error.status != 404:
-                    raise
+                    break
                 if attempt < attempts - 1:
                     time.sleep(1.5 * (attempt + 1))
-        print(f"Agent {agent_id} no longer exists, creating a new one")
+        print(
+            f"Could not confirm or update agent {agent_id} from this network path "
+            f"({last_error}); using it as-is without re-publishing local changes."
+        )
+        return {"id": agent_id, "created": False, "saved": True, "key": key}
     if reuse_by_name:
         existing = next(
             (item for item in aai("/agents").get("agents", [])
